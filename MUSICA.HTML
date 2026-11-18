@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Alanis | Sinfonia de Aniversário</title>
+    <link rel="stylesheet" href="assets/css/music-utilities.css">
+    <link rel="stylesheet" href="assets/fonts/music-fonts.css">
+    <link rel="stylesheet" href="assets/vendor/font-awesome/css/all.min.css">
+    <script src="assets/vendor/canvas-confetti/confetti.browser.min.js" defer></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #160b2d;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .font-script {
+            font-family: 'Great Vibes', cursive;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #160b2d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #543b72;
+            border-radius: 4px;
+        }
+        .silver-gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Piano Key Press Effect */
+        .piano-key:active, .piano-key.active {
+            background: linear-gradient(to bottom, #cbd5e1, #94a3b8) !important;
+            transform: translateY(3px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        .piano-key-black:active, .piano-key-black.active {
+            background: #2d1c43 !important;
+            transform: translateY(2px);
+        }
+        .subtle-glass {
+            background: rgba(28, 37, 65, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+        }
+        .music-art {
+            position: relative;
+            display: grid;
+            width: 100%;
+            height: 100%;
+            place-items: center;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 38%, rgba(185, 154, 255, .28), transparent 34%), linear-gradient(135deg, #160b2d, #2b1750 54%, #090611);
+        }
+        .music-art::before, .music-art::after {
+            position: absolute;
+            width: min(68%, 300px);
+            aspect-ratio: 1;
+            border: 1px solid rgba(230, 216, 255, .18);
+            border-radius: 50%;
+            content: "";
+        }
+        .music-art::after { width: min(48%, 210px); border-color: rgba(230, 216, 255, .1); }
+        .music-art__symbol { z-index: 1; color: #e8dcff; font-size: clamp(58px, 11vw, 92px); filter: drop-shadow(0 0 24px rgba(185, 154, 255, .44)); }
+        .music-art__keyboard { position: absolute; z-index: 2; bottom: 17%; width: min(74%, 320px); height: 16%; border: 4px solid #d8c6ff; border-radius: 9px; background: repeating-linear-gradient(90deg, #faf7ff 0 8%, #d6c8ec 8.2% 8.7%, #faf7ff 9% 16%); box-shadow: 0 12px 30px rgba(0, 0, 0, .35); transform: perspective(320px) rotateX(12deg); }
+        .music-art__note { position: absolute; z-index: 1; color: rgba(239, 228, 255, .86); font-family: Georgia, serif; text-shadow: 0 0 18px rgba(185, 154, 255, .7); }
+        .music-art__note--one { top: 16%; left: 24%; font-size: 31px; }
+        .music-art__note--two { top: 24%; right: 22%; font-size: 23px; }
+        .music-art__note--three { bottom: 28%; left: 18%; font-size: 28px; }
+        .music-art__note--four { top: 45%; right: 13%; font-size: 20px; }
+        .music-art__note--five { bottom: 17%; right: 28%; font-size: 31px; }
+        .piano-key:focus-visible, #mobileMenuBtn:focus-visible {
+            outline: 3px solid #cbd5e1;
+            outline-offset: 3px;
+            z-index: 30;
+        }
+        .piano-key-black:focus-visible { z-index: 40; }
+        @media (prefers-reduced-motion: reduce) {
+            .piano-key { transition: none !important; }
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/piano-enhancements.css">
+    <link rel="stylesheet" href="assets/css/site-navigation.css">
+</head>
+<body class="bg-[#160b2d] text-gray-100 selection:bg-[#543b72] selection:text-white">
+
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-[#160b2d]/90 backdrop-blur-md border-b border-white/10 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-full border border-silver-400/40 flex items-center justify-center bg-white/5 group-hover:bg-white/10 transition">
+                    <i class="fa-solid fa-music text-silver-300 text-sm"></i>
+                </div>
+                <span class="font-serif text-lg tracking-wide silver-gradient-text font-semibold">Sinfonia Azul</span>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-8 font-medium text-xs tracking-widest uppercase text-gray-300">
+                <a href="#inicio" class="hover:text-white transition">Início</a>
+                <a href="#recado" class="hover:text-white transition">Mensagem</a>
+                <a href="#piano" class="hover:text-white transition">Piano Interativo</a>
+                <a href="#player" class="hover:text-white transition">Trilha instrumental</a>
+                <a href="#memories" class="hover:text-white transition">Memórias</a>
+                <a href="#gallery" class="hover:text-white transition">Galeria</a>
+                <a href="#guestbook" class="hover:text-white transition">Livro</a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleGlobalMusic()" id="globalMusicBtn" class="min-h-11 px-4 py-2 rounded-full border border-white/20 text-silver-300 hover:bg-white/5 transition text-xs uppercase tracking-wider flex items-center space-x-2">
+                    <i class="fa-solid fa-play" id="globalMusicIcon"></i>
+                    <span class="hidden sm:inline">Melodia Ambiente</span>
+                </button>
+                <button id="mobileMenuBtn" type="button" class="md:hidden w-11 h-11 flex items-center justify-center text-silver-300 text-xl rounded-lg focus:outline-none" aria-label="Abrir menu de navegação" aria-controls="mobileMenu" aria-expanded="false">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-[#060a17] border-b border-white/10 px-4 pt-2 pb-6 space-y-3">
+            <a href="#inicio" class="block min-h-11 py-3 text-gray-300 hover:text-white border-b border-white/5 text-sm">Início</a>
+            <a href="#recado" class="block min-h-11 py-3 text-gray-300 hover:text-white border-b border-white/5 text-sm">Mensagem</a>
+            <a href="#piano" class="block min-h-11 py-3 text-gray-300 hover:text-white border-b border-white/5 text-sm">Piano Interativo</a>
+            <a href="#player" class="block min-h-11 py-3 text-gray-300 hover:text-white border-b border-white/5 text-sm">Trilha instrumental</a>
+            <a href="#memories" class="block min-h-11 py-3 text-gray-300 hover:text-white border-b border-white/5 text-sm">Memórias</a>
+            <a href="#gallery" class="block min-h-11 py-3 text-gray-300 hover:text-white border-b border-white/5 text-sm">Galeria</a>
+            <a href="#guestbook" class="block min-h-11 py-3 text-gray-300 hover:text-white text-sm">Livro de Recados</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-gradient-to-b from-[#160b2d] via-[#0f172a] to-[#160b2d]">
+        <!-- Subtle background glow -->
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 py-12">
+            <div class="inline-block mb-6 px-5 py-2 rounded-full border border-white/15 bg-white/5 text-silver-300 text-xs tracking-widest uppercase">
+                <i class="fa-regular fa-star mr-2 text-silver-400"></i> Celebração Especial
+            </div>
+
+            <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight mb-6 leading-tight">
+                Um espaço para a música <br>
+                <span class="font-script text-5xl sm:text-7xl lg:text-8xl silver-gradient-text">e para as descobertas</span>
+            </h1>
+
+            <p class="max-w-xl mx-auto text-gray-300 text-sm sm:text-base font-light leading-relaxed mb-10">
+                Uma sala interativa para explorar piano, harmonia, ritmo e pequenas composições.
+            </p>
+
+            <!-- Minimal Countdown -->
+            <div class="grid grid-cols-4 gap-3 max-w-md mx-auto mb-12 subtle-glass p-5 rounded-2xl shadow-xl">
+                <div class="text-center">
+                    <span id="days" class="font-serif text-2xl sm:text-3xl font-semibold text-white block">00</span>
+                    <span class="text-[10px] uppercase tracking-wider text-gray-400 mt-1 block">Dias</span>
+                </div>
+                <div class="text-center border-l border-white/10">
+                    <span id="hours" class="font-serif text-2xl sm:text-3xl font-semibold text-white block">00</span>
+                    <span class="text-[10px] uppercase tracking-wider text-gray-400 mt-1 block">Horas</span>
+                </div>
+                <div class="text-center border-l border-white/10">
+                    <span id="minutes" class="font-serif text-2xl sm:text-3xl font-semibold text-white block">00</span>
+                    <span class="text-[10px] uppercase tracking-wider text-gray-400 mt-1 block">Min</span>
+                </div>
+                <div class="text-center border-l border-white/10">
+                    <span id="seconds" class="font-serif text-2xl sm:text-3xl font-semibold text-white block">00</span>
+                    <span class="text-[10px] uppercase tracking-wider text-gray-400 mt-1 block">Seg</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#piano" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white text-[#160b2d] font-medium tracking-wide text-xs uppercase hover:bg-silver-200 transition shadow-md flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-compact-disc"></i>
+                    <span>Tocar Piano Interativo</span>
+                </a>
+                <a href="#recado" class="w-full sm:w-auto px-8 py-3.5 rounded-full border border-white/20 text-gray-200 font-medium tracking-wide text-xs uppercase hover:bg-white/5 transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-music"></i>
+                    <span>Ler Mensagem</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Message Section -->
+    <section id="recado" class="py-24 relative bg-[#060a17] border-t border-b border-white/10">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-silver-400 text-xs tracking-widest uppercase block mb-3"><i class="fa-regular fa-pen-to-square mr-2"></i> Palavras Sinceras</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-normal silver-gradient-text">Uma Dedicatória Especial</h2>
+                <div class="w-16 h-px bg-white/20 mx-auto mt-4"></div>
+            </div>
+
+            <div class="subtle-glass rounded-2xl p-8 sm:p-12 relative shadow-2xl">
+                <div class="space-y-6 text-gray-300 font-light text-sm sm:text-base leading-relaxed">
+                    <p class="first-letter:text-4xl first-letter:font-serif first-letter:text-white first-letter:mr-2 first-letter:float-left">
+                        A música tem uma forma própria de organizar ideias, despertar curiosidade e transformar pequenos intervalos em experiências. Esta sala reúne algumas ferramentas para explorar esse universo.
+                    </p>
+                    <p>
+                        Neste novo ciclo, desejo bons estudos, novas peças, apresentações tranquilas e muitas descobertas musicais. Que cada prática traga evolução e satisfação.
+                    </p>
+                    <p>
+                        Continue explorando instrumentos, repertórios e possibilidades. Cada compasso é uma oportunidade de aprender algo novo.
+                    </p>
+                    <div class="pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center">
+                        <div>
+                            <span class="text-[10px] uppercase tracking-widest text-gray-400 block">Uma homenagem musical,</span>
+                            <span class="font-script text-2xl text-silver-200">Murilo</span>
+                        </div>
+                        <div class="mt-4 sm:mt-0 text-silver-400 text-xl">
+                            <i class="fa-solid fa-music"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Piano Section -->
+    <section id="piano" class="py-24 relative bg-[#160b2d]">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="text-silver-400 text-xs tracking-widest uppercase block mb-3"><i class="fa-solid fa-keyboard mr-2"></i> Experiência Sonora</span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-normal silver-gradient-text mb-4">Piano Acústico Digital</h2>
+            <p class="max-w-2xl mx-auto text-gray-400 text-xs sm:text-sm mb-8 leading-relaxed">
+                Toque e segure uma tecla para sustentar a nota; use A/W/S/E/D/F/T/G/Y/H/U/J/K no teclado físico. Os atalhos seguem a oitava selecionada e ficam desativados enquanto você escreve em campos de texto. O instrumento usa síntese Web Audio local.
+            </p>
+
+            <!-- Piano Cabinet Container -->
+            <div class="subtle-glass border border-white/15 rounded-3xl p-6 sm:p-8 shadow-2xl max-w-3xl mx-auto">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-6 pb-4 border-b border-white/10 gap-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-7 h-7 rounded-full border border-white/20 flex items-center justify-center bg-white/5">
+                            <i class="fa-solid fa-music text-silver-300 text-xs"></i>
+                        </div>
+                        <span class="font-serif text-silver-300 tracking-wider text-xs uppercase">Sintetizador Web Audio</span>
+                    </div>
+                    <!-- Quick Melodies Buttons -->
+                    <div class="flex gap-2">
+                        <button onclick="playMelody('parabens')" class="min-h-11 px-3 py-2 rounded-lg bg-white/5 border border-white/15 text-silver-200 hover:bg-white/10 text-xs transition flex items-center space-x-1.5">
+                            <i class="fa-solid fa-cake-candles"></i><span>Parabéns a Você</span>
+                        </button>
+                        <button type="button" id="playOriginalSuite" class="min-h-11 px-3 py-2 rounded-lg bg-purple-900/40 border border-purple-300/25 text-silver-100 text-xs" onclick="playOriginalSuite()"><i class="fa-solid fa-play mr-1"></i> Ouvir peça original</button>
+                    </div>
+                </div>
+
+                <!-- Visual feedback note text -->
+                <div id="pianoNoteDisplay" class="h-8 flex items-center justify-center font-serif text-lg font-medium text-silver-300 mb-4 tracking-wide" role="status" aria-live="polite">
+                    Pressione uma tecla
+                </div>
+
+                <div class="max-w-sm mx-auto mb-5 flex items-center gap-3 text-left">
+                    <label for="pianoVolume" class="shrink-0 text-xs text-gray-300">Volume</label>
+                    <input id="pianoVolume" type="range" min="0" max="100" value="45" step="1" class="w-full accent-slate-300" aria-label="Volume do piano e da melodia">
+                    <output id="pianoVolumeValue" for="pianoVolume" class="w-10 text-right text-xs text-silver-300">45%</output>
+                </div>
+
+                <div class="music-tools max-w-2xl mx-auto mb-5 flex flex-col gap-3">
+                    <div class="flex flex-wrap items-center justify-center gap-2" role="group" aria-label="Oitavas e sustentação">
+                        <button id="pianoOctaveDown" type="button" class="min-h-11 min-w-11 px-3 rounded-lg bg-white/5 border border-white/15 text-silver-100" aria-label="Descer uma oitava">−</button>
+                        <output id="pianoOctaveRange" aria-live="polite" class="px-2 text-xs text-silver-200">Dó 4 — Dó 5</output>
+                        <button id="pianoOctaveUp" type="button" class="min-h-11 min-w-11 px-3 rounded-lg bg-white/5 border border-white/15 text-silver-100" aria-label="Subir uma oitava">+</button>
+                        <button id="pianoSustain" type="button" class="min-h-11 px-4 rounded-lg bg-white/5 border border-white/15 text-silver-100 text-xs" aria-pressed="false">Sustain desligado</button>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-center gap-2" role="group" aria-label="Gravação e reprodução">
+                        <button id="pianoRecord" type="button" class="min-h-11 px-4 rounded-lg bg-purple-900/50 border border-purple-300/30 text-white text-xs">Gravar</button>
+                        <button id="pianoPlayback" type="button" class="min-h-11 px-4 rounded-lg bg-white/5 border border-white/15 text-silver-100 text-xs" disabled>Reproduzir</button>
+                        <button id="pianoExportMidi" type="button" class="min-h-11 px-4 rounded-lg bg-white/5 border border-white/15 text-silver-100 text-xs" disabled>Exportar MIDI</button>
+                        <label class="flex items-center gap-2 text-xs text-silver-200" for="pianoLesson">Prática
+                            <select id="pianoLesson" class="min-h-11 rounded-lg bg-[#171329] border border-white/15 px-2 text-xs text-white">
+                                <option value="scale">Escala de Dó maior</option><option value="chord">Acorde de Dó maior</option><option value="arpeggio">Arpejo de Dó maior</option>
+                            </select>
+                        </label>
+                        <button id="pianoLessonPlay" type="button" class="min-h-11 px-4 rounded-lg bg-white text-[#160b2d] text-xs">Demonstrar</button>
+                    </div>
+                    <p id="pianoRecordStatus" class="text-xs text-silver-300 text-center" role="status" aria-live="polite">Pronta. Grave uma sequência para reproduzi-la ou exportá-la como MIDI.</p>
+                    <canvas id="pianoVisualizer" class="piano-visualizer w-full h-14 rounded-xl" role="img" aria-label="Visualizador da energia sonora em tempo real"></canvas>
+                </div>
+
+                <!-- The Piano Keyboard -->
+                <div class="relative bg-[#060a17] p-3 rounded-2xl border border-white/10 overflow-x-auto pb-4" role="group" aria-label="Teclado de piano; cada tecla pode ser ativada com Enter ou Espaço">
+                    <div id="pianoKeysContainer" class="flex justify-center relative min-w-[290px] select-none h-44 sm:h-52" role="group" aria-label="Notas de Dó 4 a Dó 5">
+                        <!-- Keys rendered via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="player" class="py-20 relative bg-[#060a17] border-t border-white/10">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="subtle-glass border border-white/15 p-7 sm:p-10 rounded-3xl shadow-xl text-center">
+                <span class="text-silver-400 text-xs tracking-widest uppercase block mb-3">Uma trilha só sua</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-normal silver-gradient-text mb-3">Uma pequena composição original</h2>
+                <p class="text-gray-400 text-sm font-light leading-relaxed max-w-xl mx-auto mb-6">Ouça uma sequência instrumental original sintetizada no próprio navegador, ou selecione um arquivo de áudio do dispositivo.</p>
+                <input id="localAudioFile" type="file" accept="audio/*" class="sr-only" aria-label="Escolher arquivo de áudio">
+                <button id="chooseAudioFile" type="button" class="px-6 py-3 rounded-full bg-white text-[#160b2d] font-medium tracking-wide uppercase text-xs hover:bg-silver-200 transition shadow-md">Escolher arquivo de áudio</button>
+                <p id="audioFileStatus" class="mt-4 text-xs text-silver-300" role="status" aria-live="polite">Nenhum arquivo selecionado.</p>
+                <audio id="localAudioPlayer" class="w-full mt-4 accent-slate-300" controls preload="none" hidden aria-label="Reprodutor de música local"></audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="memories" class="py-24 relative bg-[#060a17] border-t border-white/10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-silver-400 text-xs tracking-widest uppercase block mb-3"><i class="fa-solid fa-timeline mr-2"></i> Linha do Tempo</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-normal silver-gradient-text">Memórias Musicais</h2>
+                <div class="w-16 h-px bg-white/20 mx-auto mt-4"></div>
+            </div>
+
+            <!-- Timeline Container -->
+            <div class="relative border-l border-white/20 ml-4 sm:ml-auto space-y-12">
+                
+                <!-- Event 1 -->
+                <div class="relative pl-6 sm:pl-10 group">
+                    <div class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-silver-400 border-2 border-[#060a17]"></div>
+                    <div class="subtle-glass p-6 rounded-2xl border border-white/10 shadow-lg">
+                        <span class="text-[10px] font-medium tracking-widest uppercase text-silver-400 bg-white/5 px-2.5 py-1 rounded-full">O Início da Partitura</span>
+                        <h3 class="font-serif text-xl font-normal text-white mt-3 mb-2">Primeiras Conversas sobre Música</h3>
+                        <p class="text-gray-300 text-xs sm:text-sm leading-relaxed font-light">
+                            Uma conversa sobre música que abriu espaço para compartilhar repertórios, instrumentos e experiências.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="relative pl-6 sm:pl-10 group">
+                    <div class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-silver-400 border-2 border-[#060a17]"></div>
+                    <div class="subtle-glass p-6 rounded-2xl border border-white/10 shadow-lg">
+                        <span class="text-[10px] font-medium tracking-widest uppercase text-silver-400 bg-white/5 px-2.5 py-1 rounded-full">Alegria em Notas</span>
+                        <h3 class="font-serif text-xl font-normal text-white mt-3 mb-2">Ouvindo Você Tocar</h3>
+                        <p class="text-gray-300 text-xs sm:text-sm leading-relaxed font-light">
+                            Ver o seu foco e carinho ao tocar piano é um privilégio. A prática musical desenvolve escuta, precisão e percepção rítmica.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="relative pl-6 sm:pl-10 group">
+                    <div class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-silver-400 border-2 border-[#060a17]"></div>
+                    <div class="subtle-glass p-6 rounded-2xl border border-white/10 shadow-lg">
+                        <span class="text-[10px] font-medium tracking-widest uppercase text-silver-400 bg-white/5 px-2.5 py-1 rounded-full">Hoje e Sempre</span>
+                        <h3 class="font-serif text-xl font-normal text-white mt-3 mb-2">Celebrando o Seu Aniversário</h3>
+                        <p class="text-gray-300 text-xs sm:text-sm leading-relaxed font-light">
+                            Que este novo ciclo traga novas canções, sorrisos sinceros e muitas conquistas lindas para a sua vida.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section id="gallery" class="py-24 relative bg-[#160b2d] border-t border-white/10">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-silver-400 text-xs tracking-widest uppercase block mb-3"><i class="fa-regular fa-image mr-2"></i> Galeria de Momentos</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-normal silver-gradient-text">Registros Delicados</h2>
+                <div class="w-16 h-px bg-white/20 mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <div class="subtle-glass rounded-2xl overflow-hidden border border-white/10 group">
+                    <div class="relative h-64 overflow-hidden bg-[#060a17]">
+                        <img src="https://images.unsplash.com/photo-1767468889316-a0739e14297b?auto=format&fit=crop&w=1200&q=80" alt="Piano e violoncelo em um palco de concerto" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-serif text-lg font-normal text-white mb-1">Harmonia Suave</h3>
+                        <p class="text-gray-400 text-xs font-light">Piano, notas e harmonia em uma experiência interativa.</p><p class="text-gray-500 text-[10px] mt-3"><a href="https://unsplash.com/photos/a-piano-and-cello-on-a-dimly-lit-stage-VPjGmAzQb2I" target="_blank" rel="noopener">Foto: Sparsh Paliwal / Unsplash</a></p>
+                    </div>
+                </div>
+
+                <div class="subtle-glass rounded-2xl overflow-hidden border border-white/10 group">
+                    <div class="relative h-64 overflow-hidden bg-[#060a17]">
+                        <img src="https://images.unsplash.com/photo-1685672297625-656036200b73?auto=format&fit=crop&w=1200&q=80" alt="Violino apoiado sobre um teclado de piano" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90" loading="lazy" decoding="async">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-serif text-lg font-normal text-white mb-1">Expressão Musical</h3>
+                        <p class="text-gray-400 text-xs font-light">A atenção aos detalhes em cada interpretação.</p><p class="text-gray-500 text-[10px] mt-3"><a href="https://unsplash.com/photos/a-violin-sitting-on-top-of-a-piano-keyboard-UNdgFN_lGZ8" target="_blank" rel="noopener">Foto: Lorena Kelly / Unsplash</a></p>
+                    </div>
+                </div>
+
+                <div class="subtle-glass rounded-2xl overflow-hidden border border-white/10 group">
+                    <div class="relative h-64 overflow-hidden bg-[#060a17]">
+                        <img src="https://images.pexels.com/photos/3042512/pexels-photo-3042512.jpeg?cs=srgb&dl=pexels-caleboquendo-3042512.jpg&fm=jpg" alt="Dois músicos tocando piano e violino em uma sala de concerto" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90" loading="lazy" decoding="async">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-serif text-lg font-normal text-white mb-1">Celebração Especial</h3>
+                        <p class="text-gray-400 text-xs font-light">Momentos de alegria guardados na memória.</p><p class="text-gray-500 text-[10px] mt-3"><a href="https://www.pexels.com/photo/man-playing-grand-piano-on-stage-3042512/" target="_blank" rel="noopener">Foto: Caleb Oquendo / Pexels</a></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Guestbook Section -->
+    <section id="guestbook" class="py-24 relative bg-[#060a17] border-t border-white/10">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-silver-400 text-xs tracking-widest uppercase block mb-3"><i class="fa-regular fa-comment-dots mr-2"></i> Livro de Recados</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-normal silver-gradient-text">Deixe Sua Mensagem</h2>
+                <p class="text-gray-400 text-xs mt-2">Deixe uma dedicatória carinhosa. As mensagens ficam salvas somente neste navegador.</p>
+                <div class="w-16 h-px bg-white/20 mx-auto mt-4"></div>
+            </div>
+
+            <!-- Message Submission Form -->
+            <div class="subtle-glass border border-white/15 p-8 rounded-3xl shadow-xl mb-10">
+                <form id="guestbookForm" onsubmit="addMessage(event)" class="space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-[10px] uppercase tracking-wider text-silver-300 mb-2 font-medium">Seu Nome</label>
+                            <input type="text" id="guestName" required placeholder="Seu nome ou apelido" class="w-full bg-[#160b2d] border border-white/15 rounded-xl px-4 py-3 text-gray-200 focus:outline-none focus:border-silver-400 transition text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase tracking-wider text-silver-300 mb-2 font-medium">Nota / Dedicatória Curta</label>
+                            <input type="text" id="guestNote" placeholder="Ex: Dó Maior / Parabéns" class="w-full bg-[#160b2d] border border-white/15 rounded-xl px-4 py-3 text-gray-200 focus:outline-none focus:border-silver-400 transition text-xs">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-wider text-silver-300 mb-2 font-medium">Mensagem</label>
+                        <textarea id="guestText" rows="3" required placeholder="Escreva uma mensagem..." class="w-full bg-[#160b2d] border border-white/15 rounded-xl px-4 py-3 text-gray-200 focus:outline-none focus:border-silver-400 transition text-xs"></textarea>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" class="px-8 py-3 rounded-full bg-white text-[#160b2d] font-medium tracking-wide uppercase text-xs hover:bg-silver-200 transition shadow-md flex items-center justify-center space-x-2 ml-auto">
+                            <i class="fa-regular fa-paper-plane"></i>
+                            <span>Enviar Recado</span>
+                        </button>
+                    </div>
+                </form>
+                <p id="guestbookStatus" class="mt-4 text-xs text-gray-400" role="status" aria-live="polite"></p>
+            </div>
+
+            <!-- Messages List Display -->
+            <div id="messagesContainer" class="space-y-4">
+                <div class="subtle-glass border border-white/10 p-5 rounded-2xl shadow-sm">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <span class="font-serif text-sm font-medium text-silver-200">Amigos & Família</span>
+                        <span class="text-[10px] text-gray-400">Hoje</span>
+                    </div>
+                    <p class="text-gray-300 text-xs font-light">"Que a sua vida seja sempre repleta de harmonia, alegria e acordes inesquecíveis. Parabéns!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 bg-[#04070f] border-t border-white/10 text-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center bg-white/5 mx-auto mb-3">
+                <i class="fa-solid fa-music text-silver-300 text-xs"></i>
+            </div>
+            <h3 class="font-serif text-lg font-normal text-white mb-1">Feliz Aniversário, Alanis</h3>
+            <p class="text-gray-400 text-xs max-w-sm mx-auto mb-4 font-light">
+                Criado com carinho e minimalismo para celebrar uma pessoa especial.
+            </p>
+            <p class="text-[10px] text-gray-500 uppercase tracking-widest">
+                &copy; 2026 &bull; Sinfonia Azul &bull; Todos os direitos reservados
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        /* Mobile menu toggle */
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        function setMobileMenuOpen(open) {
+            mobileMenu.classList.toggle('hidden', !open);
+            mobileMenuBtn.setAttribute('aria-expanded', String(open));
+            mobileMenuBtn.setAttribute('aria-label', open ? 'Fechar menu de navegação' : 'Abrir menu de navegação');
+        }
+        mobileMenuBtn.addEventListener('click', () => {
+            setMobileMenuOpen(mobileMenu.classList.contains('hidden'));
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMobileMenuOpen(false)));
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+                setMobileMenuOpen(false);
+                mobileMenuBtn.focus();
+            }
+        });
+
+        /* Countdown Timer */
+        function updateCountdown() {
+            const now = new Date();
+            let target = new Date(now.getFullYear(), 10, 21, 0, 0, 0);
+            if (target <= now) target = new Date(now.getFullYear() + 1, 10, 21, 0, 0, 0);
+            const diff = Math.max(0, target - now);
+            const days = Math.floor(diff / 86400000);
+            const hours = Math.floor((diff % 86400000) / 3600000);
+            const minutes = Math.floor((diff % 3600000) / 60000);
+            const seconds = Math.floor((diff % 60000) / 1000);
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        /* Piano engine is maintained in assets/js/piano-engine.js. */
+
+        /* Preset Melody Auto-Player */
+        function playMelody(type) {
+            initAudio();
+            const notes = [
+                { freq: 261.63, note: 'C4', delay: 0 },
+                { freq: 261.63, note: 'C4', delay: 250 },
+                { freq: 293.66, note: 'D4', delay: 500 },
+                { freq: 261.63, note: 'C4', delay: 750 },
+                { freq: 349.23, note: 'F4', delay: 1000 },
+                { freq: 329.63, note: 'E4', delay: 1400 },
+                { freq: 261.63, note: 'C4', delay: 2000 },
+                { freq: 261.63, note: 'C4', delay: 2250 },
+                { freq: 293.66, note: 'D4', delay: 2500 },
+                { freq: 261.63, note: 'C4', delay: 2750 },
+                { freq: 392.00, note: 'G4', delay: 3000 },
+                { freq: 349.23, note: 'F4', delay: 3400 }
+            ];
+
+            notes.forEach(item => {
+                setTimeout(() => {
+                    playNote(item.freq, item.note, null, 210);
+                }, item.delay);
+            });
+
+            setTimeout(() => {
+                confetti({
+                    particleCount: 30,
+                    spread: 50,
+                    origin: { y: 0.7 },
+                    colors: ['#ffffff', '#cbd5e1', '#94a3b8']
+                });
+            }, notes[notes.length - 1].delay + 200);
+        }
+
+        /* Peça instrumental original: piano, cordas agudas e cello sintetizados localmente. */
+        let suiteTimers = [];
+        let suitePlaying = false;
+        function stopOriginalSuite() {
+            suiteTimers.forEach(clearTimeout); suiteTimers = []; suitePlaying = false;
+            const globalIcon = document.getElementById('globalMusicIcon'); if (globalIcon) globalIcon.className = 'fa-solid fa-play';
+            const button = document.getElementById('playOriginalSuite');
+            if (button) button.innerHTML = '<i class="fa-solid fa-play mr-1"></i> Ouvir peça original';
+        }
+        function playStringTone(frequency, delay, duration, waveform='sawtooth', volume=.045) {
+            const run = () => {
+                const Ctx = window.AudioContext || window.webkitAudioContext;
+                if (!Ctx) return;
+                if (!window.__pdStringsContext) window.__pdStringsContext = new Ctx();
+                const ctx = window.__pdStringsContext;
+                if (ctx.state === 'suspended') ctx.resume();
+                const osc = ctx.createOscillator(), filter = ctx.createBiquadFilter(), gain = ctx.createGain();
+                osc.type = waveform; osc.frequency.value = frequency;
+                filter.type = 'lowpass'; filter.frequency.value = waveform === 'sawtooth' ? 1500 : 900;
+                gain.gain.setValueAtTime(.0001, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(volume, ctx.currentTime + .16);
+                gain.gain.setTargetAtTime(.0001, ctx.currentTime + duration/1000, .22);
+                osc.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
+                osc.start(); osc.stop(ctx.currentTime + duration/1000 + 1.0);
+            };
+            suiteTimers.push(setTimeout(run, delay));
+        }
+        function playOriginalSuite() {
+            if (suitePlaying) { stopOriginalSuite(); return; }
+            if (!initAudio()) return;
+            suitePlaying = true;
+            const button = document.getElementById('playOriginalSuite');
+            if (button) button.innerHTML = '<i class="fa-solid fa-stop mr-1"></i> Parar composição';
+            const globalIcon = document.getElementById('globalMusicIcon'); if (globalIcon) globalIcon.className = 'fa-solid fa-pause';
+            const melody = [659.25,587.33,523.25,587.33,659.25,783.99,659.25,587.33,523.25,440,493.88,523.25,587.33,659.25,523.25,493.88];
+            melody.forEach((hz,i)=>{
+                suiteTimers.push(setTimeout(()=>{ if(suitePlaying) playNote(hz, `Nota ${i+1}`, null, 460, false); }, i*430));
+                if(i%2===0) playStringTone(hz/2, i*430, 760, 'sawtooth', .028);
+            });
+            [261.63,329.63,392,493.88].forEach((hz,i)=>playStringTone(hz, 0, 2500, 'triangle', .018));
+            suiteTimers.push(setTimeout(stopOriginalSuite, melody.length*430+800));
+        }
+        function toggleGlobalMusic() { playOriginalSuite(); }
+        document.addEventListener('visibilitychange', () => { if (document.hidden) stopOriginalSuite(); });
+
+        /* Guestbook Adding */
+        function addMessage(e) {
+            e.preventDefault();
+            const name = document.getElementById('guestName').value;
+            const note = document.getElementById('guestNote').value;
+            const text = document.getElementById('guestText').value;
+
+            const container = document.getElementById('messagesContainer');
+            const msgCard = document.createElement('div');
+            msgCard.className = 'subtle-glass border border-white/10 p-5 rounded-2xl shadow-sm';
+            msgCard.innerHTML = `
+                <div class="flex justify-between items-center mb-1.5">
+                    <span class="font-serif text-sm font-medium text-silver-200">${escapeHtml(name)} ${note ? `<span class="text-[10px] text-gray-400 font-sans font-normal ml-1.5">(${escapeHtml(note)})</span>` : ''}</span>
+                    <span class="text-[10px] text-silver-400">Agora mesmo</span>
+                </div>
+                <p class="text-gray-300 text-xs font-light">"${escapeHtml(text)}"</p>
+            `;
+
+            container.prepend(msgCard);
+            try {
+                const previous = JSON.parse(localStorage.getItem('purpleDreamsMusicGuestbook_v1') || '[]');
+                const entries = Array.isArray(previous) ? previous : [];
+                entries.unshift({ name, note, text, date: new Date().toISOString() });
+                localStorage.setItem('purpleDreamsMusicGuestbook_v1', JSON.stringify(entries.slice(0, 60)));
+            } catch (_) {
+                document.getElementById('guestbookStatus').textContent = 'Recado exibido nesta sessão; o navegador não permitiu salvá-lo.';
+            }
+            document.getElementById('guestbookForm').reset();
+            
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 25,
+                    spread: 40,
+                    origin: { y: 0.7 },
+                    colors: ['#ffffff', '#cbd5e1']
+                });
+            }
+        }
+
+
+        /* Reprodução local: o arquivo permanece no dispositivo da pessoa. */
+        const localAudioFile = document.getElementById('localAudioFile');
+        const chooseAudioFile = document.getElementById('chooseAudioFile');
+        const localAudioPlayer = document.getElementById('localAudioPlayer');
+        const audioFileStatus = document.getElementById('audioFileStatus');
+        let localAudioUrl = null;
+        chooseAudioFile.addEventListener('click', () => localAudioFile.click());
+        localAudioFile.addEventListener('change', () => {
+            const file = localAudioFile.files && localAudioFile.files[0];
+            if (!file) return;
+            if (!file.type.startsWith('audio/')) {
+                audioFileStatus.textContent = 'Escolha um arquivo de áudio compatível.';
+                localAudioFile.value = '';
+                return;
+            }
+            if (localAudioUrl) URL.revokeObjectURL(localAudioUrl);
+            localAudioUrl = URL.createObjectURL(file);
+            localAudioPlayer.src = localAudioUrl;
+            localAudioPlayer.hidden = false;
+            localAudioPlayer.load();
+            audioFileStatus.textContent = `Pronto para tocar: ${file.name}`;
+        });
+        window.addEventListener('beforeunload', () => {
+            if (localAudioUrl) URL.revokeObjectURL(localAudioUrl);
+        });
+
+
+        /* Restaura recados guardados localmente, sem confiar em HTML vindo do armazenamento. */
+        (function restoreGuestbook() {
+            const container = document.getElementById('messagesContainer');
+            try {
+                const entries = JSON.parse(localStorage.getItem('purpleDreamsMusicGuestbook_v1') || '[]');
+                if (!Array.isArray(entries)) return;
+                entries.slice(0, 60).reverse().forEach(entry => {
+                    if (!entry || typeof entry.name !== 'string' || typeof entry.text !== 'string') return;
+                    const card = document.createElement('article');
+                    card.className = 'subtle-glass border border-white/10 p-5 rounded-2xl shadow-sm';
+                    const header = document.createElement('div');
+                    header.className = 'flex justify-between items-center mb-1.5';
+                    const who = document.createElement('span');
+                    who.className = 'font-serif text-sm font-medium text-silver-200';
+                    who.textContent = entry.name + (entry.note ? ` (${entry.note})` : '');
+                    const when = document.createElement('span');
+                    when.className = 'text-[10px] text-silver-400';
+                    when.textContent = 'Guardado neste navegador';
+                    header.append(who, when);
+                    const body = document.createElement('p');
+                    body.className = 'text-gray-300 text-xs font-light';
+                    body.textContent = `“${entry.text}”`;
+                    card.append(header, body);
+                    container.prepend(card);
+                });
+            } catch (_) { /* Armazenamento local indisponível: o livro continua utilizável nesta sessão. */ }
+        })();
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+    </script>
+    <script src="assets/js/piano-engine.js"></script>
+    <script src="assets/js/site-navigation.js"></script>
+</body>
+</html>

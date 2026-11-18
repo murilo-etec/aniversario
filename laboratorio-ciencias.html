@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#160b2d">
+  <meta name="description" content="Laboratório interativo de matemática, física, química, biologia, neurociência e programação do Purple Dreams.">
+  <title>Estúdio de Ciências | Purple Dreams</title>
+  <link rel="stylesheet" href="assets/css/purple-dreams-brand.css">
+  <link rel="stylesheet" href="assets/css/laboratorio-ciencias.css">
+  <script defer src="assets/js/periodic-table-data.js"></script>
+  <script defer src="assets/js/laboratorio-ciencias.js"></script>
+    <link rel="stylesheet" href="assets/css/site-navigation.css">
+  <link rel="icon" type="image/svg+xml" href="assets/images/a16-mark.svg">
+  <link rel="stylesheet" href="assets/css/a16-mark.css">
+  <link rel="stylesheet" href="assets/vendor/bootstrap-icons/font/bootstrap-icons.min.css">
+</head>
+<body>
+<a class="a16-signature" href="index.html" aria-label="A16 — voltar ao início"><img src="assets/images/a16-mark.svg" alt="A16"></a>
+
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <header class="lab-topbar">
+    <a class="lab-brand" href="page1.html" aria-label="Voltar ao mapa de experiências Purple Dreams">
+      <span class="brand-mark" aria-hidden="true">P</span>
+      <span><strong>Purple Dreams</strong><small>Mapa de experiências</small></span>
+    </a>
+    <nav class="top-links" aria-label="Atalhos do universo">
+      <a href="solar.html">Astronomia</a>
+      <a href="fisica.html">FísicaLab</a>
+      <a href="page1.html" class="top-return">Voltar ao mapa <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <section class="lab-hero">
+      <div class="hero-orbit" aria-hidden="true"><span></span><i></i><b></b></div>
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> EXPLORAÇÃO INTERATIVA · 6 ÁREAS</p>
+        <h1>Ciência para<br><em>experimentar.</em></h1>
+        <p class="hero-intro">Mude uma variável, observe o que acontece e construa a sua própria explicação. Cada experiência mostra um modelo simplificado — não substitui medidas de laboratório.</p>
+        <a class="hero-cta" href="#matematica">Começar a explorar <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="hero-side-note"><span>01 — 06</span><span>Matéria, vida<br>e movimento</span></div>
+    </section>
+
+    <nav class="lab-index" aria-label="Áreas do laboratório">
+      <a href="#matematica"><span>01</span> Matemática</a>
+      <a href="#fisica"><span>02</span> Física</a>
+      <a href="#quimica"><span>03</span> Química</a>
+      <a href="#biologia"><span>04</span> Biologia</a>
+      <a href="#neurociencia"><span>05</span> Neurociência</a>
+      <a href="#programacao"><span>06</span> Programação</a>
+    </nav>
+
+    <section class="lab-section math-section" id="matematica" aria-labelledby="mathTitle">
+      <div class="section-heading">
+        <p class="eyebrow">01 / MATEMÁTICA</p>
+        <h2 id="mathTitle">A função ganha forma.</h2>
+        <p>Escolha uma família de funções e ajuste os parâmetros. O gráfico se redesenha a cada mudança.</p>
+      </div>
+      <div class="experiment-frame math-frame">
+        <div class="experiment-controls">
+          <label>Função<select id="mathFunction"><option value="parabola">Parábola · y = ax²</option><option value="sine">Seno · y = a sen(bx)</option><option value="cosine">Cosseno · y = a cos(bx)</option></select></label>
+          <label>Amplitude <output id="mathAmplitudeValue">1,0</output><input id="mathAmplitude" type="range" min="0.5" max="3" value="1" step="0.1"></label>
+          <label>Frequência <output id="mathFrequencyValue">1,0</output><input id="mathFrequency" type="range" min="0.5" max="3" value="1" step="0.1"></label>
+          <p id="mathEquation" class="equation-readout" aria-live="polite">y = x²</p>
+        </div>
+        <figure class="graph-figure"><canvas id="mathCanvas" role="img" aria-label="Gráfico cartesiano da função selecionada; os controles de amplitude e frequência alteram a curva."></canvas><figcaption>Escala indicada nos dois eixos. Use os controles para alterar a curva.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="lab-section physics-section" id="fisica" aria-labelledby="physicsTitle">
+      <div class="section-heading split-heading">
+        <div><p class="eyebrow">02 / FÍSICA</p><h2 id="physicsTitle">Uma onda que você controla.</h2></div>
+        <p>Observe como frequência e comprimento de onda definem a velocidade do modelo: <strong>v = f · λ</strong>.</p>
+      </div>
+      <div class="experiment-frame wave-frame">
+        <figure class="graph-figure wave-figure"><canvas id="waveCanvas" role="img" aria-label="Visualização animada e pausável de uma onda transversal"></canvas><figcaption>Representação transversal de uma onda periódica, sem escala espacial.</figcaption></figure>
+        <div class="wave-controls">
+          <label>Frequência <output id="waveFrequencyValue">1,0 Hz</output><input id="waveFrequency" type="range" min="0.5" max="4" value="1" step="0.1"></label>
+          <label>Comprimento de onda <output id="waveLengthValue">2,0 m</output><input id="waveLength" type="range" min="0.5" max="4" value="2" step="0.1"></label>
+          <div class="velocity-card"><span>Velocidade calculada</span><strong id="waveVelocity">2,0 <small>m/s</small></strong></div>
+          <button type="button" id="waveToggle" class="wave-toggle" aria-controls="waveCanvas" aria-pressed="false">Pausar animação</button>
+          <div class="physics-links"><a href="fisica.html">Abrir FísicaLab <span aria-hidden="true">↗</span></a><a href="pagina1_laboratorio_fisica_schrodinger_especial.html">Laboratório quântico <span aria-hidden="true">↗</span></a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab-section chemistry-section" id="quimica" aria-labelledby="chemTitle">
+      <div class="section-heading split-heading">
+        <div><p class="eyebrow">03 / QUÍMICA</p><h2 id="chemTitle">Elementos, em perspectiva.</h2></div>
+        <p>Explore os 118 elementos pelo símbolo ou nome. Depois, veja como fórmulas químicas podem ser representadas em diagramas estruturais simples.</p>
+      </div>
+      <div class="periodic-explorer">
+        <div class="periodic-toolbar"><label class="search-field"><span class="sr-only">Buscar elemento</span><span aria-hidden="true">⌕</span><input id="periodicSearch" type="search" placeholder="Buscar elemento, símbolo ou número" autocomplete="off"></label><p id="periodicCount" aria-live="polite">118 elementos</p></div>
+        <div class="periodic-layout">
+          <div id="periodicGrid" class="periodic-grid" role="grid" aria-label="Tabela periódica interativa" aria-colcount="18" aria-rowcount="9"></div>
+          <aside class="element-detail" aria-live="polite" aria-atomic="true">
+            <p class="eyebrow">ELEMENTO SELECIONADO</p><div class="element-number" id="elementNumber">06</div><h3 id="elementName">Carbono</h3><p class="element-symbol" id="elementSymbol">C</p><dl id="elementFacts"></dl>
+          </aside>
+        </div>
+        <p class="table-note">Dados locais gerados a partir do PubChem em 11/11/2026; a experiência não consulta APIs. Massas e categorias são informativas; confirme valores, convenções e atualizações na <a href="https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON" target="_blank" rel="noopener noreferrer">fonte PubChem <span aria-hidden="true">↗</span></a> e na <a href="https://iupac.org/what-we-do/periodic-table-of-elements/" target="_blank" rel="noopener noreferrer">tabela da IUPAC <span aria-hidden="true">↗</span></a>.</p>
+      </div>
+      <div class="molecule-lab">
+        <div class="molecule-copy"><p class="eyebrow">MODELOS MOLECULARES 3D</p><h3>Uma fórmula, uma geometria.</h3><p>Escolha uma molécula e gire o modelo ball-and-stick. As cores distinguem os elementos; tamanhos e comprimentos de ligação não estão em escala, e as esferas não representam nuvens eletrônicas.</p><div class="molecule-choices" role="group" aria-label="Escolher molécula"><button type="button" data-molecule="water" aria-pressed="true">Água</button><button type="button" data-molecule="carbon-dioxide" aria-pressed="false">Dióxido de carbono</button><button type="button" data-molecule="methane" aria-pressed="false">Metano</button><button type="button" data-molecule="ammonia" aria-pressed="false">Amônia</button></div></div>
+        <div class="molecule-stage"><div class="molecule-title"><strong id="moleculeName">Água</strong><span id="moleculeFormula">H₂O</span></div><div class="molecule-drawing"><canvas id="moleculeCanvas" width="640" height="360" role="img" tabindex="0" aria-label="Modelo 3D esquemático da molécula de água, fórmula H₂O" aria-describedby="moleculeControlsHelp" aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown Home"></canvas></div><div class="molecule-controls" role="group" aria-label="Controles do modelo molecular"><button id="moleculeRotateLeft" type="button" aria-label="Girar modelo para a esquerda">↶</button><button id="moleculeReset" type="button">Centralizar modelo</button><button id="moleculeRotateRight" type="button" aria-label="Girar modelo para a direita">↷</button></div><p id="moleculeControlsHelp" class="molecule-controls-help">Arraste ou use as setas do teclado para girar. Home ou “Centralizar modelo” restaura a posição inicial.</p><p id="moleculeDescription" class="molecule-caption" aria-live="polite">Forma angular · ângulo H–O–H ≈ 104,5°.</p></div>
+      </div>
+    </section>
+
+    <section class="lab-section biology-section" id="biologia" aria-labelledby="bioTitle">
+      <div class="section-heading split-heading"><div><p class="eyebrow">04 / BIOLOGIA</p><h2 id="bioTitle">Uma célula, muitas funções.</h2></div><p>Explore componentes de uma célula animal eucariótica. Os compartimentos ajudam a organizar processos diferentes dentro da célula.</p></div>
+      <div class="cell-lab">
+        <figure class="cell-figure"><svg viewBox="0 0 560 360" role="img" aria-labelledby="cellSvgTitle cellSvgDesc"><title id="cellSvgTitle">Esquema de célula animal eucariótica</title><desc id="cellSvgDesc">Ilustração esquemática com membrana, núcleo, mitocôndrias, retículo, complexo de Golgi e ribossomos; não está em escala.</desc><path class="cell-membrane" d="M58 168C49 94 125 39 226 48c93-34 212 6 256 74 50 75-7 153-83 177-82 28-200 27-281-19C73 252 48 216 58 168Z"/><ellipse class="cell-nucleus" cx="260" cy="177" rx="80" ry="66"/><circle class="nucleolus" cx="276" cy="174" r="18"/><path class="cell-golgi" d="M360 108c35-18 73-16 93-6M352 122c33-17 76-15 100-5M350 138c32-14 74-11 98-1M355 154c27-10 59-8 79 1"/><path class="cell-er" d="M171 108c23-21 55-25 81-19M162 122c27-17 52-19 78-16M159 137c28-12 47-11 68-8M165 238c25 14 51 16 75 9"/><ellipse class="mitochondrion" cx="136" cy="190" rx="38" ry="17" transform="rotate(-20 136 190)"/><path class="mito-fold" d="M107 201c14-20 23 11 38-9s19 8 29-9"/><ellipse class="mitochondrion" cx="393" cy="211" rx="37" ry="16" transform="rotate(16 393 211)"/><path class="mito-fold" d="M364 202c13 22 24-9 38 10s19-7 28 10"/><g class="ribosome-dots"><circle cx="208" cy="81" r="3"/><circle cx="225" cy="89" r="3"/><circle cx="145" cy="139" r="3"/><circle cx="300" cy="244" r="3"/><circle cx="329" cy="237" r="3"/><circle cx="435" cy="180" r="3"/><circle cx="117" cy="150" r="3"/><circle cx="330" cy="82" r="3"/><circle cx="205" cy="275" r="3"/></g><path class="leader" d="M260 109V77h54"/><path class="leader" d="M394 115V79h37"/><path class="leader" d="M138 176V133H89"/><text x="319" y="81">Núcleo</text><text x="435" y="82">Golgi</text><text x="38" y="130">Mitocôndria</text></svg><figcaption>Diagrama educativo simplificado; o desenho não representa tamanho ou quantidade reais.</figcaption></figure>
+        <div class="organelle-panel"><p class="eyebrow">TOQUE PARA EXPLORAR</p><div class="organelle-list" role="group" aria-label="Componentes celulares"><button type="button" data-organelle="membrane" aria-pressed="false">Membrana</button><button type="button" data-organelle="nucleus" aria-pressed="true">Núcleo</button><button type="button" data-organelle="mitochondria" aria-pressed="false">Mitocôndria</button><button type="button" data-organelle="er" aria-pressed="false">Retículo endoplasmático</button><button type="button" data-organelle="golgi" aria-pressed="false">Complexo de Golgi</button><button type="button" data-organelle="ribosome" aria-pressed="false">Ribossomos</button></div><div class="organelle-info" aria-live="polite"><h3 id="organelleName">Núcleo</h3><p id="organelleDescription">Armazena a maior parte do DNA e participa da regulação das atividades celulares.</p></div></div>
+      </div>
+      <aside class="cell-micrograph-card" aria-label="Micrografia real de uma célula em divisão">
+        <img src="assets/images/dividing-cell-fluorescence.jpg" alt="Micrografia fluorescente de uma célula humana cancerosa em divisão, com DNA em azul, GFP-INCENP em verde e tubulina em vermelho." width="554" height="554" loading="lazy" decoding="async">
+        <div><p class="eyebrow">MICROGRAFIA REAL</p><h3>Uma célula em divisão</h3><p>Imagem obtida por microscopia de epifluorescência. As cores representam marcadores fluorescentes — não são as cores naturais da célula. O esquema acima e esta micrografia mostram coisas diferentes.</p><p class="micrograph-credit">Imagem: Lamiot / Wikimedia Commons · CC BY-SA 4.0 · reproduzida sem alterações.</p><a href="https://commons.wikimedia.org/wiki/File:Dividing_Cell_Fluorescence.jpg" target="_blank" rel="noopener noreferrer">Detalhes da imagem <span aria-hidden="true">↗</span></a> <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">Licença CC BY-SA 4.0 <span aria-hidden="true">↗</span></a></div>
+      </aside>
+    </section>
+
+    <section class="lab-section neuro-section" id="neurociencia" aria-labelledby="neuroTitle">
+      <div class="section-heading"><p class="eyebrow">05 / NEUROCIÊNCIA</p><h2 id="neuroTitle">Um sinal atravessa a membrana.</h2><p>Ajuste um estímulo qualitativo e observe uma curva didática de potencial de membrana. O resultado não simula a atividade de um neurônio específico.</p></div>
+      <div class="neuro-frame"><div class="neuro-control"><label for="neuronInput">Intensidade do estímulo <output id="neuronInputValue">70%</output></label><input id="neuronInput" type="range" min="0" max="100" value="70" step="1"><p id="neuronReadout" role="status" aria-live="polite">Estímulo suficiente para ilustrar um potencial de ação.</p><div class="neuro-stats"><div><strong>≈ −65 mV</strong><span>repouso típico, varia entre neurônios</span></div><div><strong>Na⁺ → K⁺</strong><span>fluxo iônico por canais da membrana</span></div></div></div><figure class="graph-figure neuron-figure"><canvas id="neuronCanvas" role="img" aria-label="Curva qualitativa do potencial de membrana ao longo do tempo, atualizada pelo controle de estímulo"></canvas><figcaption>Curva esquemática. Potenciais de repouso e limiar variam conforme o tipo celular e as condições.</figcaption></figure></div>
+    </section>
+
+    <section class="lab-section programming-section" id="programacao" aria-labelledby="programmingTitle">
+      <div class="section-heading split-heading"><div><p class="eyebrow">06 / PROGRAMAÇÃO</p><h2 id="programmingTitle">Veja um algoritmo pensar.</h2></div><p>O Bubble Sort compara valores vizinhos e os troca quando estão fora de ordem. Avance passo a passo para acompanhar as decisões.</p></div>
+      <div class="sort-lab"><div class="sort-toolbar"><div><span class="sort-label">SEQUÊNCIA</span><p id="sortStatus" aria-live="polite">Pronta para ordenar.</p></div><div class="sort-actions"><button type="button" id="sortNew">Nova sequência</button><button type="button" id="sortStep" class="primary-small">Próximo passo</button><button type="button" id="sortReset">Reiniciar</button></div></div><div id="sortBars" class="sort-bars" role="img" aria-label="Valores da sequência para ordenar"></div><div class="sort-meta"><span id="sortStepCount">Passos: 0</span><span id="sortCompare">Comparações: —</span></div><pre class="code-block"><code>para cada posição i:
+  comparar vizinhos
+  se A[j] &gt; A[j + 1]:
+    trocar A[j] e A[j + 1]</code></pre></div>
+    </section>
+
+    <section class="lab-sources" aria-labelledby="sourcesTitle"><div><p class="eyebrow">FONTES E LIMITES</p><h2 id="sourcesTitle">Curiosidade com contexto.</h2></div><p>Os valores químicos são fornecidos localmente pelo PubChem/NIH e a organização da tabela segue os símbolos da IUPAC. O modelo de célula acompanha descrições educativas da OpenStax. O potencial de repouso varia entre neurônios; a curva acima é qualitativa. Os gráficos e diagramas são modelos, não medições laboratoriais.</p><div class="source-links"><a href="https://iupac.org/what-we-do/periodic-table-of-elements/" target="_blank" rel="noopener noreferrer">Tabela periódica · IUPAC ↗</a><a href="https://pubchem.ncbi.nlm.nih.gov/periodic-table/" target="_blank" rel="noopener noreferrer">Dados dos elementos · PubChem ↗</a><a href="https://openstax.org/books/biology-2e/pages/4-3-eukaryotic-cells" target="_blank" rel="noopener noreferrer">Células eucarióticas · OpenStax ↗</a><a href="https://openstax.org/books/introduction-behavioral-neuroscience/pages/2-4-mechanisms-of-neural-signaling" target="_blank" rel="noopener noreferrer">Sinalização neural · OpenStax ↗</a><a href="https://openstax.org/books/chemistry-2e/pages/7-6-molecular-structure-and-polarity" target="_blank" rel="noopener noreferrer">Geometrias moleculares · OpenStax ↗</a></div></section>
+  </main>
+  <footer class="lab-footer"><a href="page1.html">← Retornar ao mapa de experiências</a><span>Purple Dreams <i>·</i> ciência em movimento</span></footer>
+    <script src="assets/js/site-navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratório de Física • Universo Quântico</title>
+<style>
+:root{--bg:#160b2d;--panel:rgba(37,23,60,.78);--line:rgba(142,157,255,.23);--text:#f3f5ff;--muted:#b7c0e8;--cyan:#68e7ff;--violet:#a78bfa;--pink:#ff8be8;--green:#79f2c0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(ellipse at 15% 0%,#25215f 0,transparent 36%),radial-gradient(ellipse at 90% 20%,#152d68 0,transparent 30%),var(--bg);min-height:100vh;overflow-x:hidden}
+#stars{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
+a{color:inherit;text-decoration:none}.wrap{width:min(1180px,92%);margin:auto}
+header{position:sticky;top:0;z-index:10;background:rgba(7,11,32,.75);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:16px 0}.brand{font-weight:850;letter-spacing:.3px;display:flex;align-items:center;gap:10px}.brand-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:13px;background:linear-gradient(135deg,var(--cyan),var(--violet));color:#101331;box-shadow:0 0 25px #8c9bff55}.navlinks{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:.9rem}.navlinks a:hover{color:var(--cyan)}
+.hero{padding:72px 0 48px;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}.eyebrow{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border:1px solid var(--line);border-radius:99px;color:var(--cyan);font-size:.82rem;background:#11183e99}.eyebrow span{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 12px var(--green)}h1{font-size:clamp(2.5rem,6vw,5rem);line-height:.99;letter-spacing:-.055em;margin:22px 0}h1 em{font-style:normal;background:linear-gradient(90deg,var(--cyan),#b5a2ff 55%,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}.lead{font-size:1.08rem;line-height:1.8;color:var(--muted);max-width:650px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);padding:12px 17px;border-radius:13px;font-weight:750;cursor:pointer;color:var(--text);background:#151c46;transition:.2s}.btn.primary{border:0;color:#10132f;background:linear-gradient(110deg,var(--cyan),#b8a4ff);box-shadow:0 8px 30px #6a86ff33}.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.hero-art{position:relative;min-height:320px;display:grid;place-items:center}.orb{width:min(300px,75vw);aspect-ratio:1;border-radius:50%;position:relative;background:radial-gradient(circle at 35% 30%,#9ff4ff 0,#6e8bff 13%,#6241b9 34%,#15143e 66%,#070b20 73%);box-shadow:0 0 70px #786cff55,inset -25px -20px 50px #020514}.orb:before,.orb:after{content:"";position:absolute;inset:19% -16%;border:2px solid #92eaff99;border-radius:50%;transform:rotate(-25deg)}.orb:after{inset:32% -22%;transform:rotate(35deg);border-color:#d2a4ff88}.orb-label{position:absolute;bottom:4%;right:3%;padding:12px 15px;border-radius:15px;background:#131a42cc;border:1px solid var(--line);backdrop-filter:blur(12px);font-size:.84rem;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 auto 58px}.stat,.panel,.experiment,.equation-card{background:linear-gradient(145deg,rgba(26,35,83,.76),rgba(13,18,49,.76));border:1px solid var(--line);border-radius:22px;box-shadow:0 18px 60px #0002;backdrop-filter:blur(12px)}.stat{padding:17px}.stat strong{display:block;font-size:1.45rem;color:var(--cyan)}.stat span{font-size:.82rem;color:var(--muted)}
+section{padding:26px 0 48px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px}.kicker{color:var(--pink);font-size:.78rem;font-weight:800;letter-spacing:.17em;text-transform:uppercase}.section-head h2{font-size:clamp(1.8rem,4vw,2.8rem);margin:7px 0 0;letter-spacing:-.035em}.section-head p{color:var(--muted);max-width:520px;line-height:1.65;margin:0}
+.experiments{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.experiment{padding:22px;overflow:hidden;position:relative}.experiment.wide{grid-column:1/-1}.card-top{display:flex;align-items:center;gap:13px;margin-bottom:12px}.iconbox{width:47px;height:47px;border-radius:15px;display:grid;place-items:center;font-size:1.5rem;background:linear-gradient(135deg,#6ae7ff25,#b28aff30);border:1px solid var(--line)}.card-top h3{margin:0;font-size:1.17rem}.tag{font-size:.74rem;color:var(--cyan);margin-top:4px}.desc{color:var(--muted);line-height:1.65;font-size:.92rem}.controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:18px 0}.control label{display:flex;justify-content:space-between;gap:10px;font-size:.85rem;color:var(--muted);margin-bottom:9px}.control output{color:var(--cyan);font-weight:800}input[type=range]{width:100%;accent-color:#8e9bff}.result{padding:14px 15px;border-radius:15px;border:1px solid #8a9cff32;background:#080e2d88;margin-top:12px}.result small{display:block;color:var(--muted);margin-bottom:5px}.result strong{font-size:1.35rem;color:var(--green)}.visual{height:130px;position:relative;border-radius:16px;margin-top:15px;overflow:hidden;background:radial-gradient(ellipse at center,#25336b55,transparent 70%),#090e29;border:1px solid #8290ff24;display:grid;place-items:center}.track{position:absolute;left:8%;right:8%;bottom:32px;height:3px;background:#7588ff66}.moving-dot{position:absolute;left:8%;bottom:22px;width:22px;height:22px;border-radius:50%;background:var(--cyan);box-shadow:0 0 20px var(--cyan);transform:translateX(0)}.pendulum-svg{width:100%;height:100%}.circuit{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;font-weight:800}.circuit span{padding:12px;border:1px solid var(--line);border-radius:12px;background:#141b45}.circuit b{color:var(--cyan);font-size:1.3rem}.equation-card{padding:26px;position:relative;overflow:hidden}.equation-card:before{content:"Ψ";position:absolute;right:18px;top:-50px;font-size:13rem;color:#8f8cff0b;font-weight:900}.equation-layout{display:grid;grid-template-columns:1fr .9fr;gap:25px;align-items:center;position:relative}.formula{font-family:Cambria,"Times New Roman",serif;font-size:clamp(1.35rem,3.4vw,2.2rem);text-align:center;padding:24px 10px;border-radius:16px;border:1px solid #a4a4ff35;background:#080e2d9c;line-height:1.7;overflow-wrap:anywhere}.formula .accent{color:var(--cyan)}.formula-caption{font-size:.85rem;color:var(--muted);text-align:center;margin-top:10px}.equation-copy h3{font-size:1.35rem;margin:0 0 10px}.equation-copy p,.equation-copy li{color:var(--muted);line-height:1.7}.equation-copy ul{padding-left:20px}.note{border-left:3px solid var(--pink);padding:10px 14px;background:#ff8be80b;color:#d9d9f5;border-radius:0 12px 12px 0;font-size:.88rem;line-height:1.6}
+.quantum-demo{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:18px}.quantum-box{border:1px solid var(--line);border-radius:17px;padding:16px;background:#080e2d88}.quantum-box h4{margin:0 0 8px}.quantum-box p{color:var(--muted);font-size:.88rem;line-height:1.6}.wave{width:100%;height:100px;display:block}.wave path{fill:none;stroke:var(--cyan);stroke-width:2.5;filter:drop-shadow(0 0 5px #68e7ff)}.probability{fill:url(#probGrad);stroke:#b8a4ff;stroke-width:1.5}.quiz{display:grid;grid-template-columns:1fr auto;gap:15px;align-items:center}.quiz p{color:var(--muted);line-height:1.6}.quiz .answer{display:none;margin-top:10px;color:var(--green);font-weight:700}.quiz.show .answer{display:block}
+footer{border-top:1px solid var(--line);margin-top:30px;padding:28px 0 38px;color:var(--muted);font-size:.85rem}.footer-inner{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:48px}.hero-art{min-height:250px}.stats{grid-template-columns:repeat(2,1fr)}.experiments{grid-template-columns:1fr}.experiment.wide{grid-column:auto}.equation-layout,.quantum-demo{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.navlinks{gap:10px}.navlinks a{font-size:.8rem}}
+@media(max-width:430px){html,body{overflow-x:clip}.orb{width:min(220px,calc(100vw - 120px))}.controls{grid-template-columns:1fr}.nav{align-items:flex-start}.navlinks{max-width:180px;justify-content:flex-end}.stats{gap:8px}.stat{padding:13px}.stat strong{font-size:1.2rem}.experiment,.equation-card{padding:17px}}
+
+/* Destaque especial para a equação de Schrödinger */
+.schro-spotlight{margin:24px 0 20px;padding:clamp(20px,4vw,42px);position:relative;overflow:hidden;border-radius:28px;border:1px solid #8e9cff55;background:radial-gradient(ellipse at 15% 0%,#6a5cff2b,transparent 42%),radial-gradient(ellipse at 90% 100%,#45dfff20,transparent 42%),linear-gradient(135deg,#11183deF,#090e29f5);box-shadow:0 25px 90px #5148ff20,inset 0 1px #ffffff12}
+.schro-spotlight:before{content:"Ψ";position:absolute;right:2%;top:-22%;font:900 clamp(10rem,28vw,22rem)/1 Georgia,serif;color:#a99bff09;pointer-events:none}
+.schro-topline{display:flex;align-items:center;gap:10px;color:var(--cyan);font-size:.78rem;font-weight:850;letter-spacing:.18em;text-transform:uppercase}
+.schro-pulse{width:9px;height:9px;border-radius:50%;background:var(--pink);box-shadow:0 0 16px var(--pink);animation:pulseSchro 1.8s infinite}
+@keyframes pulseSchro{50%{opacity:.35;transform:scale(.7);box-shadow:0 0 4px var(--pink)}}
+.schro-title{font-size:clamp(2rem,5vw,3.8rem);letter-spacing:-.05em;margin:16px 0 10px;line-height:1.03}.schro-title span{background:linear-gradient(90deg,#69eaff,#bba7ff 55%,#ff9ae9);-webkit-background-clip:text;background-clip:text;color:transparent}
+.schro-intro{max-width:760px;color:var(--muted);line-height:1.8}
+.schro-equation-main{position:relative;margin:28px 0 12px;padding:clamp(22px,4vw,38px) 12px;text-align:center;border-radius:22px;border:1px solid #9eafff4f;background:linear-gradient(110deg,#09132be8,#1c1747d9,#101b3be8);box-shadow:inset 0 0 35px #7c6aff0d,0 0 45px #68e7ff0b;overflow:hidden}
+.schro-equation-main:after{content:"";position:absolute;top:0;bottom:0;width:22%;left:-30%;background:linear-gradient(90deg,transparent,#ffffff0a,transparent);transform:skewX(-20deg);animation:equationShimmer 7s ease-in-out infinite}
+@keyframes equationShimmer{0%,60%{left:-30%}100%{left:120%}}
+.schro-math{font-family:"Cambria Math",Cambria,"Times New Roman",serif;font-size:clamp(1.8rem,5.5vw,3.7rem);letter-spacing:.01em;color:#f8f8ff;text-shadow:0 0 24px #8c9dff32;position:relative;z-index:1}
+.schro-math .glow{color:#7deaff;text-shadow:0 0 18px #68e7ff55}.schro-math .violet{color:#c2a9ff;text-shadow:0 0 18px #a78bfa44}
+.schro-subtitle{text-align:center;color:#bdc7f3;font-size:.85rem;margin-top:12px;position:relative;z-index:1}
+.schro-badges{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:18px}
+.schro-badges span{font-size:.76rem;padding:7px 11px;border:1px solid #8e9cff38;background:#11183d99;border-radius:99px;color:#dce4ff}
+.schro-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:18px}
+.schro-info{border:1px solid var(--line);border-radius:18px;background:#090e29a8;padding:18px}
+.schro-info h3{margin:0 0 10px;font-size:1rem}.schro-info p{margin:0;color:var(--muted);line-height:1.75;font-size:.9rem}
+.schro-symbols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:13px}
+.schro-symbol{padding:13px;border-radius:14px;border:1px solid #91a0ff24;background:#121a3f99}
+.schro-symbol strong{display:block;color:var(--cyan);font:700 1.35rem Georgia,serif;margin-bottom:5px}
+.schro-symbol span{font-size:.8rem;color:var(--muted);line-height:1.5}
+.schro-canvas-wrap{height:150px;border:1px solid #8e9cff2d;border-radius:15px;background:linear-gradient(180deg,#0b1230,#0a0e27);overflow:hidden;margin-top:14px}
+#schroCanvas{width:100%;height:100%;display:block}
+.schro-footnote{font-size:.82rem;color:#aeb9e9;line-height:1.7;margin-top:16px;padding:12px 15px;border-left:3px solid var(--pink);background:#ff8be809;border-radius:0 12px 12px 0}
+@media(max-width:700px){.schro-grid{grid-template-columns:1fr}.schro-symbols{grid-template-columns:1fr 1fr}.schro-math{font-size:clamp(1.5rem,6vw,2.4rem)}}
+
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+.skip-link{position:fixed;top:10px;left:10px;z-index:30;padding:12px 16px;border-radius:12px;background:#f7f2ff;color:#160b2d;font-weight:800;transform:translateY(-160%);transition:transform .15s}
+.skip-link:focus{transform:translateY(0)}
+</style>
+  <link rel="stylesheet" href="assets/css/purple-dreams-brand.css">
+    <link rel="stylesheet" href="assets/css/site-navigation.css">
+  <link rel="icon" type="image/svg+xml" href="assets/images/a16-mark.svg">
+  <link rel="stylesheet" href="assets/css/a16-mark.css">
+  <link rel="stylesheet" href="assets/vendor/bootstrap-icons/font/bootstrap-icons.min.css">
+</head>
+<body>
+<a class="a16-signature" href="index.html" aria-label="A16 — voltar ao início"><img src="assets/images/a16-mark.svg" alt="A16"></a>
+
+<canvas id="stars" aria-hidden="true"></canvas>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<header><div class="wrap nav">
+<a class="brand" href="index.html"><span class="brand-mark">⚛</span><span>LAB<span style="color:var(--cyan)">.FÍSICA</span></span></a>
+<nav class="navlinks"><a href="#experimentos">Experimentos</a><a href="#quantica">Física quântica</a><a href="#quantica">Schrödinger</a><a href="#universo">Universo</a><a href="#glossario">Glossário</a><a href="#desafio">Desafio</a><a href="index.html">← Início</a></nav>
+</div></header>
+<main class="wrap" id="conteudo">
+<section class="hero">
+<div><div class="eyebrow"><span></span> LABORATÓRIO INTERATIVO • ONLINE</div>
+<h1>Explore as leis do <em>universo.</em></h1>
+<p class="lead">Do movimento dos objetos ao mundo probabilístico das partículas: teste variáveis, observe resultados e descubra como a Física transforma perguntas em explicações.</p>
+<div class="actions"><a class="btn primary" href="#experimentos">🧪 Começar experimentos</a><a class="btn" href="#quantica">⚛ Explorar Schrödinger</a></div></div>
+<div class="hero-art"><div class="orb"></div><div class="orb-label">01 / Matéria • Energia • Espaço-tempo</div></div>
+</section>
+<div class="stats">
+<div class="stat"><strong>04</strong><span>simulações interativas</span></div><div class="stat"><strong>03</strong><span>áreas da Física</span></div><div class="stat"><strong>∞</strong><span>perguntas para investigar</span></div><div class="stat"><strong>100%</strong><span>feito para explorar</span></div>
+</div>
+<section id="experimentos">
+<div class="section-head"><div><div class="kicker">Bancadas virtuais</div><h2>Experimente na prática</h2></div><p>Mude os controles e acompanhe como os resultados se alteram. Os valores são modelos didáticos simplificados.</p></div>
+<div class="experiments">
+<article class="experiment"><div class="card-top"><div class="iconbox">🚀</div><div><h3>Movimento e velocidade</h3><div class="tag">CINEMÁTICA • MRU</div></div></div>
+<p class="desc">Imagine um objeto viajando em linha reta com velocidade constante. Ajuste a distância percorrida e o tempo gasto.</p>
+<div class="controls"><div class="control"><label for="distance">Distância <output id="distanceOut">100 m</output></label><input id="distance" type="range" min="10" max="500" value="100" step="10"></div><div class="control"><label for="time">Tempo <output id="timeOut">20 s</output></label><input id="time" type="range" min="1" max="100" value="20"></div></div>
+<div class="result"><small>Velocidade média (v = Δs / Δt)</small><strong id="speed">5,0 m/s</strong></div><div class="visual"><div class="track"></div><div class="moving-dot" id="dot"></div><span style="position:absolute;top:12px;color:var(--muted);font-size:.8rem">Representação do deslocamento</span></div></article>
+<article class="experiment"><div class="card-top"><div class="iconbox">〰️</div><div><h3>Pêndulo simples</h3><div class="tag">OSCILAÇÕES • MECÂNICA</div></div></div>
+<p class="desc">O período depende principalmente do comprimento do fio e da gravidade local, para pequenas oscilações.</p>
+<div class="controls"><div class="control"><label for="length">Comprimento <output id="lengthOut">1,0 m</output></label><input id="length" type="range" min=".2" max="2.5" value="1" step=".1"></div><div class="control"><label for="gravity">Gravidade <output id="gravityOut">9,8 m/s²</output></label><input id="gravity" type="range" min="1.6" max="24.8" value="9.8" step=".1"></div></div>
+<div class="result"><small>Período aproximado (T = 2π√(L/g))</small><strong id="period">2,01 s</strong></div>
+<div class="visual"><canvas id="pendulumCanvas" role="img" aria-label="Simulação ilustrativa do movimento de um pêndulo" style="width:100%;height:100%;display:block"></canvas></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px" role="group" aria-label="Controles da simulação do pêndulo"><button class="btn primary" id="pendulumStart" type="button">Iniciar</button><button class="btn" id="pendulumPause" type="button">Pausar</button><button class="btn" id="pendulumRestart" type="button">Reiniciar</button></div>
+<p class="desc" id="pendulumStatus" role="status" aria-live="polite" style="margin:10px 0 0">Pausado. Inicie para observar uma oscilação ilustrativa.</p></article>
+<article class="experiment"><div class="card-top"><div class="iconbox">⚡</div><div><h3>Lei de Ohm</h3><div class="tag">ELETRICIDADE • CIRCUITOS</div></div></div>
+<p class="desc">Em um resistor ideal, a corrente elétrica é a tensão dividida pela resistência: I = V/R.</p>
+<div class="controls"><div class="control"><label for="voltage">Tensão <output id="voltageOut">12 V</output></label><input id="voltage" type="range" min="1" max="24" value="12"></div><div class="control"><label for="resistance">Resistência <output id="resistanceOut">6 Ω</output></label><input id="resistance" type="range" min="1" max="24" value="6"></div></div>
+<div class="result"><small>Corrente elétrica (I = V / R)</small><strong id="current">2,00 A</strong></div><div class="visual"><div class="circuit"><span>🔋 <b id="batteryText">12 V</b></span><b>→</b><span>▧ <b id="resistorText">6 Ω</b></span><b>→</b><span>⚡ <b id="currentText">2 A</b></span></div></div></article>
+<article class="experiment"><div class="card-top"><div class="iconbox">🌊</div><div><h3>Ondas e frequência</h3><div class="tag">ONDULATÓRIA • SOM E LUZ</div></div></div>
+<p class="desc">A frequência indica quantas oscilações acontecem por segundo. Ajuste-a e observe a onda mudar.</p>
+<div class="controls"><div class="control"><label for="frequency">Frequência <output id="frequencyOut">2 Hz</output></label><input id="frequency" type="range" min="1" max="8" value="2" step=".5"></div><div class="control"><label for="amplitude">Amplitude <output id="amplitudeOut">30%</output></label><input id="amplitude" type="range" min="10" max="45" value="30" step="5"></div></div>
+<div class="result"><small>Período da onda (T = 1/f)</small><strong id="wavePeriod">0,50 s</strong></div><div class="visual"><svg class="wave" viewBox="0 0 320 100" preserveAspectRatio="none"><path id="wavePath" d="" /></svg></div></article>
+</div></section>
+<section id="quantica">
+<div class="section-head"><div><div class="kicker">A fronteira do conhecimento</div><h2>O universo quântico</h2></div><p>Uma jornada pela equação que ajuda a descrever como sistemas quânticos evoluem no tempo.</p></div>
+<div class="schro-spotlight">
+  <div class="schro-topline"><span class="schro-pulse"></span> Equação fundamental da mecânica quântica</div>
+  <h3 class="schro-title">A equação de <span>Schrödinger</span></h3>
+  <p class="schro-intro">Na mecânica quântica, a função de onda contém informação sobre o estado de um sistema. A equação de Schrödinger descreve como esse estado muda com o tempo — uma ideia central para compreender átomos, elétrons e moléculas.</p>
+  <div class="schro-equation-main">
+    <div class="schro-math"><span class="glow">iℏ</span> <span style="white-space:nowrap">∂Ψ</span>/<span style="white-space:nowrap">∂t</span> = <span class="violet">Ĥ</span><span class="glow">Ψ</span></div>
+    <div class="schro-subtitle">Equação dependente do tempo • forma geral</div>
+    <div class="schro-badges"><span>⚛ Estado quântico</span><span>∂ / ∂t Evolução temporal</span><span>Ĥ Energia total</span></div>
+  </div>
+  <div class="schro-grid">
+    <div class="schro-info">
+      <h3>✨ A forma para uma partícula</h3>
+      <div class="formula" style="font-size:clamp(1.05rem,2.5vw,1.5rem);margin:12px 0">− <span class="accent">ℏ²</span>/(2m) ∇²Ψ + VΨ = iℏ ∂Ψ/∂t</div>
+      <p>Para uma partícula não relativística em um potencial V, o lado esquerdo representa a energia cinética e potencial aplicada à função de onda.</p>
+    </div>
+    <div class="schro-info">
+      <h3>🔎 O que os símbolos contam</h3>
+      <div class="schro-symbols">
+        <div class="schro-symbol"><strong>Ψ (psi)</strong><span>Função de onda: representa o estado quântico.</span></div>
+        <div class="schro-symbol"><strong>ℏ</strong><span>Constante de Planck reduzida.</span></div>
+        <div class="schro-symbol"><strong>Ĥ</strong><span>Hamiltoniano, operador associado à energia total.</span></div>
+        <div class="schro-symbol"><strong>V e m</strong><span>Potencial e massa da partícula.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="schro-grid">
+    <div class="schro-info">
+      <h3>〰️ Uma onda em movimento</h3>
+      <p>Esta animação é uma representação artística de uma onda oscilante. Ela ajuda a visualizar o conceito de onda, mas não é uma solução calculada para um átomo específico.</p>
+      <div class="schro-canvas-wrap"><canvas id="schroCanvas" role="img" aria-label="Animação ilustrativa de uma onda quântica; não representa uma solução calculada para um átomo específico"></canvas></div>
+    </div>
+    <div class="schro-info">
+      <h3>🎯 E onde entra a probabilidade?</h3>
+      <p>Em uma interpretação usual, o módulo ao quadrado da função de onda, <b style="color:var(--cyan)">|Ψ|²</b>, está relacionado à densidade de probabilidade de encontrar a partícula em uma região.</p>
+      <div class="formula" style="margin-top:14px;font-size:clamp(1.3rem,3vw,2rem)">P ∝ <span class="accent">|Ψ|²</span></div>
+      <p style="margin-top:12px">Isso não significa que a partícula seja simplesmente uma bolinha seguindo uma trajetória clássica conhecida.</p>
+    </div>
+  </div>
+  <div class="schro-footnote"><b>Curiosidade:</b> a equação foi formulada por Erwin Schrödinger em 1926. Ela é essencial para a descrição quântica da matéria, mas sua aplicação exige definir o sistema físico e as condições do problema.</div>
+</div>
+</section>
+
+<section id="universo">
+<div class="section-head"><div><div class="kicker">Além do laboratório</div><h2>Uma janela para o universo</h2></div><p>Explore conceitos que conectam o muito pequeno ao muito grande: relatividade, astronomia e física de partículas.</p></div>
+<div class="experiments">
+<article class="experiment"><div class="card-top"><div class="iconbox">🪐</div><div><h3>Gravidade dos planetas</h3><div class="tag">ASTRONOMIA • GRAVITAÇÃO</div></div></div>
+<p class="desc">Compare o peso aproximado de um objeto em diferentes mundos. A massa não muda, mas o peso depende da gravidade.</p>
+<div class="controls"><div class="control"><label for="mass">Massa <output id="massOut">60 kg</output></label><input id="mass" type="range" min="10" max="150" value="60" step="5"></div><div class="control"><label for="planet">Planeta</label><select id="planet" style="width:100%;padding:10px;border-radius:10px;background:#11183e;color:#f3f5ff;border:1px solid var(--line)"><option value="3.7">Mercúrio</option><option value="8.87">Vênus</option><option value="9.81" selected>Terra</option><option value="3.71">Marte</option><option value="24.79">Júpiter</option><option value="10.44">Saturno</option><option value="8.69">Urano</option><option value="11.15">Netuno</option><option value="1.62">Lua</option></select></div></div>
+<div class="result"><small>Peso aproximado (P = m · g)</small><strong id="weightResult">588,6 N</strong></div><p class="desc" id="planetFact">Na Terra, a gravidade é aproximadamente 9,81 m/s².</p></article>
+<article class="experiment"><div class="card-top"><div class="iconbox">🚦</div><div><h3>Relatividade especial</h3><div class="tag">ESPAÇO-TEMPO • EINSTEIN</div></div></div>
+<p class="desc">À medida que a velocidade se aproxima da velocidade da luz, o fator relativístico cresce. Não é possível alcançar a velocidade da luz para um objeto com massa.</p>
+<div class="control"><label for="velocity">Velocidade em relação à luz <output id="velocityOut">50% de c</output></label><input id="velocity" type="range" min="0" max="99" value="50"></div>
+<div class="result"><small>Fator de Lorentz (γ = 1 / √(1 − v²/c²))</small><strong id="lorentz">1,155</strong></div><div class="visual" style="flex-direction:column;gap:8px"><div style="width:80%;height:10px;border-radius:20px;background:#242c59;overflow:hidden"><div id="velocityBar" style="height:100%;width:50%;background:linear-gradient(90deg,var(--cyan),var(--pink));border-radius:20px"></div></div><span id="velocityHint" style="color:var(--muted);font-size:.84rem">Efeitos relativísticos ainda moderados neste exemplo.</span></div></article>
+<article class="experiment wide"><div class="card-top"><div class="iconbox">🔭</div><div><h3>Escala cósmica</h3><div class="tag">ASTRONOMIA • DISTÂNCIAS</div></div></div>
+<p class="desc">A luz viaja cerca de 300 mil quilômetros por segundo no vácuo. Escolha uma distância para estimar quanto tempo a luz leva para percorrê-la — sem considerar a expansão do universo.</p>
+<div class="controls"><div class="control"><label for="lightDistance">Distância de referência</label><select id="lightDistance" style="width:100%;padding:10px;border-radius:10px;background:#11183e;color:#f3f5ff;border:1px solid var(--line)"><option value="1.28" data-unit="s">Terra–Lua (aprox. 1,28 s-luz)</option><option value="499" data-unit="s">Sol–Terra (aprox. 499 s-luz)</option><option value="4.24" data-unit="anos">Distância até Proxima Centauri (4,24 anos-luz)</option><option value="100000" data-unit="anos">Diâmetro aproximado da Via Láctea (100 mil anos-luz)</option></select></div><div class="control"><label for="lightUnit">Unidade do tempo de viagem</label><output id="lightUnit">segundos</output></div></div>
+<div class="result"><small>Tempo de viagem da luz</small><strong id="lightTime">1,28 segundo</strong></div><p class="desc">Como 1 segundo-luz é a distância que a luz percorre em um segundo (e 1 ano-luz em um ano), o valor numérico corresponde ao tempo de viagem na mesma unidade. Esta estimativa não considera a expansão do universo.</p></article>
+</div>
+</section>
+<section id="glossario">
+<div class="section-head"><div><div class="kicker">Seu caderno científico</div><h2>Glossário essencial</h2></div><p>Conceitos-chave para consultar enquanto você explora as simulações.</p></div>
+<div class="experiments">
+<article class="experiment"><h3 style="margin-top:0">🧭 Mecânica</h3><p class="desc"><b>Velocidade:</b> taxa de variação da posição no tempo.<br><b>Aceleração:</b> variação da velocidade por unidade de tempo.<br><b>Força:</b> interação capaz de alterar o movimento, descrita por leis como F = m·a.<br><b>Energia:</b> grandeza associada à capacidade de produzir transformações.</p></article>
+<article class="experiment"><h3 style="margin-top:0">⚛️ Física quântica</h3><p class="desc"><b>Quantização:</b> certos valores físicos podem aparecer em níveis discretos.<br><b>Superposição:</b> combinação matemática de estados quânticos possíveis.<br><b>Probabilidade:</b> previsões quânticas frequentemente são expressas em termos probabilísticos.<br><b>Observável:</b> grandeza física que pode ser medida.</p></article>
+<article class="experiment"><h3 style="margin-top:0">🌌 Astronomia</h3><p class="desc"><b>Ano-luz:</b> distância que a luz percorre em um ano, não uma unidade de tempo.<br><b>Órbita:</b> trajetória de um corpo sob a influência gravitacional.<br><b>Galáxia:</b> sistema de estrelas, gás, poeira e matéria escura ligado pela gravidade.</p></article>
+<article class="experiment"><h3 style="margin-top:0">📐 Unidades SI</h3><p class="desc"><b>Metro (m):</b> comprimento.<br><b>Segundo (s):</b> tempo.<br><b>Quilograma (kg):</b> massa.<br><b>Ampere (A):</b> corrente elétrica.<br><b>Kelvin (K):</b> temperatura termodinâmica.</p></article>
+</div>
+</section>
+
+<section id="desafio">
+<div class="section-head"><div><div class="kicker">Teste seus conhecimentos</div><h2>Desafio rápido</h2></div><p>Use os conceitos apresentados no laboratório e confira a explicação.</p></div>
+<div class="experiment quiz" id="quiz"><div><div class="card-top"><div class="iconbox">🧠</div><div><h3>Se a tensão dobrar e a resistência continuar igual...</h3><div class="tag">LEI DE OHM</div></div></div><p>O que acontece com a corrente elétrica em um resistor ôhmico?</p><div class="answer" id="answer">Resposta: a corrente dobra. Pela lei de Ohm, I = V/R; mantendo R constante, I é diretamente proporcional a V.</div></div><button class="btn primary" id="answerBtn" type="button">Ver resposta</button></div>
+</section>
+</main>
+<footer><div class="wrap footer-inner"><span>⚛ LAB.FÍSICA — aprender é investigar.</span><span>Modelos didáticos • Use a curiosidade como método.</span><a href="index.html">Voltar para a página inicial ↑</a></div></footer>
+<script>
+const $=id=>document.getElementById(id);
+const motionReduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+const fmt=(n,d=2)=>Number(n).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+function updateMotion(){let d=+$('distance').value,t=+$('time').value;$('distanceOut').textContent=d+' m';$('timeOut').textContent=t+' s';$('speed').textContent=fmt(d/t,1)+' m/s';$('dot').style.left=`${8+Math.min(84,d/500*84)}%`;}
+const pendulumCanvas=$('pendulumCanvas'),pendulumCtx=pendulumCanvas.getContext('2d');let pendulumW=0,pendulumH=0,pendulumDpr=1,pendulumAngle=0,pendulumPeriod=2,pendulumFrame=null,pendulumRunning=false,pendulumElapsed=0,pendulumLast=0;
+function sizePendulum(){const rect=pendulumCanvas.getBoundingClientRect();pendulumW=rect.width;pendulumH=rect.height;pendulumDpr=window.devicePixelRatio||1;pendulumCanvas.width=Math.max(1,Math.round(pendulumW*pendulumDpr));pendulumCanvas.height=Math.max(1,Math.round(pendulumH*pendulumDpr));pendulumCtx.setTransform(pendulumDpr,0,0,pendulumDpr,0,0);drawPendulum(pendulumAngle);}
+function drawPendulum(angle){if(!pendulumW||!pendulumH)return;pendulumCtx.clearRect(0,0,pendulumW,pendulumH);const pivotX=pendulumW/2,pivotY=19,length=35+(+$('length').value/2.5)*48,bobX=pivotX+Math.sin(angle)*length,bobY=pivotY+Math.cos(angle)*length;pendulumCtx.beginPath();pendulumCtx.moveTo(pivotX-20,pivotY);pendulumCtx.lineTo(pivotX+20,pivotY);pendulumCtx.strokeStyle='rgba(195,202,255,.75)';pendulumCtx.lineWidth=4;pendulumCtx.lineCap='round';pendulumCtx.stroke();pendulumCtx.beginPath();pendulumCtx.moveTo(pivotX,pivotY);pendulumCtx.lineTo(bobX,bobY);pendulumCtx.strokeStyle='#8fa0ff';pendulumCtx.lineWidth=2;pendulumCtx.stroke();pendulumCtx.beginPath();pendulumCtx.arc(bobX,bobY,11,0,Math.PI*2);pendulumCtx.fillStyle='#68e7ff';pendulumCtx.shadowBlur=12;pendulumCtx.shadowColor='#68e7ff';pendulumCtx.fill();pendulumCtx.shadowBlur=0;}
+function animatePendulum(timestamp){if(!pendulumRunning)return;if(!pendulumLast)pendulumLast=timestamp;pendulumElapsed+=(timestamp-pendulumLast)/1000;pendulumLast=timestamp;pendulumAngle=.55*Math.cos(2*Math.PI*pendulumElapsed/pendulumPeriod);drawPendulum(pendulumAngle);pendulumFrame=requestAnimationFrame(animatePendulum);}
+function startPendulum(){if(motionReduced.matches){$('pendulumStatus').textContent='Sua preferência por movimento reduzido mantém a simulação estática. Desative essa preferência no dispositivo para animar.';return;}if(pendulumRunning)return;pendulumRunning=true;pendulumLast=0;$('pendulumStatus').textContent='Em movimento. O período aproximado é '+fmt(pendulumPeriod)+' s.';pendulumFrame=requestAnimationFrame(animatePendulum);}
+function pausePendulum(){pendulumRunning=false;if(pendulumFrame!==null)cancelAnimationFrame(pendulumFrame);pendulumFrame=null;pendulumLast=0;$('pendulumStatus').textContent='Pausado. Use Iniciar para continuar ou Reiniciar para voltar à posição inicial.';drawPendulum(pendulumAngle);}
+function restartPendulum(){pendulumRunning=false;if(pendulumFrame!==null)cancelAnimationFrame(pendulumFrame);pendulumFrame=null;pendulumLast=0;pendulumElapsed=0;pendulumAngle=0;drawPendulum(pendulumAngle);$('pendulumStatus').textContent=motionReduced.matches?'Simulação reiniciada e estática, conforme sua preferência por movimento reduzido.':'Simulação reiniciada e pausada na posição central.';}
+function updatePendulum(){let L=+$('length').value,g=+$('gravity').value;pendulumPeriod=2*Math.PI*Math.sqrt(L/g);$('lengthOut').textContent=fmt(L,1)+' m';$('gravityOut').textContent=fmt(g,1)+' m/s²';$('period').textContent=fmt(pendulumPeriod)+' s';drawPendulum(pendulumAngle);}
+function updateOhm(){let v=+$('voltage').value,r=+$('resistance').value,i=v/r;$('voltageOut').textContent=v+' V';$('resistanceOut').textContent=r+' Ω';$('current').textContent=fmt(i)+' A';$('batteryText').textContent=v+' V';$('resistorText').textContent=r+' Ω';$('currentText').textContent=fmt(i)+' A';}
+function makeWave(id,amp,freq,fill=false){let points=[];for(let x=0;x<=320;x+=3){let y=50-Math.sin(x/320*Math.PI*2*freq)*amp;points.push(`${x===0?'M':'L'}${x},${y.toFixed(2)}`)}if(fill)points.push('L320,100 L0,100 Z');$(id).setAttribute('d',points.join(' '));}
+function updateWave(){let f=+$('frequency').value,a=+$('amplitude').value;$('frequencyOut').textContent=fmt(f,1)+' Hz';$('amplitudeOut').textContent=a+'%';$('wavePeriod').textContent=fmt(1/f)+' s';makeWave('wavePath',a,f);}
+['distance','time'].forEach(id=>$(id).addEventListener('input',updateMotion));['length','gravity'].forEach(id=>$(id).addEventListener('input',updatePendulum));['voltage','resistance'].forEach(id=>$(id).addEventListener('input',updateOhm));['frequency','amplitude'].forEach(id=>$(id).addEventListener('input',updateWave));
+sizePendulum();if(motionReduced.matches)$('pendulumStatus').textContent='Simulação estática conforme sua preferência por movimento reduzido.';window.addEventListener('resize',sizePendulum);$('pendulumStart').addEventListener('click',startPendulum);$('pendulumPause').addEventListener('click',pausePendulum);$('pendulumRestart').addEventListener('click',restartPendulum);motionReduced.addEventListener('change',()=>{if(motionReduced.matches&&pendulumRunning){pausePendulum();$('pendulumStatus').textContent='Simulação pausada conforme sua preferência por movimento reduzido.';}});
+$('answerBtn').addEventListener('click',()=>{let q=$('quiz');q.classList.toggle('show');$('answerBtn').textContent=q.classList.contains('show')?'Ocultar resposta':'Ver resposta';});
+updateMotion();updatePendulum();updateOhm();updateWave();
+function updateWeight(){let m=+$('mass').value,g=+$('planet').value;let planet=$('planet').selectedOptions[0].text;$('massOut').textContent=m+' kg';$('weightResult').textContent=fmt(m*g,1)+' N';$('planetFact').textContent=`Em ${planet}, a aceleração gravitacional usada nesta simulação é ${fmt(g,2)} m/s². A massa continua sendo ${m} kg.`;}
+function updateRelativity(){let v=+$('velocity').value/100;let gamma=1/Math.sqrt(1-v*v);$('velocityOut').textContent=Math.round(v*100)+'% de c';$('lorentz').textContent=fmt(gamma,3);$('velocityBar').style.width=(v*100)+'%';$('velocityHint').textContent=v<.5?'Correções relativísticas pequenas em muitos contextos cotidianos.':v<.9?'Efeitos relativísticos tornam-se cada vez mais importantes.':'Nesta faixa, o fator de Lorentz cresce rapidamente.';}
+function updateLight(){let option=$('lightDistance').selectedOptions[0],val=+option.value,unit=option.dataset.unit;let time=fmt(val,Number.isInteger(val)?0:2);let readableUnit=unit==='s'?(val===1.28?'segundo':'segundos'):(val===1?'ano':'anos');let extra=unit==='s'&&val===499?' (≈ 8 min 19 s)':'';$('lightTime').textContent=`${time} ${readableUnit}${extra}`;$('lightUnit').textContent=unit==='s'?'segundos':'anos';}
+$('mass').addEventListener('input',updateWeight);$('planet').addEventListener('change',updateWeight);$('velocity').addEventListener('input',updateRelativity);$('lightDistance').addEventListener('change',updateLight);updateWeight();updateRelativity();updateLight();
+
+
+// Onda ilustrativa: desenha apenas quando visível, respeitando movimento reduzido e aba oculta.
+(function(){
+ const c=$("schroCanvas"); if(!c) return;
+ const ctx=c.getContext('2d'), host=c.closest('.schro-info'); let w=0,h=0,dpr=1,frame=null,visible=false,lastTime=0;
+ function render(ms){
+  if(!w||!h)return;
+  ctx.clearRect(0,0,w,h);ctx.strokeStyle='rgba(132,151,255,.12)';ctx.lineWidth=1;
+  for(let y=20;y<h;y+=25){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+  ctx.beginPath();ctx.moveTo(0,h*.53);ctx.lineTo(w,h*.53);ctx.strokeStyle='rgba(180,192,255,.28)';ctx.stroke();
+  const t=ms*.001;ctx.beginPath();for(let x=0;x<=w;x+=2){const y=h*.53-Math.sin(x*.035-t*2.1)*Math.sin(x/w*Math.PI)*h*.25;if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}
+  ctx.strokeStyle='#68e7ff';ctx.lineWidth=2.4;ctx.shadowBlur=12;ctx.shadowColor='#68e7ff';ctx.stroke();ctx.shadowBlur=0;
+  ctx.beginPath();for(let x=0;x<=w;x+=2){const y=h*.53-Math.cos(x*.035-t*2.1)*Math.sin(x/w*Math.PI)*h*.12;if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}
+  ctx.strokeStyle='#b59bff';ctx.lineWidth=1.6;ctx.stroke();lastTime=ms;
+ }
+ function tick(ms){frame=null;if(!visible||document.hidden||motionReduced.matches)return;render(ms);frame=requestAnimationFrame(tick);}
+ function stop(){if(frame!==null){cancelAnimationFrame(frame);frame=null;}}
+ function sync(){stop();if(visible&&!document.hidden&&!motionReduced.matches)frame=requestAnimationFrame(tick);else render(lastTime);}
+ function fit(){dpr=Math.min(window.devicePixelRatio||1,2);const r=c.getBoundingClientRect();w=r.width;h=r.height;c.width=Math.max(1,Math.round(w*dpr));c.height=Math.max(1,Math.round(h*dpr));ctx.setTransform(dpr,0,0,dpr,0,0);render(lastTime);}
+ fit();window.addEventListener('resize',fit,{passive:true});
+ if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{visible=entries.some(entry=>entry.isIntersecting);sync();},{rootMargin:'100px'});observer.observe(host||c);}else{visible=true;sync();}
+ motionReduced.addEventListener('change',sync);document.addEventListener('visibilitychange',sync);
+})();
+
+// Fundo estrelado decorativo: pausa em abas ocultas e com movimento reduzido.
+const canvas=$('stars'),ctx=canvas.getContext('2d');let stars=[],starsFrame=null;
+function resize(){const dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.max(1,Math.round(innerWidth*dpr));canvas.height=Math.max(1,Math.round(innerHeight*dpr));ctx.setTransform(dpr,0,0,dpr,0,0);stars=Array.from({length:Math.min(140,Math.floor(innerWidth/8))},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.5+.2,a:Math.random()*.7+.15,s:Math.random()*.25+.04}));drawStars(performance.now());}
+function drawStars(ms){ctx.clearRect(0,0,innerWidth,innerHeight);for(const s of stars){if(!motionReduced.matches&&!document.hidden)s.y-=s.s;if(s.y<0){s.y=innerHeight;s.x=Math.random()*innerWidth}ctx.globalAlpha=s.a*(.7+.3*Math.sin(ms/900+s.x));ctx.fillStyle='#dce8ff';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1;}
+function animateStars(ms){starsFrame=null;if(motionReduced.matches||document.hidden)return;drawStars(ms);starsFrame=requestAnimationFrame(animateStars);}
+function syncStars(){if(starsFrame!==null){cancelAnimationFrame(starsFrame);starsFrame=null;}if(motionReduced.matches||document.hidden)drawStars(performance.now());else starsFrame=requestAnimationFrame(animateStars);}
+addEventListener('resize',resize,{passive:true});resize();syncStars();motionReduced.addEventListener('change',syncStars);document.addEventListener('visibilitychange',syncStars);
+</script>
+    <script src="assets/js/site-navigation.js"></script>
+</body>
+</html>

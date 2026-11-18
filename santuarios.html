@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#160b2d">
+  <meta name="description" content="Explore o jardim, a estufa de vidro e o aquário do Purple Dreams. Descubra flores, encontre Milo e Pipo e guarde suas próprias memórias.">
+  <title>Santuários Vivos | Purple Dreams</title>
+  <link rel="stylesheet" href="assets/css/purple-dreams-brand.css">
+  <link rel="stylesheet" href="assets/css/santuarios.css">
+  <script src="assets/js/santuarios.js" defer></script>
+    <link rel="stylesheet" href="assets/css/site-navigation.css">
+  <link rel="icon" type="image/svg+xml" href="assets/images/a16-mark.svg">
+  <link rel="stylesheet" href="assets/css/a16-mark.css">
+  <link rel="stylesheet" href="assets/vendor/bootstrap-icons/font/bootstrap-icons.min.css">
+</head>
+<body>
+<a class="a16-signature" href="index.html" aria-label="A16 — voltar ao início"><img src="assets/images/a16-mark.svg" alt="A16"></a>
+
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <div class="site-shell" id="siteShell" data-weather="dusk">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Purple Dreams — início">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 2.8 19.4 12.6 29.2 16l-9.8 3.4L16 29.2l-3.4-9.8L2.8 16l9.8-3.4L16 2.8Z"/><circle cx="16" cy="16" r="2.2"/></svg></span>
+        <span><strong>PURPLE DREAMS</strong><small>UM UNIVERSO PARA ALANIS</small></span>
+      </a>
+      <nav class="main-nav" aria-label="Navegação dos santuários">
+        <a href="#jardim">Jardim</a><a href="#estufa">Estufa</a><a href="#colecao-botanica">Coleção</a><a href="#aquario">Aquário</a><a href="#mascotes">Milo &amp; Pipo</a><a href="#diario">Diário</a>
+      </nav>
+      <button class="photo-open" id="openPhoto" type="button"><span aria-hidden="true">＋</span> Modo fotografia</button>
+    </header>
+
+    <main id="conteudo">
+      <section class="hero" aria-labelledby="hero-title">
+        <img class="hero-image" src="https://images.unsplash.com/photo-1776459316241-cc3a569eff11?auto=format&fit=crop&w=2200&q=82" alt="Fotografia de um jardim de tulipas roxas e flores coloridas">
+        <div class="hero-shade" aria-hidden="true"></div>
+        <div class="hero-content">
+          <p class="eyebrow"><span></span> SANTUÁRIOS VIVOS · EDIÇÃO ALANIS</p>
+          <h1 id="hero-title">Um lugar para<br><em>florescer devagar.</em></h1>
+          <p class="hero-copy">Entre jardins, vidro e água, cada pequeno detalhe guarda uma descoberta. Este universo também cresce com você.</p>
+          <div class="hero-actions"><a class="button-primary" href="#jardim">Começar o passeio <span aria-hidden="true">↘</span></a><a class="text-link" href="#diario">Ver meu diário</a></div>
+          <div class="hero-foot"><span>03 ambientes para explorar</span><span class="hero-separator"></span><span><b id="discoveryCount">0</b> registros guardados</span></div>
+        </div>
+        <div class="hero-caption"><span>01 / 03</span><span>O jardim encontra a hora dourada</span></div>
+      </section>
+
+      <section class="atmosphere-bar" aria-labelledby="atmosphere-heading">
+        <div><p class="eyebrow">A ATMOSFERA DE AGORA</p><h2 id="atmosphere-heading">Mude a luz do seu universo</h2></div>
+        <div class="weather-options" role="group" aria-label="Escolha uma atmosfera visual">
+          <button type="button" data-atmosphere="dusk" aria-pressed="true"><span class="weather-icon" aria-hidden="true"><i class="bi bi-sunset"></i></span><span>Entardecer</span></button>
+          <button type="button" data-atmosphere="rain" aria-pressed="false"><span class="weather-icon" aria-hidden="true"><i class="bi bi-cloud-rain"></i></span><span>Chuva suave</span></button>
+          <button type="button" data-atmosphere="aurora" aria-pressed="false"><span class="weather-icon" aria-hidden="true"><i class="bi bi-stars"></i></span><span>Aurora</span></button>
+          <button type="button" data-atmosphere="night" aria-pressed="false"><span class="weather-icon" aria-hidden="true"><i class="bi bi-moon-stars"></i></span><span>Noite estrelada</span></button>
+        </div>
+        <p class="atmosphere-status" id="atmosphereStatus" aria-live="polite">Luz dourada, flores em repouso e céu violeta.</p>
+      </section>
+
+      <section class="experience-section garden-section" id="jardim" aria-labelledby="garden-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">01 · JARDIM DAS TULIPAS</p><h2 id="garden-title">A beleza mora nos detalhes.</h2></div>
+          <p>Um caminho de fim de tarde entre tulipas e camélias. Toque nos pontos de luz para encontrar pequenas histórias.</p>
+        </div>
+        <div class="garden-layout">
+          <div class="scene-frame garden-frame">
+            <img class="scene-photo" src="https://images.unsplash.com/photo-1776459316241-cc3a569eff11?auto=format&fit=crop&w=2200&q=82" alt="" loading="lazy">
+            <div class="scene-tone" aria-hidden="true"></div>
+            <img class="guide-butterfly garden-butterfly" src="https://images.unsplash.com/photo-1499117119214-31e5b8396618?auto=format&fit=crop&w=900&q=78" alt="" aria-hidden="true" loading="lazy">
+            <button class="flower-point point-one" type="button" data-discovery-title="Tulipas de veludo" data-discovery-text="As tulipas roxas e rosadas marcam a entrada do jardim. Observe a forma das pétalas e a variação de tons." aria-label="Descobrir as tulipas de veludo"><img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=240&h=180&q=82" alt="Tulipas em um canteiro" loading="lazy"><span>Tulipas</span></button>
+            <button class="flower-point point-two" type="button" data-discovery-title="Camélias do entardecer" data-discovery-text="As camélias se destacam pela simetria das pétalas e pelo contraste com as folhas. Observe os detalhes da flor." aria-label="Descobrir as camélias do entardecer"><img src="https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=240&h=180&q=82" alt="Flor em detalhe no jardim" loading="lazy"><span>Flores</span></button>
+            <div class="scene-label"><span>O CAMINHO DAS FLORES</span><span>TOQUE NOS PONTOS LUMINOSOS</span></div>
+            <div class="rain-layer" aria-hidden="true"></div>
+          </div>
+          <aside class="discovery-card">
+            <span class="card-index">CADERNO BOTÂNICO · 001</span>
+            <h3>Uma pausa que floresce</h3>
+            <p>O jardim muda de cor com a atmosfera escolhida. Siga a borboleta para visitar os outros santuários.</p>
+            <div class="discovery-line"><img class="discovery-thumb" src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=120&h=120&q=82" alt="Detalhe de folhas verdes" loading="lazy"><span>Descobertas aparecem no seu diário, salvas neste navegador.</span></div>
+            <button class="button-soft" type="button" data-discovery-title="Pausa no jardim" data-discovery-text="Você encontrou um lugar tranquilo para recomeçar o passeio. A lembrança foi guardada no diário." data-action-label="Registrar esta pausa">Registrar esta pausa <span aria-hidden="true">↗</span></button>
+          </aside>
+        </div>
+      </section>
+
+      <section class="experience-section greenhouse-section" id="estufa" aria-labelledby="greenhouse-title">
+        <div class="section-heading section-heading-light">
+          <div><p class="eyebrow">02 · ESTUFA DE CRISTAL</p><h2 id="greenhouse-title">Onde a curiosidade cria raízes.</h2></div>
+          <p>Uma estrutura de vidro acolhe pequenas coleções. Abra uma espécie para registrar o que chamou sua atenção.</p>
+        </div>
+        <div class="greenhouse-layout">
+          <div class="scene-frame greenhouse-frame">
+            <img class="scene-photo" src="https://images.unsplash.com/photo-1784570978310-5bce02e56784?auto=format&fit=crop&w=1600&q=80" alt="Fotografia de uma estufa botânica com plantas e luz natural" loading="lazy">
+            <div class="scene-tone" aria-hidden="true"></div><div class="rain-layer" aria-hidden="true"></div>
+            <div class="greenhouse-seal"><img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=220&h=220&q=82" alt="Folhagem em detalhe" loading="lazy"><span>COLEÇÃO BOTÂNICA</span></div>
+          </div>
+          <div class="species-panel">
+            <div class="species-head"><span>CATÁLOGO DE DESCOBERTAS</span><span>03 ENTRADAS</span></div>
+            <button class="species-row" type="button" aria-label="Registrar descoberta: Orquídea lunar" data-discovery-title="Orquídea lunar" data-discovery-text="Uma presença elegante na coleção da estufa: pétalas delicadas, formas inesperadas e um brilho lilás sob o vidro." data-action-label="Abrir registro"><span class="species-no">01</span><span><strong>Orquídea lunar</strong><small>Uma forma que surpreende</small></span><span class="species-arrow" aria-hidden="true">↗</span></button>
+            <button class="species-row" type="button" aria-label="Registrar descoberta: Camélia de inverno" data-discovery-title="Camélia de inverno" data-discovery-text="Uma camélia real pode ser observada pelas pétalas, simetria e contraste com as folhas." data-action-label="Abrir registro"><span class="species-no">02</span><span><strong>Camélia de inverno</strong><small>Cor e contraste</small></span><span class="species-arrow" aria-hidden="true">↗</span></button>
+            <button class="species-row" type="button" aria-label="Registrar descoberta: Jasmim das estrelas" data-discovery-title="Jasmim das estrelas" data-discovery-text="Pequenas flores claras iluminam a passagem. O nome é parte da coleção poética do Purple Dreams." data-action-label="Abrir registro"><span class="species-no">03</span><span><strong>Jasmim das estrelas</strong><small>Um nome do nosso universo</small></span><span class="species-arrow" aria-hidden="true">↗</span></button>
+            <p class="collection-note">A coleção mistura espécies reais e nomes poéticos. Os títulos ficcionais estão identificados como parte da narrativa do site.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="botanical-gallery" id="colecao-botanica" aria-labelledby="botanical-title">
+        <div class="botanical-heading"><div><p class="eyebrow">CADERNO BOTÂNICO · COLEÇÃO VISUAL</p><h2 id="botanical-title">Texturas, folhas e formas naturais.</h2></div><p>Uma pequena coleção de fotografias para observar de perto a variedade das plantas — das folhas delicadas às composições tropicais.</p></div>
+        <div class="botanical-grid">
+          <figure class="botanical-photo botanical-photo-large"><img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1500&q=84" alt="Pessoa cuidando de plantas em um jardim" loading="lazy"><figcaption><strong>Cuidado diário</strong><span>Jardim e cultivo</span></figcaption></figure>
+          <figure class="botanical-photo"><img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1000&q=84" alt="Planta ornamental em vaso" loading="lazy"><figcaption><strong>Plantas de interior</strong><span>Folhagem ornamental</span></figcaption></figure>
+          <figure class="botanical-photo"><img src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1000&q=84" alt="Detalhe de folhas verdes iluminadas" loading="lazy"><figcaption><strong>Detalhes das folhas</strong><span>Texturas naturais</span></figcaption></figure>
+          <figure class="botanical-photo"><img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1000&q=84" alt="Composição de plantas verdes" loading="lazy"><figcaption><strong>Verde tropical</strong><span>Composição botânica</span></figcaption></figure>
+          <figure class="botanical-photo"><img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=1000&q=84" alt="Jardim com canteiros e vegetação" loading="lazy"><figcaption><strong>Jardim cultivado</strong><span>Espaços verdes</span></figcaption></figure>
+        </div>
+        <p class="botanical-credit">Fotografias: <a href="https://unsplash.com/" target="_blank" rel="noopener noreferrer">Unsplash</a>. As imagens são ilustrativas e podem depender de conexão com a internet.</p>
+      </section>
+
+      <section class="experience-section aquarium-section" id="aquario" aria-labelledby="aquarium-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">03 · AQUÁRIO DIGITAL</p><h2 id="aquarium-title">Um mundo em movimento lento.</h2></div>
+          <p>Plantas, luz subaquática e cardumes atravessam a água em ritmos diferentes. Escolha um encontro para abrir o caderno.</p>
+        </div>
+        <div class="aquarium-stage scene-frame">
+          <img class="scene-photo" src="https://images.unsplash.com/photo-1691387747539-f681c5fa73d9?auto=format&fit=crop&w=1800&q=80" alt="Aquário plantado com água azul, vegetação submersa e pequenos peixes de água doce" loading="lazy">
+          <div class="scene-tone" aria-hidden="true"></div>
+          <div class="aquarium-light" aria-hidden="true"></div>
+          
+          <button class="aquarium-encounter encounter-one" type="button" data-discovery-title="A travessia do cardume" data-discovery-text="Você acompanhou o cardume neon cruzando a luz azul. Esta cena faz parte de uma aquascape imaginada para o Purple Dreams." aria-label="Observar a travessia do cardume"><span>OBSERVAR O CARDUME</span><b aria-hidden="true">↗</b></button>
+          <button class="aquarium-encounter encounter-two" type="button" data-discovery-title="Peixes do aquário" data-discovery-text="A fotografia mostra um aquário plantado real. Observe os peixes, a vegetação submersa e a composição do ambiente." aria-label="Conhecer os peixes do aquário"><span>OBSERVAR OS PEIXES</span><b aria-hidden="true">↗</b></button>
+          <div class="scene-label"><span>ÁGUA · LUZ · RESPIRAÇÃO</span><span>USE OS CONTROLES PARA DESCOBRIR</span></div>
+          <div class="rain-layer" aria-hidden="true"></div>
+        </div>
+        <div class="aquarium-foot"><span><i class="live-dot" aria-hidden="true"></i> AMBIENTE EM MOVIMENTO</span><span>Movimentos sutis; reduzem automaticamente com a preferência do aparelho.</span></div>
+      </section>
+
+      <section class="companions-section" id="mascotes" aria-labelledby="companions-title">
+        <div class="companions-copy"><p class="eyebrow">COMPANHEIROS DE VIAGEM</p><h2 id="companions-title">Milo e Pipo,<br><em>sempre por perto.</em></h2><p>Milo e Pipo continuam como personagens do passeio. As imagens agora mostram fotografias reais de um gato e de um hamster.</p><div class="companion-note" id="companionNote" aria-live="polite">As fotografias apresentam animais reais que representam os personagens Milo e Pipo.</div></div>
+        <div class="companion-art companion-photos"><figure><img src="https://images.unsplash.com/photo-1738093174896-5c5adecf5185?auto=format&fit=crop&w=900&q=80" alt="Fotografia de um gato laranja junto a uma janela" loading="lazy"><figcaption>Milo · gato</figcaption></figure><figure><img src="https://images.unsplash.com/photo-1721327900411-b315dce4388e?auto=format&fit=crop&w=900&q=80" alt="Fotografia de um hamster pequeno" loading="lazy"><figcaption>Pipo · hamster</figcaption></figure></div>
+        <div class="companion-actions"><button type="button" class="companion-button" data-companion="Milo" aria-label="Ler mensagem de Milo"><span class="companion-number">01</span><span><strong>Milo</strong><small>Gatinho ruivo · curioso</small></span><b aria-hidden="true">✦</b></button><button type="button" class="companion-button" data-companion="Pipo" aria-label="Ler mensagem de Pipo"><span class="companion-number">02</span><span><strong>Pipo</strong><small>Hamster · pequeno explorador</small></span><b aria-hidden="true">✦</b></button></div>
+      </section>
+
+      <section class="diary-section" id="diario" aria-labelledby="diary-title">
+        <div class="diary-header"><div><p class="eyebrow">DIÁRIO DE DESCOBERTAS</p><h2 id="diary-title">O que você leva daqui.</h2></div><button class="button-soft" type="button" id="openPhotoBottom">Guardar uma fotografia <span aria-hidden="true">＋</span></button></div>
+        <p class="storage-status" id="storageStatus" role="status" aria-live="polite" hidden></p>
+        <div class="diary-content"><div class="diary-list" id="diaryList" aria-live="polite"><p class="diary-empty">As primeiras descobertas aparecem aqui, guardadas neste navegador.</p></div><aside class="diary-progress"><span class="progress-kicker">SEU PASSEIO</span><strong><span id="progressCount">0</span><small> registros</small></strong><div class="progress-track"><span id="progressBar"></span></div><p>Descubra algo novo ou guarde uma fotografia para começar seu diário.</p><a href="MEMORIAS.HTML">Abrir a galeria de memórias <span aria-hidden="true">↗</span></a></aside></div>
+      </section>
+    </main>
+
+      <section class="photo-sources" aria-label="Créditos das fotografias"><p>Fotografias botânicas adicionais: <a href="https://unsplash.com/" target="_blank" rel="noopener">Unsplash</a>. Fotografias externas anteriores: <a href="https://unsplash.com/photos/purple-blossoms-hang-over-a-field-of-colorful-tulips-aQo5R0iTrp0" target="_blank" rel="noopener">Bernd Dittrich</a>, <a href="https://unsplash.com/photos/lush-green-plants-inside-a-bright-greenhouse-with-large-windows-w3Toc67yQYs" target="_blank" rel="noopener">Frédéric LO BRUTTO</a>, <a href="https://unsplash.com/photos/a-fish-tank-filled-with-plants-and-water-xtbZ1jnpuEY" target="_blank" rel="noopener">Christian Ang</a>, <a href="https://unsplash.com/photos/macro-photography-of-black-butterfly-in-flower-3hXvCSYlEHA" target="_blank" rel="noopener">Matheus Queiroz</a>, <a href="https://unsplash.com/photos/an-orange-cat-sitting-in-front-of-a-window-lmf-bPBU62o" target="_blank" rel="noopener">Ahmed</a> e <a href="https://unsplash.com/photos/a-small-hamster-sitting-on-top-of-a-table-cgnDJkzWkTg" target="_blank" rel="noopener">Zhaoli JIN</a> / Unsplash. Uso conforme a licença Unsplash.</p></section>
+    <footer class="site-footer"><a class="brand brand-footer" href="index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 2.8 19.4 12.6 29.2 16l-9.8 3.4L16 29.2l-3.4-9.8L2.8 16l9.8-3.4L16 2.8Z"/><circle cx="16" cy="16" r="2.2"/></svg></span><span><strong>PURPLE DREAMS</strong><small>FEITO COM CARINHO PARA ALANIS</small></span></a><div><a href="index.html">Início</a><a href="solar.html">Sistema solar</a><a href="index%20(2).html">Observatório</a></div><span class="footer-note">Um lugar para voltar quando quiser.</span></footer>
+  </div>
+
+  <button class="butterfly-guide" id="butterflyGuide" type="button" aria-label="Siga a borboleta-guia até a próxima descoberta"><img src="https://images.unsplash.com/photo-1499117119214-31e5b8396618?auto=format&fit=crop&w=900&q=78" alt="" aria-hidden="true"><span>Próxima descoberta</span></button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <dialog class="photo-dialog" id="photoDialog" aria-labelledby="photoDialogTitle">
+    <form class="photo-form" id="photoForm">
+      <div class="dialog-top"><span class="eyebrow">MODO FOTOGRAFIA · REGISTRO LOCAL</span><button class="dialog-close" type="button" id="closePhoto" aria-label="Fechar modo fotografia">×</button></div>
+      <h2 id="photoDialogTitle">Guarde um instante<br><em>deste universo.</em></h2>
+      <p>Escolha uma foto do seu aparelho e escreva uma legenda. O registro fica salvo neste navegador.</p>
+      <label class="upload-zone" for="photoFile"><span class="upload-mark" aria-hidden="true">＋</span><strong>Escolher uma fotografia</strong><small>JPG, PNG ou WebP · até 12 MB</small><input id="photoFile" type="file" accept="image/*"></label>
+      <figure class="photo-preview" id="photoPreview" hidden><img id="photoPreviewImage" alt="Prévia da fotografia selecionada"><figcaption id="photoPreviewCaption"></figcaption></figure>
+      <label class="caption-label" for="photoCaption">Legenda <span>opcional</span></label><input class="caption-input" id="photoCaption" type="text" maxlength="100" placeholder="O que você quer lembrar deste momento?">
+      <p class="photo-feedback" id="photoFeedback" role="status" aria-live="polite"></p>
+      <div class="dialog-actions"><button class="button-secondary" type="button" id="cancelPhoto">Cancelar</button><button class="button-primary" type="submit" id="savePhoto" disabled>Guardar no diário <span aria-hidden="true">↗</span></button></div>
+    </form>
+  </dialog>
+  <noscript><p class="noscript-note">Ative JavaScript para registrar descobertas, mudar a atmosfera e salvar fotografias neste navegador.</p></noscript>
+    <script src="assets/js/site-navigation.js"></script>
+</body>
+</html>

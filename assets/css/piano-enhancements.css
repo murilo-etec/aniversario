@@ -1,0 +1,8 @@
+.piano-visualizer{display:block;background:radial-gradient(ellipse at 50% 130%,rgba(178,132,237,.2),rgba(8,7,18,.92) 72%);border:1px solid rgba(220,196,255,.14)}
+.music-tools button,.music-tools select{min-height:44px}
+.piano-key{touch-action:none;-webkit-tap-highlight-color:transparent}
+#pianoKeysContainer{min-width:290px!important}
+@media(max-width:420px){#pianoKeysContainer .piano-key:not(.piano-key-black){width:clamp(32px,10.5vw,44px)!important}#pianoKeysContainer .piano-key-black{width:clamp(21px,7vw,29px)!important}.music-tools>div{gap:.45rem}.music-tools button{padding-inline:.7rem}.music-tools select{max-width:190px}}
+@media(prefers-reduced-motion:reduce){#pianoVisualizer{transition:none!important}}
+
+#piano{scroll-margin-top:5.5rem}

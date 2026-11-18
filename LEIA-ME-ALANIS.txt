@@ -1,0 +1,43 @@
+PURPLE DREAMS
+Edição especial para Alanis e Maninha
+
+COMECE POR AQUI
+Abra index.html para iniciar a surpresa. Use os botões e os cartões para percorrer as páginas. O arquivo index (2).html é o observatório astronômico; a experiência Santuários Vivos está em santuarios.html.
+
+Para navegação mais confiável, mantenha a pasta Aniversario inteira, sem renomear ou mover páginas e arquivos de assets. Se estiver em um computador com Python, abra um terminal dentro da pasta e execute:
+
+  python3 -m http.server 8000
+
+Depois visite http://localhost:8000. Também é possível publicar a pasta completa em qualquer hospedagem estática, preservando os nomes e os caminhos relativos.
+
+O QUE VOCÊ VAI ENCONTRAR
+• index.html — abertura cinematográfica personalizada, jardim visual e acesso às experiências.
+• page1.html — mensagem de aniversário, contagem regressiva e cartões que conectam as atividades.
+• santuarios.html — jardim, estufa e aquário com atmosferas selecionáveis, descobertas, borboleta-guia, interações com Milo e Pipo e diário fotográfico.
+• solar.html e index (2).html — mapa do sistema solar e observatório com busca de objetos, data/hora, modos de visualização e controles de qualidade gráfica.
+• MEMORIAS.HTML — galeria de amizade e lembranças. Por padrão, novas fotos são adicionadas; a substituição das fotos existentes exige marcar essa opção.
+• MUSICA.HTML — piano digital, reprodução de áudio escolhido no dispositivo e livro de recados.
+• laboratorio-ciencias.html — Estúdio de Ciências com Matemática, Física, Química, modelos moleculares, Biologia, Neurociência e visualizador passo a passo de algoritmo.
+• chess.html — experiência de xadrez; cubo.html — página do cubo mágico; math-rush.html — desafios matemáticos (Math Rush).
+• fisica.html e pagina1_laboratorio_fisica_schrodinger_especial.html — experiências interativas de Física.
+• jogo.html — portal secreto opcional com uma pista e a mensagem final já presente na seção secreta original de page1.html.
+• assets/ — estilos, scripts, bibliotecas locais, fontes, licenças, mapas planetários e fotografias pessoais locais.
+• plan.md, TODO.md, SCIENCE-SOURCES.md e ATTRIBUTIONS.md — plano, status, fontes científicas e créditos/licenças.
+
+CONTEÚDO EDITÁVEL
+O site é estático; as mensagens editoriais ficam nos próprios arquivos HTML. Para revisar a abertura, comece por index.html e page1.html. Os textos das áreas de memórias, música e portal ficam, respectivamente, em MEMORIAS.HTML, MUSICA.HTML e jogo.html. Faça uma cópia de segurança antes de editar e preserve IDs, classes e caminhos de assets usados por scripts. A recompensa do portal foi copiada da seção secreta existente em page1.html; se alterar uma dessas passagens, mantenha a outra coerente. Não há painel de administração.
+
+PRIVACIDADE E DADOS LOCAIS
+Fotos, legendas, registros do diário, recados e progresso do portal são guardados no armazenamento local do navegador deste dispositivo. Eles não são enviados por essas funcionalidades a um servidor. Os dados podem desaparecer se o armazenamento do navegador for apagado e não são compartilhados entre dispositivos ou navegadores. A galeria principal aceita até seis fotos; o diário dos santuários também tem limite para preservar espaço no dispositivo.
+
+Se decidir publicar o site na internet, revise antes os textos, fotos e detalhes pessoais: as páginas publicadas ficam acessíveis conforme a privacidade da hospedagem escolhida. Os recursos de execução necessários — scripts, estilos, imagens, bibliotecas locais e fontes auto-hospedadas ou do sistema — estão no próprio pacote; as páginas não dependem de CDN para abrir. Os links das fontes científicas levam a sites externos e precisam de internet quando selecionados.
+
+OBSERVAÇÃO SOBRE MODELOS CIENTÍFICOS
+As moléculas, organelas e curvas educativas são representações esquemáticas; não substituem dados experimentais nem imagens de microscopia. As texturas planetárias têm as limitações e os créditos descritos em ATTRIBUTIONS.md e SCIENCE-SOURCES.md.
+
+
+FOTOGRAFIAS REAIS E CRÉDITOS
+A edição A16 substitui as imagens ilustradas usadas como cenários decorativos por fotografias reais em páginas de entrada e Santuários Vivos, e usa fotografias reais nos cards de Física, Matemática, Astronomia, Música e Cubo Mágico. As fontes e autores estão em ATTRIBUTIONS.md e em links de crédito visíveis na página. Essas fotografias externas dependem de conexão com a internet. As fotos pessoais da escola e da visita à UNICAMP são locais e não foram alteradas.
+
+ÍCONES
+Bootstrap Icons é servido localmente em assets/vendor/bootstrap-icons; o símbolo A16 permanece no cabeçalho e como favicon em todas as páginas.

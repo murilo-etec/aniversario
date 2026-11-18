@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FísicaLab Especial de Aniversário — Um laboratório virtual interativo e festivo.">
+  <title>FísicaLab | Edição de Aniversário 🎂</title>
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #faf5ff;
+      --surface: #ffffff;
+      --surface-soft: #f3e8ff;
+      --text: #2d1b4e;
+      --muted: #6b5b95;
+      --party-purple: #7c3aed;
+      --party-pink: #db2777;
+      --party-gold: #d97706;
+      --cyan: #06b6d4;
+      --success: #059669;
+      --danger: #dc2626;
+      --border: #e9d5ff;
+      --shadow: 0 20px 50px rgba(124, 58, 237, .1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background .25s ease, color .25s ease;
+    }
+
+    section, header { scroll-margin-top: 80px; }
+
+    .navbar {
+      background: rgba(45, 27, 78, .9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      padding: 14px 0;
+    }
+
+    .navbar-brand {
+      color: #fff !important;
+      font-weight: 800;
+      font-size: 1.35rem;
+    }
+    .navbar-brand span, .navbar-brand i { color: #f43f5e; }
+    .nav-link {
+      color: #f3e8ff !important;
+      margin-left: .75rem;
+      font-weight: 600;
+    }
+    .nav-link:hover { color: #f43f5e !important; }
+
+    .hero {
+      min-height: 100vh;
+      padding: 110px 0 70px;
+      display: flex;
+      align-items: center;
+      color: #fff;
+      background:
+        radial-gradient(circle at 85% 18%, rgba(219,39,119,.35), transparent 34%),
+        radial-gradient(circle at 15% 85%, rgba(124,58,237,.3), transparent 35%),
+        linear-gradient(135deg, #2d1b4e, #1e1b4b);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .badge-custom {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 16px;
+      border: 1px solid rgba(244,63,94,.3);
+      border-radius: 999px;
+      color: #f43f5e;
+      background: rgba(244,63,94,.1);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      margin: 20px 0 16px;
+      max-width: 780px;
+      font-size: clamp(2.7rem, 6vw, 4.8rem);
+      line-height: 1.05;
+      font-weight: 850;
+      letter-spacing: -2px;
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg, #f43f5e, #fbbf24);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero .lead { color: #e9d5ff; max-width: 680px; }
+
+    .stat { display: block; font-size: 1.8rem; color: #fff; font-weight: 800; }
+    .stat + small { color: #d8b4fe; }
+
+    .party-box {
+      min-height: 450px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cake-badge {
+      padding: 30px;
+      border-radius: 30px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.15);
+      backdrop-filter: blur(14px);
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,.3);
+      animation: float 4s ease-in-out infinite alternate;
+    }
+    .cake-badge i { font-size: 5rem; color: #fbbf24; }
+    .cake-badge h3 { margin-top: 15px; font-weight: 800; color: #fff; }
+
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-12px); }
+    }
+
+    .section { padding: 95px 0; }
+    .section-title { max-width: 760px; margin: 0 auto 55px; text-align: center; }
+    .section-title > span {
+      color: var(--party-pink);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+    .section-title h2 {
+      margin: 10px 0;
+      font-size: clamp(2rem, 4vw, 2.7rem);
+      font-weight: 850;
+      letter-spacing: -.8px;
+    }
+    .section-title p { color: var(--muted); margin: 0; }
+
+    .topic-card {
+      height: 100%;
+      padding: 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      transition: transform .25s ease, border-color .25s ease;
+    }
+    .topic-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--party-pink);
+    }
+    .topic-card > i {
+      display: inline-grid;
+      width: 48px;
+      height: 48px;
+      place-items: center;
+      margin-bottom: 18px;
+      border-radius: 14px;
+      color: var(--party-pink);
+      background: #fdf2f8;
+      font-size: 1.4rem;
+    }
+    .topic-card h3 { font-size: 1.15rem; font-weight: 800; }
+    .topic-card p { color: var(--muted); }
+    .topic-card a { color: var(--party-pink); font-weight: 700; text-decoration: none; }
+
+    .simulator-section {
+      color: #fff;
+      background: #1e1b4b;
+    }
+    .simulator-section .section-title h2 { color: #fff; }
+    .simulator-section .section-title p { color: #e9d5ff; }
+
+    .simulator-card {
+      height: 100%;
+      padding: 28px;
+      border-radius: 20px;
+      background: linear-gradient(160deg, #31105e, #1e1b4b);
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 15px 45px rgba(0,0,0,.3);
+    }
+    .simulator-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .simulator-header h3 { margin: 0; font-size: 1.2rem; font-weight: 800; }
+    .simulator-header h3 i { color: #f43f5e; margin-right: 7px; }
+
+    .simulator-card .form-label { color: #f3e8ff; font-weight: 600; }
+    .simulator-card .form-control {
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.08);
+      color: #fff;
+    }
+    .simulator-card .form-control:focus {
+      border-color: #f43f5e;
+      box-shadow: 0 0 0 .2rem rgba(244,63,94,.2);
+    }
+    .simulator-card .form-range { accent-color: #f43f5e; }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+    .result-box {
+      padding: 16px;
+      border-radius: 13px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .result-box small { display: block; color: #d8b4fe; }
+    .result-box strong { display: block; margin-top: 4px; color: #fff; font-size: 1.45rem; }
+
+    .formula-note {
+      margin-top: 14px;
+      color: #d8b4fe;
+      font-size: .82rem;
+    }
+
+    .science-sources {
+      margin-top: 28px;
+      color: #d8b4fe;
+      font-size: .85rem;
+      text-align: center;
+    }
+    .science-sources a { color: #fbcfe8; text-underline-offset: 3px; }
+
+    .quiz-card {
+      max-width: 820px;
+      margin: auto;
+      padding: 38px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+    .answer-btn {
+      width: 100%;
+      padding: 15px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+      color: var(--text);
+      text-align: left;
+      transition: .2s ease;
+    }
+    .answer-btn:hover:not(:disabled) {
+      border-color: var(--party-pink);
+      background: #fdf2f8;
+      transform: translateX(2px);
+    }
+    .answer-btn.correct { background: #ecfdf5; border-color: #059669; }
+    .answer-btn.wrong { background: #fef2f2; border-color: var(--danger); }
+    .answer-btn:disabled { cursor: default; opacity: 1; }
+
+    .forum-section { background: var(--surface-soft); }
+    .new-post, .post {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.04);
+    }
+    .new-post { padding: 28px; }
+    .post { padding: 24px; margin-bottom: 14px; }
+    .post h3 { font-size: 1.15rem; }
+    .post p { color: var(--muted); margin-bottom: 10px; }
+    .tag {
+      display: inline-block;
+      padding: 5px 11px;
+      border-radius: 999px;
+      color: #9d174d;
+      background: #fdf2f8;
+      font-size: .75rem;
+      font-weight: 700;
+    }
+
+    footer { padding: 42px 0; background: #18122b; color: #bca8df; }
+    footer h4 { color: #fff; }
+    footer i { color: #f43f5e; }
+
+    .dark-mode {
+      --bg: #110c1d;
+      --surface: #1e1535;
+      --surface-soft: #17102b;
+      --text: #f5f3ff;
+      --muted: #c4b5fd;
+      --border: #3b2863;
+      --shadow: 0 18px 50px rgba(0,0,0,.3);
+    }
+    .dark-mode .topic-card > i { background: #2e1d52; }
+    .dark-mode .answer-btn { background: var(--surface); color: #fff; }
+    .dark-mode .answer-btn:hover:not(:disabled) { background: #2e1d52; }
+    .dark-mode .forum-section { background: var(--surface-soft); }
+    .dark-mode .post p { color: #c4b5fd; }
+    .dark-mode .form-control { background: #17102b; }
+
+    @media (max-width: 991px) {
+      .hero { padding-top: 100px; }
+      .party-box { min-height: 360px; }
+    }
+    @media (max-width: 575px) {
+      .section { padding: 70px 0; }
+      .quiz-card, .simulator-card { padding: 22px; }
+      .party-box { display: none; }
+      .result-grid { grid-template-columns: 1fr; }
+      .hero h1 { letter-spacing: -1px; }
+    }
+  </style>
+  <link rel="stylesheet" href="assets/css/purple-dreams-brand.css">
+    <link rel="stylesheet" href="assets/css/site-navigation.css">
+  <link rel="icon" type="image/svg+xml" href="assets/images/a16-mark.svg">
+  <link rel="stylesheet" href="assets/css/a16-mark.css">
+</head>
+
+<body>
+<a class="a16-signature" href="index.html" aria-label="A16 — voltar ao início"><img src="assets/images/a16-mark.svg" alt="A16"></a>
+
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#inicio"><i class="bi bi-cake2-fill"></i> Física<span>Lab</span> 🎉</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
+              aria-controls="menu" aria-expanded="false" aria-label="Abrir menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#conteudos">Conteúdos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#simuladores">Simuladores Festivos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#quiz">Quiz de Aniversário</a></li>
+          <li class="nav-item"><a class="nav-link" href="#forum">Mural de Recados</a></li>
+          <li class="nav-item ms-lg-2">
+            <button id="themeBtn" class="btn btn-outline-light" type="button" aria-label="Alternar tema">
+              <i class="bi bi-moon-stars"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header id="inicio" class="hero">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+          <span class="badge-custom"><i class="bi bi-balloon-fill"></i> Edição Especial • Feliz Aniversário!</span>
+          <h1>Comemore com muita <span>Ciência & Alegria!</span></h1>
+          <p class="lead">
+            Bem-vindo à edição comemorativa do FísicaLab! Preparamos experiências interativas especiais
+            inspiradas na física de uma grande festa de aniversário. Divirta-se e aprenda!
+          </p>
+
+          <div class="d-flex flex-wrap gap-3 mt-4">
+            <a href="#simuladores" class="btn btn-danger btn-lg px-4" style="background-color: #f43f5e; border: none;">
+              Explorar simuladores <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+            <a href="#forum" class="btn btn-outline-light btn-lg px-4">Deixar Recado 🎂</a>
+          </div>
+
+          <div class="row mt-5">
+            <div class="col-4"><strong class="stat">100%</strong><small>diversão</small></div>
+            <div class="col-4"><strong class="stat">04</strong><small>experiências</small></div>
+            <div class="col-4"><strong class="stat">VIP</strong><small>aniversariante</small></div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="party-box" aria-hidden="true">
+            <div class="cake-badge">
+              <i class="bi bi-gift-fill"></i>
+              <h3>Parabéns pelo Aniversário!</h3>
+              <p class="text-white-50 mb-0">Que o seu dia seja repleto de energia positiva e momentos inesquecíveis.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="conteudos" class="section">
+    <div class="container">
+      <div class="section-title">
+        <span>CATEGORIAS DA FESTA</span>
+        <h2>A Física por trás da Celebração</h2>
+        <p>Explore como os princípios científicos tornam qualquer comemoração mais especial.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <article class="topic-card">
+            <i class="bi bi-balloon-fill"></i>
+            <h3>Dinâmica dos Balões</h3>
+            <p>Empuxo, queda livre e a aerodinâmica dos balões de hélio na festa.</p>
+            <a href="#simuladores">Explorar <i class="bi bi-arrow-right"></i></a>
+          </article>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <article class="topic-card">
+            <i class="bi bi-lightbulb-fill"></i>
+            <h3>Iluminação & Circuitos</h3>
+            <p>Pisca-piscas, potência elétrica, tensão e corrente nas luzes de LED.</p>
+            <a href="#simuladores">Explorar <i class="bi bi-arrow-right"></i></a>
+          </article>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <article class="topic-card">
+            <i class="bi bi-fire"></i>
+            <h3>Termodinâmica do Bolo</h3>
+            <p>O calor das velinhas, temperatura e expansão térmica dos gases.</p>
+            <a href="#simuladores">Explorar <i class="bi bi-arrow-right"></i></a>
+          </article>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <article class="topic-card">
+            <i class="bi bi-music-note-beamed"></i>
+            <h3>Acústica Festiva</h3>
+            <p>O som das palmas, frequência sonora e as ondas do "Parabéns a Você".</p>
+            <a href="#quiz">Testar conhecimentos <i class="bi bi-arrow-right"></i></a>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="simuladores" class="section simulator-section">
+    <div class="container">
+      <div class="section-title">
+        <span>LABORATÓRIO FESTIVO</span>
+        <h2>Simuladores de Aniversário</h2>
+        <p>Altere os parâmetros e observe os resultados calculados instantaneamente.</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- QUEDA LIVRE -->
+        <div class="col-lg-6">
+          <article class="simulator-card">
+            <div class="simulator-header">
+              <h3><i class="bi bi-arrow-down-circle"></i> Queda Livre</h3>
+              <span class="badge text-bg-danger">v = g · t</span>
+            </div>
+
+            <div class="mb-4">
+              <label for="time" class="form-label d-flex justify-content-between">
+                <span>Tempo de queda</span><strong><span id="timeValue">3.0</span> s</strong>
+              </label>
+              <input id="time" class="form-range" type="range" min="0" max="10" step="0.1" value="3">
+            </div>
+
+            <div class="mb-3">
+              <label for="gravity" class="form-label d-flex justify-content-between">
+                <span>Gravidade do Planeta Festa</span><strong><span id="gravityValue">9.81</span> m/s²</strong>
+              </label>
+              <input id="gravity" class="form-range" type="range" min="1" max="25" step="0.01" value="9.81">
+            </div>
+
+            <div class="result-grid">
+              <div class="result-box"><small>Velocidade final</small><strong id="velocity">29.43 m/s</strong></div>
+              <div class="result-box"><small>Distância de queda</small><strong id="distance">44.15 m</strong></div>
+            </div>
+            <div class="formula-note">Objeto solto do repouso; aproximação sem resistência do ar e com g constante. v = g·t &nbsp; • &nbsp; d = ½·g·t²</div>
+          </article>
+        </div>
+
+        <!-- PISCA-PISCAS (LEI DE OHM) -->
+        <div class="col-lg-6">
+          <article class="simulator-card">
+            <div class="simulator-header">
+              <h3><i class="bi bi-lightbulb"></i> Circuito de Luzes (LEDs)</h3>
+              <span class="badge text-bg-danger">V = R · I</span>
+            </div>
+
+            <div class="row g-3 mb-4">
+              <div class="col-6">
+                <label for="voltage" class="form-label">Tensão (V)</label>
+                <input id="voltage" class="form-control form-control-lg" type="number" value="12" min="0" step="0.5">
+              </div>
+              <div class="col-6">
+                <label for="resistance" class="form-label">Resistência (Ω)</label>
+                <input id="resistance" class="form-control form-control-lg" type="number" value="6" min="0.1" step="0.5">
+              </div>
+            </div>
+
+            <div class="result-box text-center">
+              <small>Corrente elétrica nas luzes</small>
+              <strong id="current">2.00 A</strong>
+              <span id="power" class="badge text-bg-warning mt-2 text-dark">Potência dos LEDs: 24.00 W</span>
+            </div>
+            <div class="formula-note">I = V/R &nbsp; • &nbsp; P = V·I</div>
+          </article>
+        </div>
+
+        <!-- AMBIENTE DO BOLO (GASES IDEAIS) -->
+        <div class="col-lg-6">
+          <article class="simulator-card">
+            <div class="simulator-header">
+              <h3><i class="bi bi-thermometer-sun"></i> Calor das Velinhas</h3>
+              <span class="badge text-bg-danger">P·V = n·R·T</span>
+            </div>
+
+            <div class="mb-4">
+              <label for="temperature" class="form-label d-flex justify-content-between">
+                <span>Temperatura da Festa</span><strong><span id="tempValue">300</span> K</strong>
+              </label>
+              <input id="temperature" class="form-range" type="range" min="100" max="600" step="5" value="300">
+            </div>
+
+            <div class="mb-3">
+              <label for="volume" class="form-label d-flex justify-content-between">
+                <span>Volume da Sala</span><strong><span id="volumeValue">10.0</span> L</strong>
+              </label>
+              <input id="volume" class="form-range" type="range" min="1" max="50" step="0.5" value="10">
+            </div>
+
+            <div class="result-grid">
+              <div class="result-box"><small>Pressão do ar festivo</small><strong id="pressure">2.46 atm</strong></div>
+              <div class="result-box"><small>Moles de alegria</small><strong>1.00 mol</strong></div>
+            </div>
+            <div class="formula-note">n = 1 mol &nbsp; • &nbsp; R = 0.082057 L·atm/(mol·K)</div>
+          </article>
+        </div>
+
+        <!-- SOM DE ANIVERSÁRIO -->
+        <div class="col-lg-6">
+          <article class="simulator-card">
+            <div class="simulator-header">
+              <h3><i class="bi bi-soundwave"></i> Som na Festa</h3>
+              <span class="badge text-bg-danger">v ∝ √T</span>
+            </div>
+
+            <div class="mb-4">
+              <label for="airTemperature" class="form-label d-flex justify-content-between">
+                <span>Temperatura do ar</span><strong><span id="airTempValue">20</span> °C</strong>
+              </label>
+              <input id="airTemperature" class="form-range" type="range" min="-20" max="40" step="1" value="20">
+            </div>
+
+            <div class="mb-3">
+              <label for="frequency" class="form-label d-flex justify-content-between">
+                <span>Frequência de referência</span><strong><span id="freqValue">50</span> Hz</strong>
+              </label>
+              <input id="frequency" class="form-range" type="range" min="1" max="200" step="1" value="50">
+            </div>
+
+            <div class="result-grid">
+              <div class="result-box"><small>Velocidade do som</small><strong id="waveSpeed">343.10 m/s</strong></div>
+              <div class="result-box"><small>Comprimento de onda</small><strong id="waveLength">6.86 m</strong></div>
+              <div class="result-box"><small>Período</small><strong id="wavePeriod">0.020 s</strong></div>
+            </div>
+            <div class="formula-note">v = (643.855 × 0.514444) × √((T + 273.15) / 273.15) m/s, com T em °C. λ = v/f; período = 1/f.</div>
+          </article>
+        </div>
+      </div>
+      <p class="science-sources">Fontes para explorar: <a href="https://openstax.org/books/college-physics-2e/pages/2-7-falling-objects" target="_blank" rel="noopener noreferrer">OpenStax — queda livre</a> · <a href="https://www.grc.nasa.gov/www/k-12/WindTunnel/Activities/buoy_Archimedes.html" target="_blank" rel="noopener noreferrer">NASA Glenn — empuxo</a> · <a href="https://www.weather.gov/epz/wxcalc_speedofsound" target="_blank" rel="noopener noreferrer">NOAA — velocidade do som</a></p>
+    </div>
+  </section>
+
+  <section id="quiz" class="section">
+    <div class="container">
+      <div class="section-title">
+        <span>DESAFIO COMEMORATIVO</span>
+        <h2>Quiz de Aniversário & Física</h2>
+        <p>Responda às questões e descubra o seu nível de festividade científica!</p>
+      </div>
+
+      <div class="quiz-card">
+          <div class="progress mb-4" style="height:10px;">
+            <div id="progress" class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+               role="progressbar" aria-label="Progresso do quiz" style="width:25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-valuetext="Questão 1 de 4"></div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <span id="questionCount" class="badge text-bg-danger px-3 py-2">Questão 1 de 4</span>
+          <span id="scoreText" class="fw-bold text-secondary">Pontuação: 0</span>
+        </div>
+
+        <p id="quizAnnouncement" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
+        <h3 id="question" class="fs-4 fw-bold mb-4"></h3>
+        <div id="answers" class="d-flex flex-column gap-3 mb-4"></div>
+
+        <div class="pt-3 border-top d-flex justify-content-between align-items-center">
+          <button id="restartBtn" class="btn btn-outline-secondary d-none" type="button">
+            <i class="bi bi-arrow-counterclockwise me-1"></i> Reiniciar
+          </button>
+          <button id="nextBtn" class="btn btn-danger px-4 ms-auto" type="button" disabled style="background-color: #f43f5e; border: none;">
+            Próxima <i class="bi bi-arrow-right ms-1"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="forum" class="section forum-section">
+    <div class="container">
+      <div class="section-title">
+        <span>MENSAGENS ESPECIAIS</span>
+        <h2>Mural de Recados do Aniversariante</h2>
+        <p>Deixe sua mensagem de parabéns e carinho. Os recados ficam salvos neste dispositivo!</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div class="new-post">
+            <h3 class="h5 fw-bold mb-3">Escrever Mensagem 💌</h3>
+
+            <label class="form-label" for="postTitle">Seu Nome / Título</label>
+            <input id="postTitle" class="form-control mb-3" maxlength="100" placeholder="Ex.: Parabéns do Grupo!">
+
+            <label class="form-label" for="postBody">Sua Mensagem</label>
+            <textarea id="postBody" class="form-control mb-3" rows="5" maxlength="500"
+                      placeholder="Deixe seus parabéns e desejos de sucesso..."></textarea>
+
+            <button id="publishBtn" class="btn btn-danger w-100" type="button" style="background-color: #f43f5e; border: none;">
+              <i class="bi bi-send me-1"></i> Enviar Parabéns
+            </button>
+            <div id="postMessage" class="small mt-2" role="status" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <div class="col-lg-7">
+          <div id="posts" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="row align-items-center gy-3">
+        <div class="col-md-6 text-center text-md-start">
+          <h4 class="mb-1"><i class="bi bi-cake2-fill me-2"></i>FísicaLab - Edição de Aniversário</h4>
+          <p class="mb-0 text-white-50">Celebramos cada momento com muita ciência, alegria e afeto.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <p class="mb-0 text-white-50">Parabéns pelo seu dia especial! 🎈</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    "use strict";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initFreeFall();
+      initOhm();
+      initGasLaw();
+      initWave();
+      initQuiz();
+      initForum();
+      initTheme();
+      initMobileMenu();
+    });
+
+    const $ = (selector) => document.querySelector(selector);
+
+    const numberValue = (element, fallback = 0) => {
+      const value = Number.parseFloat(element?.value);
+      return Number.isFinite(value) ? value : fallback;
+    };
+
+    function initFreeFall() {
+      const time = $("#time");
+      const gravity = $("#gravity");
+      if (!time || !gravity) return;
+
+      const timeValue = $("#timeValue");
+      const gravityValue = $("#gravityValue");
+      const velocity = $("#velocity");
+      const distance = $("#distance");
+
+      function update() {
+        const t = numberValue(time);
+        const g = numberValue(gravity);
+
+        const v = g * t;
+        const h = Math.round((0.5 * g * t * t + Number.EPSILON) * 100) / 100;
+
+        timeValue.textContent = t.toFixed(1);
+        gravityValue.textContent = g.toFixed(2);
+        velocity.textContent = `${v.toFixed(2)} m/s`;
+        distance.textContent = `${h.toFixed(2)} m`;
+      }
+
+      time.addEventListener("input", update);
+      gravity.addEventListener("input", update);
+      update();
+    }
+
+    function initOhm() {
+      const voltage = $("#voltage");
+      const resistance = $("#resistance");
+      if (!voltage || !resistance) return;
+
+      const current = $("#current");
+      const power = $("#power");
+
+      function update() {
+        const V = Math.max(0, numberValue(voltage));
+        const R = Math.max(0.01, numberValue(resistance, 0.01));
+
+        const I = V / R;
+        const P = V * I;
+
+        current.textContent = `${I.toFixed(2)} A`;
+        power.textContent = `Potência dos LEDs: ${P.toFixed(2)} W`;
+      }
+
+      voltage.addEventListener("input", update);
+      resistance.addEventListener("input", update);
+      update();
+    }
+
+    function initGasLaw() {
+      const temperature = $("#temperature");
+      const volume = $("#volume");
+      if (!temperature || !volume) return;
+
+      const tempValue = $("#tempValue");
+      const volumeValue = $("#volumeValue");
+      const pressure = $("#pressure");
+
+      const n = 1;
+      const R = 0.082057;
+
+      function update() {
+        const T = Math.max(1, numberValue(temperature));
+        const V = Math.max(0.01, numberValue(volume, 0.01));
+        const P = (n * R * T) / V;
+
+        tempValue.textContent = T.toFixed(0);
+        volumeValue.textContent = V.toFixed(1);
+        pressure.textContent = `${P.toFixed(2)} atm`;
+      }
+
+      temperature.addEventListener("input", update);
+      volume.addEventListener("input", update);
+      update();
+    }
+
+    function initWave() {
+      const airTemperature = $("#airTemperature");
+      const frequency = $("#frequency");
+      if (!airTemperature || !frequency) return;
+
+      const airTempValue = $("#airTempValue");
+      const freqValue = $("#freqValue");
+      const waveSpeed = $("#waveSpeed");
+      const waveLength = $("#waveLength");
+      const wavePeriod = $("#wavePeriod");
+
+      function update() {
+        const tempC = numberValue(airTemperature, 20);
+        const f = Math.max(0.01, numberValue(frequency, 0.01));
+        const v = (643.855 * 0.514444) * Math.sqrt((tempC + 273.15) / 273.15);
+        const lambda = v / f;
+        const period = 1 / f;
+
+        airTempValue.textContent = tempC.toFixed(0);
+        freqValue.textContent = f.toFixed(0);
+        waveSpeed.textContent = `${v.toFixed(2)} m/s`;
+        waveLength.textContent = `${lambda.toFixed(2)} m`;
+        wavePeriod.textContent = `${period.toFixed(3)} s`;
+      }
+
+      airTemperature.addEventListener("input", update);
+      frequency.addEventListener("input", update);
+      update();
+    }
+
+    const quizQuestions = [
+      {
+        question: "Qual é o principal combustível de alegria e energia em uma festa de aniversário?",
+        answers: [
+          { text: "A presença dos amigos e muita animação", correct: true },
+          { text: "Apenas equações diferenciais estáticas", correct: false },
+          { text: "Resistores de carbono isolados", correct: false },
+          { text: "Nenhuma das anteriores", correct: false }
+        ]
+      },
+      {
+        question: "O ar aquecido pelas velinhas tende a subir e circular. Qual processo de transferência de calor descreve esse movimento?",
+        answers: [
+          { text: "Convecção natural", correct: true },
+          { text: "Fusão nuclear controlada", correct: false },
+          { text: "Indução eletromagnética pura", correct: false },
+          { text: "Condensação estelar instantânea", correct: false }
+        ]
+      },
+      {
+        question: "Se a festa está cheia de balões com gás hélio, por que eles tendem a subir?",
+        answers: [
+          { text: "Porque o empuxo do ar supera o peso do balão cheio de hélio", correct: true },
+          { text: "Porque eles sofrem atração magnética terrestre", correct: false },
+          { text: "Devido à inércia quântica do látex", correct: false },
+          { text: "Por causa da velocidade da luz", correct: false }
+        ]
+      },
+      {
+        question: "Qual unidade do SI mede a potência elétrica de uma guirlanda de luzes?",
+        answers: [
+          { text: "Watt (W)", correct: true },
+          { text: "Volt por segundo", correct: false },
+          { text: "Quilograma (kg)", correct: false },
+          { text: "Newton (N)", correct: false }
+        ]
+      }
+    ];
+
+    function initQuiz() {
+      let currentQuestion = 0;
+      let score = 0;
+      let answered = false;
+
+      const questionEl = $("#question");
+      const answersEl = $("#answers");
+      const progressEl = $("#progress");
+      const announcementEl = $("#quizAnnouncement");
+      const questionCountEl = $("#questionCount");
+      const scoreTextEl = $("#scoreText");
+      const nextBtn = $("#nextBtn");
+      const restartBtn = $("#restartBtn");
+
+      if (!questionEl || !answersEl) return;
+
+      function loadQuestion() {
+        answered = false;
+        nextBtn.disabled = true;
+        
+        const q = quizQuestions[currentQuestion];
+        questionCountEl.textContent = `Questão ${currentQuestion + 1} de ${quizQuestions.length}`;
+        const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
+        progressEl.style.width = `${progress}%`;
+        progressEl.setAttribute("aria-valuenow", String(progress));
+        progressEl.setAttribute("aria-valuetext", questionCountEl.textContent);
+        scoreTextEl.textContent = `Pontuação: ${score}`;
+        questionEl.textContent = q.question;
+        announcementEl.textContent = `${questionCountEl.textContent}. ${q.question}`;
+        
+        answersEl.innerHTML = "";
+        q.answers.forEach((ans) => {
+          const btn = document.createElement("button");
+          btn.className = "answer-btn";
+          btn.type = "button";
+          btn.innerHTML = `<span>${ans.text}</span><i class="bi bi-circle"></i>`;
+          btn.addEventListener("click", () => selectAnswer(ans, btn));
+          answersEl.appendChild(btn);
+        });
+      }
+
+      function selectAnswer(ans, btn) {
+        if (answered) return;
+        answered = true;
+
+        const buttons = answersEl.querySelectorAll("button");
+        buttons.forEach(b => b.disabled = true);
+
+        if (ans.correct) {
+          score++;
+          btn.classList.add("correct");
+          btn.querySelector("i").className = "bi bi-check-circle-fill text-success";
+        } else {
+          btn.classList.add("wrong");
+          btn.querySelector("i").className = "bi bi-x-circle-fill text-danger";
+        }
+        scoreTextEl.textContent = `Pontuação: ${score}`;
+        announcementEl.textContent = `${ans.correct ? "Resposta correta." : "Resposta incorreta."} Pontuação: ${score}.`;
+        nextBtn.disabled = false;
+
+        if (currentQuestion === quizQuestions.length - 1) {
+          nextBtn.innerHTML = `Ver resultado <i class="bi bi-flag ms-1"></i>`;
+        }
+      }
+
+      nextBtn.addEventListener("click", () => {
+        currentQuestion++;
+        if (currentQuestion < quizQuestions.length) {
+          loadQuestion();
+        } else {
+          showResults();
+        }
+      });
+
+      function showResults() {
+        questionEl.textContent = `Parabéns! Você concluiu o Quiz com ${score} de ${quizQuestions.length} acertos!`;
+        announcementEl.textContent = questionEl.textContent;
+        answersEl.innerHTML = `<div class="alert alert-success text-center py-4">🎂 Você é um verdadeiro expert em celebrar a vida e a física com alegria!</div>`;
+        nextBtn.classList.add("d-none");
+        restartBtn.classList.remove("d-none");
+      }
+
+      restartBtn.addEventListener("click", () => {
+        currentQuestion = 0;
+        score = 0;
+        nextBtn.classList.remove("d-none");
+        restartBtn.classList.add("d-none");
+        nextBtn.innerHTML = `Próxima <i class="bi bi-arrow-right ms-1"></i>`;
+        loadQuestion();
+      });
+
+      loadQuestion();
+    }
+
+    function initForum() {
+      const postTitle = $("#postTitle");
+      const postBody = $("#postBody");
+      const publishBtn = $("#publishBtn");
+      const postsContainer = $("#posts");
+      const postMessage = $("#postMessage");
+
+      if (!postTitle || !publishBtn || !postsContainer) return;
+
+      let posts = JSON.parse(localStorage.getItem("fisicalab_birthday_posts") || "[]");
+
+      if (posts.length === 0) {
+        posts = [
+          { title: "Parabéns pelo seu dia!", body: "Desejo muita saúde, paz, sucesso e que todos os seus sonhos se realizem com muita energia positiva!", time: "Hoje, 11:00" }
+        ];
+        savePosts();
+      }
+
+      function savePosts() {
+        localStorage.setItem("fisicalab_birthday_posts", JSON.stringify(posts));
+      }
+
+      function renderPosts() {
+        postsContainer.innerHTML = "";
+        posts.forEach((p, index) => {
+          const article = document.createElement("article");
+          article.className = "post";
+          article.innerHTML = `
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h3 class="fw-bold mb-0">${escapeHtml(p.title)}</h3>
+              <span class="tag">Felicitações 🎈</span>
+            </div>
+            <p>${escapeHtml(p.body)}</p>
+            <div class="d-flex justify-content-between align-items-center text-muted small">
+              <span><i class="bi bi-clock me-1"></i>${escapeHtml(p.time)}</span>
+              <button class="btn btn-sm btn-outline-danger border-0 delete-post" data-index="${index}"><i class="bi bi-trash"></i></button>
+            </div>
+          `;
+          postsContainer.appendChild(article);
+        });
+
+        postsContainer.querySelectorAll(".delete-post").forEach(btn => {
+          btn.addEventListener("click", (e) => {
+            const idx = e.currentTarget.getAttribute("data-index");
+            posts.splice(idx, 1);
+            savePosts();
+            renderPosts();
+          });
+        });
+      }
+
+      function escapeHtml(str) {
+        return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      }
+
+      publishBtn.addEventListener("click", () => {
+        const title = postTitle.value.trim();
+        const body = postBody.value.trim();
+
+        if (!title || !body) {
+          postMessage.className = "small mt-2 text-danger";
+          postMessage.textContent = "Preencha seu nome e a mensagem de parabéns.";
+          return;
+        }
+
+        posts.unshift({
+          title,
+          body,
+          time: "Agora mesmo"
+        });
+
+        savePosts();
+        renderPosts();
+
+        postTitle.value = "";
+        postBody.value = "";
+        postMessage.className = "small mt-2 text-success";
+        postMessage.textContent = "Mensagem enviada com sucesso! 🎂";
+        setTimeout(() => postMessage.textContent = "", 3000);
+      });
+
+      renderPosts();
+    }
+
+    function initTheme() {
+      const themeBtn = $("#themeBtn");
+      if (!themeBtn) return;
+
+      const currentTheme = localStorage.getItem("fisicalab_birthday_theme");
+      if (currentTheme === "dark") {
+        document.body.classList.add("dark-mode");
+        themeBtn.innerHTML = `<i class="bi bi-sun"></i>`;
+      }
+
+      themeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        const isDark = document.body.classList.contains("dark-mode");
+        localStorage.setItem("fisicalab_birthday_theme", isDark ? "dark" : "light");
+        themeBtn.innerHTML = isDark ? `<i class="bi bi-sun"></i>` : `<i class="bi bi-moon-stars"></i>`;
+      });
+    }
+
+    function initMobileMenu() {
+      const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+      const menuCollapse = $("#menu");
+      if (!menuCollapse) return;
+
+      navLinks.forEach(link => {
+        link.addEventListener("click", () => {
+          if (menuCollapse.classList.contains("show")) {
+            const bsCollapse = bootstrap.Collapse.getInstance(menuCollapse);
+            if (bsCollapse) bsCollapse.hide();
+          }
+        });
+      });
+    }
+  </script>
+    <script src="assets/js/site-navigation.js"></script>
+</body>
+</html>
