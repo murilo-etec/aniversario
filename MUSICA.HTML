@@ -468,227 +468,380 @@
             </p>
         </div>
     </footer>
+<!-- JavaScript Application Logic -->
+<script>
+    /* Mobile menu toggle */
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
 
-    <!-- JavaScript Application Logic -->
-    <script>
-        /* Mobile menu toggle */
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        function setMobileMenuOpen(open) {
-            mobileMenu.classList.toggle('hidden', !open);
-            mobileMenuBtn.setAttribute('aria-expanded', String(open));
-            mobileMenuBtn.setAttribute('aria-label', open ? 'Fechar menu de navegação' : 'Abrir menu de navegação');
+    function setMobileMenuOpen(open) {
+        mobileMenu.classList.toggle('hidden', !open);
+        mobileMenuBtn.setAttribute('aria-expanded', String(open));
+        mobileMenuBtn.setAttribute('aria-label', open ? 'Fechar menu de navegação' : 'Abrir menu de navegação');
+    }
+
+    mobileMenuBtn.addEventListener('click', () => {
+        setMobileMenuOpen(mobileMenu.classList.contains('hidden'));
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link =>
+        link.addEventListener('click', () => setMobileMenuOpen(false))
+    );
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+            setMobileMenuOpen(false);
+            mobileMenuBtn.focus();
         }
-        mobileMenuBtn.addEventListener('click', () => {
-            setMobileMenuOpen(mobileMenu.classList.contains('hidden'));
-        });
-        mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMobileMenuOpen(false)));
-        document.addEventListener('keydown', event => {
-            if (event.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
-                setMobileMenuOpen(false);
-                mobileMenuBtn.focus();
-            }
-        });
+    });
 
-        /* Countdown Timer */
-        function updateCountdown() {
-            const now = new Date();
-            let target = new Date(now.getFullYear(), 10, 21, 0, 0, 0);
-            if (target <= now) target = new Date(now.getFullYear() + 1, 10, 21, 0, 0, 0);
-            const diff = Math.max(0, target - now);
-            const days = Math.floor(diff / 86400000);
-            const hours = Math.floor((diff % 86400000) / 3600000);
-            const minutes = Math.floor((diff % 3600000) / 60000);
-            const seconds = Math.floor((diff % 60000) / 1000);
-            document.getElementById('days').textContent = String(days).padStart(2, '0');
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    /* Countdown Timer */
+    function updateCountdown() {
+        const now = new Date();
+        let target = new Date(now.getFullYear(), 10, 21, 0, 0, 0);
+
+        if (target <= now) {
+            target = new Date(now.getFullYear() + 1, 10, 21, 0, 0, 0);
         }
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
 
-        /* Piano engine is maintained in assets/js/piano-engine.js. */
+        const diff = Math.max(0, target - now);
 
-        /* Preset Melody Auto-Player */
-        function playMelody(type) {
-            initAudio();
-            const notes = [
-                { freq: 261.63, note: 'C4', delay: 0 },
-                { freq: 261.63, note: 'C4', delay: 250 },
-                { freq: 293.66, note: 'D4', delay: 500 },
-                { freq: 261.63, note: 'C4', delay: 750 },
-                { freq: 349.23, note: 'F4', delay: 1000 },
-                { freq: 329.63, note: 'E4', delay: 1400 },
-                { freq: 261.63, note: 'C4', delay: 2000 },
-                { freq: 261.63, note: 'C4', delay: 2250 },
-                { freq: 293.66, note: 'D4', delay: 2500 },
-                { freq: 261.63, note: 'C4', delay: 2750 },
-                { freq: 392.00, note: 'G4', delay: 3000 },
-                { freq: 349.23, note: 'F4', delay: 3400 }
-            ];
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
 
-            notes.forEach(item => {
-                setTimeout(() => {
-                    playNote(item.freq, item.note, null, 210);
-                }, item.delay);
-            });
+        document.getElementById('days').textContent = String(days).padStart(2, '0');
+        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    }
 
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    /* Piano engine is maintained in assets/js/piano-engine.js. */
+
+    /* Preset Melody Auto-Player */
+    function playMelody(type) {
+        initAudio();
+
+        const notes = [
+            { freq: 261.63, note: 'C4', delay: 0 },
+            { freq: 261.63, note: 'C4', delay: 250 },
+            { freq: 293.66, note: 'D4', delay: 500 },
+            { freq: 261.63, note: 'C4', delay: 750 },
+            { freq: 349.23, note: 'F4', delay: 1000 },
+            { freq: 329.63, note: 'E4', delay: 1400 },
+            { freq: 261.63, note: 'C4', delay: 2000 },
+            { freq: 261.63, note: 'C4', delay: 2250 },
+            { freq: 293.66, note: 'D4', delay: 2500 },
+            { freq: 261.63, note: 'C4', delay: 2750 },
+            { freq: 392.00, note: 'G4', delay: 3000 },
+            { freq: 349.23, note: 'F4', delay: 3400 }
+        ];
+
+        notes.forEach(item => {
             setTimeout(() => {
-                confetti({
-                    particleCount: 30,
-                    spread: 50,
-                    origin: { y: 0.7 },
-                    colors: ['#ffffff', '#cbd5e1', '#94a3b8']
-                });
-            }, notes[notes.length - 1].delay + 200);
-        }
+                playNote(item.freq, item.note, null, 210);
+            }, item.delay);
+        });
 
-        /* Peça instrumental original: piano, cordas agudas e cello sintetizados localmente. */
-        let suiteTimers = [];
-        let suitePlaying = false;
-        function stopOriginalSuite() {
-            suiteTimers.forEach(clearTimeout); suiteTimers = []; suitePlaying = false;
-            const globalIcon = document.getElementById('globalMusicIcon'); if (globalIcon) globalIcon.className = 'fa-solid fa-play';
-            const button = document.getElementById('playOriginalSuite');
-            if (button) button.innerHTML = '<i class="fa-solid fa-play mr-1"></i> Ouvir peça original';
-        }
-        function playStringTone(frequency, delay, duration, waveform='sawtooth', volume=.045) {
-            const run = () => {
-                const Ctx = window.AudioContext || window.webkitAudioContext;
-                if (!Ctx) return;
-                if (!window.__pdStringsContext) window.__pdStringsContext = new Ctx();
-                const ctx = window.__pdStringsContext;
-                if (ctx.state === 'suspended') ctx.resume();
-                const osc = ctx.createOscillator(), filter = ctx.createBiquadFilter(), gain = ctx.createGain();
-                osc.type = waveform; osc.frequency.value = frequency;
-                filter.type = 'lowpass'; filter.frequency.value = waveform === 'sawtooth' ? 1500 : 900;
-                gain.gain.setValueAtTime(.0001, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(volume, ctx.currentTime + .16);
-                gain.gain.setTargetAtTime(.0001, ctx.currentTime + duration/1000, .22);
-                osc.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
-                osc.start(); osc.stop(ctx.currentTime + duration/1000 + 1.0);
-            };
-            suiteTimers.push(setTimeout(run, delay));
-        }
-        function playOriginalSuite() {
-            if (suitePlaying) { stopOriginalSuite(); return; }
-            if (!initAudio()) return;
-            suitePlaying = true;
-            const button = document.getElementById('playOriginalSuite');
-            if (button) button.innerHTML = '<i class="fa-solid fa-stop mr-1"></i> Parar composição';
-            const globalIcon = document.getElementById('globalMusicIcon'); if (globalIcon) globalIcon.className = 'fa-solid fa-pause';
-            const melody = [659.25,587.33,523.25,587.33,659.25,783.99,659.25,587.33,523.25,440,493.88,523.25,587.33,659.25,523.25,493.88];
-            melody.forEach((hz,i)=>{
-                suiteTimers.push(setTimeout(()=>{ if(suitePlaying) playNote(hz, `Nota ${i+1}`, null, 460, false); }, i*430));
-                if(i%2===0) playStringTone(hz/2, i*430, 760, 'sawtooth', .028);
+        setTimeout(() => {
+            confetti({
+                particleCount: 30,
+                spread: 50,
+                origin: { y: 0.7 },
+                colors: ['#ffffff', '#cbd5e1', '#94a3b8']
             });
-            [261.63,329.63,392,493.88].forEach((hz,i)=>playStringTone(hz, 0, 2500, 'triangle', .018));
-            suiteTimers.push(setTimeout(stopOriginalSuite, melody.length*430+800));
+        }, notes[notes.length - 1].delay + 200);
+    }
+
+    /* Peça instrumental original */
+    let suiteTimers = [];
+    let suitePlaying = false;
+
+    function stopOriginalSuite() {
+        suiteTimers.forEach(clearTimeout);
+        suiteTimers = [];
+        suitePlaying = false;
+
+        const globalIcon = document.getElementById('globalMusicIcon');
+        if (globalIcon) globalIcon.className = 'fa-solid fa-play';
+
+        const button = document.getElementById('playOriginalSuite');
+        if (button) {
+            button.innerHTML = '<i class="fa-solid fa-play mr-1"></i> Ouvir peça original';
         }
-        function toggleGlobalMusic() { playOriginalSuite(); }
-        document.addEventListener('visibilitychange', () => { if (document.hidden) stopOriginalSuite(); });
+    }
 
-        /* Guestbook Adding */
-        function addMessage(e) {
-            e.preventDefault();
-            const name = document.getElementById('guestName').value;
-            const note = document.getElementById('guestNote').value;
-            const text = document.getElementById('guestText').value;
+    function playStringTone(frequency, delay, duration, waveform='sawtooth', volume=.045) {
+        const run = () => {
+            const Ctx = window.AudioContext || window.webkitAudioContext;
+            if (!Ctx) return;
 
-            const container = document.getElementById('messagesContainer');
-            const msgCard = document.createElement('div');
-            msgCard.className = 'subtle-glass border border-white/10 p-5 rounded-2xl shadow-sm';
-            msgCard.innerHTML = `
-                <div class="flex justify-between items-center mb-1.5">
-                    <span class="font-serif text-sm font-medium text-silver-200">${escapeHtml(name)} ${note ? `<span class="text-[10px] text-gray-400 font-sans font-normal ml-1.5">(${escapeHtml(note)})</span>` : ''}</span>
-                    <span class="text-[10px] text-silver-400">Agora mesmo</span>
-                </div>
-                <p class="text-gray-300 text-xs font-light">"${escapeHtml(text)}"</p>
-            `;
-
-            container.prepend(msgCard);
-            try {
-                const previous = JSON.parse(localStorage.getItem('purpleDreamsMusicGuestbook_v1') || '[]');
-                const entries = Array.isArray(previous) ? previous : [];
-                entries.unshift({ name, note, text, date: new Date().toISOString() });
-                localStorage.setItem('purpleDreamsMusicGuestbook_v1', JSON.stringify(entries.slice(0, 60)));
-            } catch (_) {
-                document.getElementById('guestbookStatus').textContent = 'Recado exibido nesta sessão; o navegador não permitiu salvá-lo.';
+            if (!window.__pdStringsContext) {
+                window.__pdStringsContext = new Ctx();
             }
-            document.getElementById('guestbookForm').reset();
-            
-            if (typeof confetti === 'function') {
-                confetti({
-                    particleCount: 25,
-                    spread: 40,
-                    origin: { y: 0.7 },
-                    colors: ['#ffffff', '#cbd5e1']
-                });
-            }
+
+            const ctx = window.__pdStringsContext;
+
+            if (ctx.state === 'suspended') ctx.resume();
+
+            const osc = ctx.createOscillator();
+            const filter = ctx.createBiquadFilter();
+            const gain = ctx.createGain();
+
+            osc.type = waveform;
+            osc.frequency.value = frequency;
+
+            filter.type = 'lowpass';
+            filter.frequency.value = waveform === 'sawtooth' ? 1500 : 900;
+
+            gain.gain.setValueAtTime(.0001, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(volume, ctx.currentTime + .16);
+            gain.gain.setTargetAtTime(.0001, ctx.currentTime + duration/1000, .22);
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.start();
+            osc.stop(ctx.currentTime + duration/1000 + 1.0);
+        };
+
+        suiteTimers.push(setTimeout(run, delay));
+    }
+
+    function playOriginalSuite() {
+        if (suitePlaying) {
+            stopOriginalSuite();
+            return;
         }
 
+        if (!initAudio()) return;
 
-        /* Reprodução local: o arquivo permanece no dispositivo da pessoa. */
-        const localAudioFile = document.getElementById('localAudioFile');
-        const chooseAudioFile = document.getElementById('chooseAudioFile');
-        const localAudioPlayer = document.getElementById('localAudioPlayer');
-        const audioFileStatus = document.getElementById('audioFileStatus');
-        let localAudioUrl = null;
-        chooseAudioFile.addEventListener('click', () => localAudioFile.click());
-        localAudioFile.addEventListener('change', () => {
-            const file = localAudioFile.files && localAudioFile.files[0];
-            if (!file) return;
-            if (!file.type.startsWith('audio/')) {
-                audioFileStatus.textContent = 'Escolha um arquivo de áudio compatível.';
-                localAudioFile.value = '';
-                return;
+        suitePlaying = true;
+
+        const button = document.getElementById('playOriginalSuite');
+        if (button) {
+            button.innerHTML = '<i class="fa-solid fa-stop mr-1"></i> Parar composição';
+        }
+
+        const globalIcon = document.getElementById('globalMusicIcon');
+        if (globalIcon) globalIcon.className = 'fa-solid fa-pause';
+
+        const melody = [
+            659.25,587.33,523.25,587.33,
+            659.25,783.99,659.25,587.33,
+            523.25,440,493.88,523.25,
+            587.33,659.25,523.25,493.88
+        ];
+
+        melody.forEach((hz, i) => {
+            suiteTimers.push(setTimeout(() => {
+                if (suitePlaying) {
+                    playNote(hz, `Nota ${i+1}`, null, 460, false);
+                }
+            }, i * 430));
+
+            if (i % 2 === 0) {
+                playStringTone(hz/2, i*430, 760, 'sawtooth', .028);
             }
-            if (localAudioUrl) URL.revokeObjectURL(localAudioUrl);
-            localAudioUrl = URL.createObjectURL(file);
-            localAudioPlayer.src = localAudioUrl;
-            localAudioPlayer.hidden = false;
-            localAudioPlayer.load();
-            audioFileStatus.textContent = `Pronto para tocar: ${file.name}`;
         });
-        window.addEventListener('beforeunload', () => {
-            if (localAudioUrl) URL.revokeObjectURL(localAudioUrl);
+
+        [261.63,329.63,392,493.88].forEach((hz, i) => {
+            playStringTone(hz, 0, 2500, 'triangle', .018);
         });
 
+        suiteTimers.push(setTimeout(stopOriginalSuite, melody.length*430+800));
+    }
 
-        /* Restaura recados guardados localmente, sem confiar em HTML vindo do armazenamento. */
-        (function restoreGuestbook() {
-            const container = document.getElementById('messagesContainer');
-            try {
-                const entries = JSON.parse(localStorage.getItem('purpleDreamsMusicGuestbook_v1') || '[]');
-                if (!Array.isArray(entries)) return;
-                entries.slice(0, 60).reverse().forEach(entry => {
-                    if (!entry || typeof entry.name !== 'string' || typeof entry.text !== 'string') return;
-                    const card = document.createElement('article');
-                    card.className = 'subtle-glass border border-white/10 p-5 rounded-2xl shadow-sm';
-                    const header = document.createElement('div');
-                    header.className = 'flex justify-between items-center mb-1.5';
-                    const who = document.createElement('span');
-                    who.className = 'font-serif text-sm font-medium text-silver-200';
-                    who.textContent = entry.name + (entry.note ? ` (${entry.note})` : '');
-                    const when = document.createElement('span');
-                    when.className = 'text-[10px] text-silver-400';
-                    when.textContent = 'Guardado neste navegador';
-                    header.append(who, when);
-                    const body = document.createElement('p');
-                    body.className = 'text-gray-300 text-xs font-light';
-                    body.textContent = `“${entry.text}”`;
-                    card.append(header, body);
-                    container.prepend(card);
-                });
-            } catch (_) { /* Armazenamento local indisponível: o livro continua utilizável nesta sessão. */ }
-        })();
+    function toggleGlobalMusic() {
+        playOriginalSuite();
+    }
 
-        function escapeHtml(str) {
-            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stopOriginalSuite();
+    });
+
+    /* Guestbook Adding + WhatsApp Integration */
+    function addMessage(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('guestName').value.trim();
+        const note = document.getElementById('guestNote').value.trim();
+        const text = document.getElementById('guestText').value.trim();
+
+        if (!name || !text) {
+            document.getElementById('guestbookStatus').textContent =
+                'Preencha seu nome e sua mensagem.';
+            return;
         }
-    </script>
-    <script src="assets/js/piano-engine.js"></script>
-    <script src="assets/js/site-navigation.js"></script>
+
+        const container = document.getElementById('messagesContainer');
+
+        const msgCard = document.createElement('div');
+        msgCard.className = 'subtle-glass border border-white/10 p-5 rounded-2xl shadow-sm';
+
+        msgCard.innerHTML = `
+            <div class="flex justify-between items-center mb-1.5">
+                <span class="font-serif text-sm font-medium text-silver-200">
+                    ${escapeHtml(name)}
+                    ${note ? `<span class="text-[10px] text-gray-400 font-sans font-normal ml-1.5">(${escapeHtml(note)})</span>` : ''}
+                </span>
+                <span class="text-[10px] text-silver-400">Agora mesmo</span>
+            </div>
+            <p class="text-gray-300 text-xs font-light">"${escapeHtml(text)}"</p>
+        `;
+
+        container.prepend(msgCard);
+
+        try {
+            const previous = JSON.parse(
+                localStorage.getItem('purpleDreamsMusicGuestbook_v1') || '[]'
+            );
+
+            const entries = Array.isArray(previous) ? previous : [];
+
+            entries.unshift({
+                name,
+                note,
+                text,
+                date: new Date().toISOString()
+            });
+
+            localStorage.setItem(
+                'purpleDreamsMusicGuestbook_v1',
+                JSON.stringify(entries.slice(0, 60))
+            );
+
+        } catch (_) {
+            document.getElementById('guestbookStatus').textContent =
+                'Recado exibido nesta sessão; o navegador não permitiu salvá-lo.';
+        }
+
+        /* WHATSAPP */
+        const numeroWhatsApp = '5511982822294'; // ALTERE PARA SEU NÚMERO
+
+        const mensagemWhatsApp = `
+💜 NOVO RECADO — PURPLE DREAMS
+
+👤 Nome: ${name}
+
+📝 Identificação: ${note || 'Não informado'}
+
+💌 Mensagem:
+${text}
+
+✨ Enviado pelo site Purple Dreams.
+        `.trim();
+
+        const whatsappURL =
+            `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagemWhatsApp)}`;
+
+        window.open(whatsappURL, '_blank');
+
+        document.getElementById('guestbookForm').reset();
+
+        if (typeof confetti === 'function') {
+            confetti({
+                particleCount: 25,
+                spread: 40,
+                origin: { y: 0.7 },
+                colors: ['#ffffff', '#cbd5e1']
+            });
+        }
+    }
+
+    /* Reprodução local de áudio */
+    const localAudioFile = document.getElementById('localAudioFile');
+    const chooseAudioFile = document.getElementById('chooseAudioFile');
+    const localAudioPlayer = document.getElementById('localAudioPlayer');
+    const audioFileStatus = document.getElementById('audioFileStatus');
+
+    let localAudioUrl = null;
+
+    chooseAudioFile.addEventListener('click', () => localAudioFile.click());
+
+    localAudioFile.addEventListener('change', () => {
+        const file = localAudioFile.files && localAudioFile.files[0];
+        if (!file) return;
+
+        if (!file.type.startsWith('audio/')) {
+            audioFileStatus.textContent = 'Escolha um arquivo de áudio compatível.';
+            localAudioFile.value = '';
+            return;
+        }
+
+        if (localAudioUrl) URL.revokeObjectURL(localAudioUrl);
+
+        localAudioUrl = URL.createObjectURL(file);
+        localAudioPlayer.src = localAudioUrl;
+        localAudioPlayer.hidden = false;
+        localAudioPlayer.load();
+
+        audioFileStatus.textContent = `Pronto para tocar: ${file.name}`;
+    });
+
+    window.addEventListener('beforeunload', () => {
+        if (localAudioUrl) URL.revokeObjectURL(localAudioUrl);
+    });
+
+    /* Restaura recados guardados localmente */
+    (function restoreGuestbook() {
+        const container = document.getElementById('messagesContainer');
+
+        try {
+            const entries = JSON.parse(
+                localStorage.getItem('purpleDreamsMusicGuestbook_v1') || '[]'
+            );
+
+            if (!Array.isArray(entries)) return;
+
+            entries.slice(0, 60).reverse().forEach(entry => {
+                if (!entry || typeof entry.name !== 'string' ||
+                    typeof entry.text !== 'string') return;
+
+                const card = document.createElement('article');
+                card.className = 'subtle-glass border border-white/10 p-5 rounded-2xl shadow-sm';
+
+                const header = document.createElement('div');
+                header.className = 'flex justify-between items-center mb-1.5';
+
+                const who = document.createElement('span');
+                who.className = 'font-serif text-sm font-medium text-silver-200';
+                who.textContent = entry.name + (entry.note ? ` (${entry.note})` : '');
+
+                const when = document.createElement('span');
+                when.className = 'text-[10px] text-silver-400';
+                when.textContent = 'Guardado neste navegador';
+
+                header.append(who, when);
+
+                const body = document.createElement('p');
+                body.className = 'text-gray-300 text-xs font-light';
+                body.textContent = `“${entry.text}”`;
+
+                card.append(header, body);
+                container.prepend(card);
+            });
+
+        } catch (_) {
+            /* Armazenamento local indisponível */
+        }
+    })();
+
+    function escapeHtml(str) {
+        return str.replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+</script>
+
+<script src="assets/js/piano-engine.js"></script>
+<script src="assets/js/site-navigation.js"></script>
 </body>
 </html>
