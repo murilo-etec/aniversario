@@ -16,10 +16,14 @@
   <link rel="stylesheet" href="assets/vendor/bootstrap-icons/font/bootstrap-icons.min.css">
 </head>
 <body>
-<a class="a16-signature" href="index.html" aria-label="A16 — voltar ao início"><img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=64&q=80" alt="A16"></a>
+  <a class="a16-signature" href="index.html" aria-label="A16 — voltar ao início">
+    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=64&q=80" alt="A16">
+  </a>
 
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
   <div class="site-shell" id="siteShell" data-weather="dusk">
+    
+    <!-- Cabeçalho -->
     <header class="site-header">
       <a class="brand" href="index.html" aria-label="Purple Dreams — início">
         <span class="brand-mark" aria-hidden="true">
@@ -39,13 +43,15 @@
     </header>
 
     <main id="conteudo">
-      <section class="hero" aria-labelledby="hero-title">
+      
+      <!-- Seção Hero -->
+      <section class="hero reveal-on-scroll" aria-labelledby="hero-title">
         <img class="hero-image" src="https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=2200&q=82" alt="Fotografia de um jardim mágico com luz suave de fim de tarde">
         <div class="hero-shade" aria-hidden="true"></div>
         <div class="hero-content">
           <p class="eyebrow"><span></span> SANTUÁRIOS VIVOS · EDIÇÃO ALANIS</p>
           <h1 id="hero-title">Um lugar para<br><em>florescer devagar.</em></h1>
-          <p class="hero-copy">Entre jardins, vidro e água, cada pequeno detalhe guarda uma descoberta. Este universo também cresce com você.</p>
+          <p class="hero-copy">Entre jardins, vidro, rosas e água, cada pequeno detalhe guarda uma descoberta. Este universo também cresce com você.</p>
           <div class="hero-actions">
             <a class="button-primary" href="#jardim">Começar o passeio <span aria-hidden="true">↘</span></a>
             <a class="text-link" href="#diario">Ver meu diário</a>
@@ -59,7 +65,8 @@
         <div class="hero-caption"><span>01 / 03</span><span>O jardim encontra a hora dourada</span></div>
       </section>
 
-      <section class="atmosphere-bar" aria-labelledby="atmosphere-heading">
+      <!-- Barra de Atmosfera -->
+      <section class="atmosphere-bar reveal-on-scroll" aria-labelledby="atmosphere-heading">
         <div>
           <p class="eyebrow">A ATMOSFERA DE AGORA</p>
           <h2 id="atmosphere-heading">Mude a luz do seu universo</h2>
@@ -73,25 +80,26 @@
         <p class="atmosphere-status" id="atmosphereStatus" aria-live="polite">Luz dourada, flores em repouso e céu violeta.</p>
       </section>
 
-      <section class="experience-section garden-section" id="jardim" aria-labelledby="garden-title">
+      <!-- Jardim das Tulipas e Rosas -->
+      <section class="experience-section garden-section reveal-on-scroll" id="jardim" aria-labelledby="garden-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">01 · JARDIM DAS TULIPAS</p>
+            <p class="eyebrow">01 · JARDIM DAS ROSAS E TULIPAS</p>
             <h2 id="garden-title">A beleza mora nos detalhes.</h2>
           </div>
-          <p>Um caminho de fim de tarde entre tulipas e camélias. Toque nos pontos de luz para encontrar pequenas histórias.</p>
+          <p>Um caminho de fim de tarde entre rosas perfumadas, tulipas e camélias. Toque nos pontos de luz para encontrar pequenas histórias.</p>
         </div>
         <div class="garden-layout">
           <div class="scene-frame garden-frame">
             <img class="scene-photo" src="https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?auto=format&fit=crop&w=2200&q=82" alt="Jardim florido ao entardecer" loading="lazy">
             <div class="scene-tone" aria-hidden="true"></div>
-            <img class="guide-butterfly garden-butterfly" src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=900&q=78" alt="" aria-hidden="true" loading="lazy">
-            <button class="flower-point point-one" type="button" data-discovery-title="Tulipas de veludo" data-discovery-text="As tulipas roxas e rosadas marcam a entrada do jardim. Observe a forma das pétalas e a variação de tons." aria-label="Descobrir as tulipas de veludo">
-              <img src="https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=240&h=180&q=82" alt="Tulipas em detalhe" loading="lazy">
-              <span>Tulipas</span>
+            <img class="guide-butterfly garden-butterfly" id="floatingButterfly" src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=900&q=78" alt="" aria-hidden="true" loading="lazy">
+            <button class="flower-point point-one" type="button" data-discovery-title="Rosas de veludo" data-discovery-text="Rosas encantadas em tons profundos enchem o ar com um perfume suave e acolhedor." aria-label="Descobrir as rosas">
+              <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=240&h=180&q=82" alt="Rosas em detalhe" loading="lazy">
+              <span>Rosas</span>
             </button>
-            <button class="flower-point point-two" type="button" data-discovery-title="Camélias do entardecer" data-discovery-text="As camélias se destacam pela simetria das pétalas e pelo contraste com as folhas. Observe os detalhes da flor." aria-label="Descobrir as camélias do entardecer">
-              <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=240&h=180&q=82" alt="Flor em detalhe no jardim" loading="lazy">
+            <button class="flower-point point-two" type="button" data-discovery-title="Tulipas e camélias" data-discovery-text="As tulipas e camélias se destacam pela simetria das pétalas e pelo contraste com as folhas." aria-label="Descobrir as tulipas e camélias">
+              <img src="https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=240&h=180&q=82" alt="Flor em detalhe no jardim" loading="lazy">
               <span>Flores</span>
             </button>
             <div class="scene-label"><span>O CAMINHO DAS FLORES</span><span>TOQUE NOS PONTOS LUMINOSOS</span></div>
@@ -110,13 +118,14 @@
         </div>
       </section>
 
-      <section class="experience-section greenhouse-section" id="estufa" aria-labelledby="greenhouse-title">
+      <!-- Estufa de Cristal -->
+      <section class="experience-section greenhouse-section reveal-on-scroll" id="estufa" aria-labelledby="greenhouse-title">
         <div class="section-heading section-heading-light">
           <div>
             <p class="eyebrow">02 · ESTUFA DE CRISTAL</p>
             <h2 id="greenhouse-title">Onde a curiosidade cria raízes.</h2>
           </div>
-          <p>Uma estrutura de vidro acolhe pequenas coleções. Abra uma espécie para registrar o que chamou sua atenção.</p>
+          <p>Uma estrutura de vidro acolhe pequenas coleções de plantas exóticas e rosas raras. Abra uma espécie para registrar o que chamou sua atenção.</p>
         </div>
         <div class="greenhouse-layout">
           <div class="scene-frame greenhouse-frame">
@@ -133,8 +142,8 @@
             <button class="species-row" type="button" aria-label="Registrar descoberta: Orquídea lunar" data-discovery-title="Orquídea lunar" data-discovery-text="Uma presença elegante na coleção da estufa: pétalas delicadas, formas inesperadas e um brilho lilás sob o vidro." data-action-label="Abrir registro">
               <span class="species-no">01</span><span><strong>Orquídea lunar</strong><small>Uma forma que surpreende</small></span><span class="species-arrow" aria-hidden="true">↗</span>
             </button>
-            <button class="species-row" type="button" aria-label="Registrar descoberta: Camélia de inverno" data-discovery-title="Camélia de inverno" data-discovery-text="Uma camélia real pode ser observada pelas pétalas, simetria e contraste com as folhas." data-action-label="Abrir registro">
-              <span class="species-no">02</span><span><strong>Camélia de inverno</strong><small>Cor e contraste</small></span><span class="species-arrow" aria-hidden="true">↗</span>
+            <button class="species-row" type="button" aria-label="Registrar descoberta: Rosa encantada do vidro" data-discovery-title="Rosa encantada do vidro" data-discovery-text="Uma rosa especial protegida pela estufa, exalando delicadeza e charme inigualável." data-action-label="Abrir registro">
+              <span class="species-no">02</span><span><strong>Rosa encantada do vidro</strong><small>Raridade e perfume</small></span><span class="species-arrow" aria-hidden="true">↗</span>
             </button>
             <button class="species-row" type="button" aria-label="Registrar descoberta: Jasmim das estrelas" data-discovery-title="Jasmim das estrelas" data-discovery-text="Pequenas flores claras iluminam a passagem. O nome é parte da coleção poética do Purple Dreams." data-action-label="Abrir registro">
               <span class="species-no">03</span><span><strong>Jasmim das estrelas</strong><small>Um nome do nosso universo</small></span><span class="species-arrow" aria-hidden="true">↗</span>
@@ -144,18 +153,19 @@
         </div>
       </section>
 
-      <section class="botanical-gallery" id="colecao-botanica" aria-labelledby="botanical-title">
+      <!-- Coleção Botânica (Galeria) -->
+      <section class="botanical-gallery reveal-on-scroll" id="colecao-botanica" aria-labelledby="botanical-title">
         <div class="botanical-heading">
           <div>
             <p class="eyebrow">CADERNO BOTÂNICO · COLEÇÃO VISUAL</p>
-            <h2 id="botanical-title">Texturas, folhas e formas naturais.</h2>
+            <h2 id="botanical-title">Rosas, texturas, folhas e formas naturais.</h2>
           </div>
-          <p>Uma pequena coleção de fotografias para observar de perto a variedade das plantas — das folhas delicadas às composições tropicais.</p>
+          <p>Uma pequena coleção de fotografias para observar de perto a variedade das plantas e das rosas — das folhas delicadas às composições florais.</p>
         </div>
         <div class="botanical-grid">
           <figure class="botanical-photo botanical-photo-large">
-            <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=1500&q=84" alt="Pessoa cuidando de plantas em um jardim" loading="lazy">
-            <figcaption><strong>Cuidado diário</strong><span>Jardim e cultivo</span></figcaption>
+            <img src="https://images.unsplash.com/photo-1559563458-527698bf5295?auto=format&fit=crop&w=1500&q=84" alt="Rosas vermelhas e rosadas desabrochando" loading="lazy">
+            <figcaption><strong>Jardim de Rosas</strong><span>Florescimento especial</span></figcaption>
           </figure>
           <figure class="botanical-photo">
             <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1000&q=84" alt="Planta ornamental em vaso" loading="lazy">
@@ -177,19 +187,20 @@
         <p class="botanical-credit">Fotografias: <a href="https://unsplash.com/" target="_blank" rel="noopener noreferrer">Unsplash</a>. As imagens são ilustrativas e podem depender de conexão com a internet.</p>
       </section>
      
-      <section class="companions-section" id="mascotes" aria-labelledby="companions-title">
+      <!-- Companheiros (Milo & Pipo) -->
+      <section class="companions-section reveal-on-scroll" id="mascotes" aria-labelledby="companions-title">
         <div class="companions-copy">
           <p class="eyebrow">COMPANHEIROS DE VIAGEM</p>
           <h2 id="companions-title">Milo e Pipo,<br><em>sempre por perto.</em></h2>
-          <p>Milo e Pipo continuam como personagens do passeio. As fotografias agora mostram fotografias reais de um gato e de um hamster.</p>
-          <div class="companion-note" id="companionNote" aria-live="polite">As fotografias apresentam animais reais que representam os personagens Milo e Pipo.</div>
+          <p>Milo (o gatinho) e Pipo (o hamster) continuam como personagens amados do passeio.</p>
+          <div class="companion-note" id="companionNote" aria-live="polite">As fotografias apresentam os animais reais que representam os personagens Milo e Pipo.</div>
         </div>
         <div class="companion-art companion-photos">
-          <figure>
+          <figure class="pet-card">
             <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=900&q=80" alt="Fotografia de um gato laranja" loading="lazy">
             <figcaption>Milo · gato</figcaption>
           </figure>
-          <figure>
+          <figure class="pet-card">
             <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=900&q=80" alt="Fotografia de um hamster fofo" loading="lazy">
             <figcaption>Pipo · hamster</figcaption>
           </figure>
@@ -204,7 +215,8 @@
         </div>
       </section>
 
-      <section class="diary-section" id="diario" aria-labelledby="diary-title">
+      <!-- Diário de Descobertas -->
+      <section class="diary-section reveal-on-scroll" id="diario" aria-labelledby="diary-title">
         <div class="diary-header">
           <div>
             <p class="eyebrow">DIÁRIO DE DESCOBERTAS</p>
@@ -228,10 +240,12 @@
       </section>
     </main>
 
+    <!-- Créditos Gerais -->
     <section class="photo-sources" aria-label="Créditos das fotografias">
-      <p>Fotografias botânicas adicionais: <a href="https://unsplash.com/" target="_blank" rel="noopener">Unsplash</a>. Uso conforme a licença Unsplash.</p>
+      <p>Fotografias botânicas e ilustrativas: <a href="https://unsplash.com/" target="_blank" rel="noopener">Unsplash</a>. Uso conforme a licença Unsplash.</p>
     </section>
 
+    <!-- Rodapé -->
     <footer class="site-footer">
       <a class="brand brand-footer" href="index.html">
         <span class="brand-mark" aria-hidden="true">
@@ -248,12 +262,14 @@
     </footer>
   </div>
 
+  <!-- Elementos Flutuantes e Diálogos -->
   <button class="butterfly-guide" id="butterflyGuide" type="button" aria-label="Siga a borboleta-guia até a próxima descoberta">
     <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=900&q=78" alt="" aria-hidden="true">
     <span>Próxima descoberta</span>
   </button>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <!-- Diálogo do Modo Fotografia -->
   <dialog class="photo-dialog" id="photoDialog" aria-labelledby="photoDialogTitle">
     <form class="photo-form" id="photoForm">
       <div class="dialog-top">
