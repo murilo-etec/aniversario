@@ -1,31 +1,663 @@
-
 <!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#160b2d">
-  <meta name="description" content="Explore o jardim, a estufa de vidro e o aquário do Purple Dreams. Descubra flores, encontre Milo e Pipo e guarde suas próprias memórias.">
+  <meta name="description" content="Explore o jardim, a estufa de vidro e os santuários do Purple Dreams. Descubra flores, rosas, encontre Milo e Pipo e guarde suas próprias memórias.">
   <title>Santuários Vivos | Purple Dreams</title>
-  <link rel="stylesheet" href="assets/css/purple-dreams-brand.css">
-  <link rel="stylesheet" href="assets/css/santuarios.css">
-  <script src="assets/js/santuarios.js" defer></script>
-  <link rel="stylesheet" href="assets/css/site-navigation.css">
-  <link rel="icon" type="image/svg+xml" href="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=64&q=80">
-  <link rel="stylesheet" href="assets/css/a16-mark.css">
-  <link rel="stylesheet" href="assets/vendor/bootstrap-icons/font/bootstrap-icons.min.css">
+  <!-- Ícones e Fontes -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <style>
+    /* ==========================================
+       ESTILOS INTEGRADOS (CSS) - PURPLE DREAMS
+       ========================================== */
+    :root {
+      --bg-primary: #120724;
+      --bg-surface: rgba(31, 14, 58, 0.75);
+      --accent-color: #d8b4fe;
+      --text-main: #f3e8ff;
+      --text-muted: #d8b4fe;
+      --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    /* Atmosferas */
+    .site-shell[data-weather="dusk"] { background: linear-gradient(135deg, #160b2d 0%, #2e1065 100%); }
+    .site-shell[data-weather="rain"] { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); }
+    .site-shell[data-weather="aurora"] { background: linear-gradient(135deg, #064e3b 0%, #311042 100%); }
+    .site-shell[data-weather="night"] { background: linear-gradient(135deg, #020617 0%, #0f172a 100%); }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #7c3aed;
+      color: white;
+      padding: 8px;
+      z-index: 100;
+    }
+    .skip-link:focus { top: 0; }
+
+    .a16-signature {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 99;
+      background: rgba(255,255,255,0.1);
+      padding: 8px;
+      border-radius: 50%;
+      backdrop-filter: blur(5px);
+    }
+    .a16-signature img { width: 24px; height: 24px; display: block; }
+
+    .site-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.8s ease;
+    }
+
+    /* Cabeçalho */
+    .site-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      background: rgba(18, 7, 36, 0.85);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(216, 180, 254, 0.15);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-mark { width: 32px; height: 32px; fill: #d8b4fe; }
+    .brand strong { display: block; font-size: 1rem; letter-spacing: 1px; }
+    .brand small { font-size: 0.65rem; color: var(--text-muted); }
+
+    .main-nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .main-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+    .main-nav a:hover { color: #fff; }
+
+    .photo-open {
+      background: rgba(216, 180, 254, 0.15);
+      border: 1px solid rgba(216, 180, 254, 0.3);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background 0.3s;
+    }
+    .photo-open:hover { background: rgba(216, 180, 254, 0.3); }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      padding: 4rem 2rem;
+      overflow: hidden;
+    }
+    .hero-image {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      filter: brightness(0.6);
+    }
+    .hero-shade {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(to right, rgba(18,7,36,0.9), rgba(18,7,36,0.4));
+      z-index: 2;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 650px;
+    }
+    .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size.clamp: 2.5rem;
+      font-size: 3rem;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em { font-style: normal; color: #e9d5ff; }
+    .hero-copy {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+      margin-bottom: 2rem;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .button-primary {
+      background: #c084fc;
+      color: #120724;
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: transform 0.2s, background 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .button-primary:hover { background: #d8b4fe; transform: translateY(-2px); }
+    .text-link { color: #e2e8f0; text-decoration: none; font-size: 0.95rem; }
+    .text-link:hover { text-decoration: underline; }
+
+    .hero-foot {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .hero-separator { width: 4px; height: 4px; background: var(--text-muted); border-radius: 50%; }
+    .hero-caption {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 3;
+      font-size: 0.75rem;
+      background: rgba(0,0,0,0.5);
+      padding: 6px 12px;
+      border-radius: 4px;
+    }
+
+    /* Atmosfera Bar */
+    .atmosphere-bar {
+      background: rgba(31, 14, 58, 0.6);
+      border-top: 1px solid rgba(216, 180, 254, 0.1);
+      border-bottom: 1px solid rgba(216, 180, 254, 0.1);
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .atmosphere-bar h2 { font-size: 1.3rem; }
+    .weather-options { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .weather-options button {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(216, 180, 254, 0.2);
+      color: #fff;
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      transition: all 0.3s;
+    }
+    .weather-options button[aria-pressed="true"] {
+      background: #7c3aed;
+      border-color: #c084fc;
+    }
+    .atmosphere-status { width: 100%; font-size: 0.85rem; color: var(--text-muted); text-align: center; }
+
+    /* Seções Gerais */
+    .experience-section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .section-heading { margin-bottom: 3rem; }
+    .section-heading h2 { font-size: 2rem; margin-top: 0.5rem; }
+    .section-heading p { color: var(--text-muted); margin-top: 0.5rem; }
+
+    /* Jardim Layout */
+    .garden-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .scene-frame {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      border: 1px solid rgba(216, 180, 254, 0.2);
+    }
+    .scene-photo { width: 100%; height: 450px; object-fit: cover; display: block; }
+    .scene-tone {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(30, 10, 60, 0.2);
+      pointer-events: none;
+    }
+    .guide-butterfly {
+      position: absolute;
+      top: 30px; right: 30px;
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      animation: floatButterfly 4s ease-in-out infinite;
+    }
+    @keyframes floatButterfly {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(5deg); }
+    }
+    .flower-point {
+      position: absolute;
+      background: rgba(18, 7, 36, 0.85);
+      border: 1px solid #c084fc;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .flower-point:hover { transform: scale(1.05); }
+    .flower-point img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
+    .point-one { bottom: 40px; left: 40px; }
+    .point-two { top: 40px; left: 40px; }
+    
+    .scene-label {
+      position: absolute;
+      bottom: 0; left: 0; width: 100%;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      padding: 1.5rem 1.5rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+    }
+
+    .discovery-card {
+      background: var(--bg-surface);
+      border: 1px solid rgba(216, 180, 254, 0.15);
+      padding: 2rem;
+      border-radius: 24px;
+      backdrop-filter: blur(10px);
+    }
+    .card-index { font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem; }
+    .discovery-card h3 { font-size: 1.3rem; margin-bottom: 1rem; }
+    .discovery-card p { font-size: 0.95rem; color: #e2e8f0; line-height: 1.5; margin-bottom: 1.5rem; }
+    .discovery-line {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .discovery-thumb { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
+    .button-soft {
+      background: rgba(216, 180, 254, 0.1);
+      border: 1px solid rgba(216, 180, 254, 0.3);
+      color: #fff;
+      padding: 0.7rem 1.2rem;
+      border-radius: 12px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+    .button-soft:hover { background: rgba(216, 180, 254, 0.2); }
+
+    /* Estufa Layout */
+    .greenhouse-layout {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    .greenhouse-seal {
+      position: absolute;
+      top: 20px; left: 20px;
+      background: rgba(18, 7, 36, 0.8);
+      padding: 6px 12px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      border: 1px solid rgba(216,180,254,0.3);
+    }
+    .greenhouse-seal img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
+    
+    .species-panel {
+      background: var(--bg-surface);
+      border: 1px solid rgba(216, 180, 254, 0.15);
+      border-radius: 24px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .species-head { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+    .species-row {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(216, 180, 254, 0.1);
+      padding: 1rem;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-align: left;
+      width: 100%;
+    }
+    .species-row:hover { background: rgba(216, 180, 254, 0.1); }
+    .species-no { font-size: 0.8rem; color: var(--text-muted); width: 24px; }
+    .species-row span strong { display: block; font-size: 0.95rem; }
+    .species-row span small { font-size: 0.75rem; color: var(--text-muted); }
+    .collection-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.4; }
+
+    /* Galeria Botânica */
+    .botanical-gallery {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .botanical-heading { margin-bottom: 3rem; }
+    .botanical-heading h2 { font-size: 2rem; margin-top: 0.5rem; }
+    .botanical-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .botanical-photo {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(216, 180, 254, 0.2);
+      height: 250px;
+    }
+    .botanical-photo-large { grid-column: span 2; height: 300px; }
+    .botanical-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .botanical-photo:hover img { transform: scale(1.05); }
+    .botanical-photo figcaption {
+      position: absolute; bottom: 0; left: 0; width: 100%;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      padding: 1.5rem 1rem 1rem;
+      font-size: 0.85rem;
+    }
+    .botanical-photo figcaption strong { display: block; font-size: 1rem; }
+    .botanical-credit { font-size: 0.75rem; color: var(--text-muted); margin-top: 1.5rem; text-align: center; }
+    .botanical-credit a { color: var(--text-muted); }
+
+    /* Companheiros */
+    .companions-section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    .companions-copy h2 { font-size: 2rem; margin: 0.5rem 0 1rem; }
+    .companions-copy p { color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem; }
+    .companion-note { background: rgba(216, 180, 254, 0.1); padding: 1rem; border-radius: 12px; font-size: 0.85rem; border-left: 3px solid #c084fc; }
+    
+    .companion-photos { display: flex; gap: 1rem; grid-column: span 2; }
+    .pet-card {
+      flex: 1;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(216, 180, 254, 0.2);
+      position: relative;
+      height: 300px;
+    }
+    .pet-card img { width: 100%; height: 100%; object-fit: cover; }
+    .pet-card figcaption {
+      position: absolute; bottom: 0; left: 0; width: 100%;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      padding: 1rem;
+      font-weight: 600;
+    }
+    .companion-actions { grid-column: span 3; display: flex; gap: 1rem; }
+    .companion-button {
+      flex: 1;
+      background: var(--bg-surface);
+      border: 1px solid rgba(216, 180, 254, 0.2);
+      padding: 1.2rem;
+      border-radius: 16px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .companion-button:hover { background: rgba(216, 180, 254, 0.15); }
+    .companion-number { font-size: 0.8rem; color: var(--text-muted); }
+    .companion-button strong { display: block; font-size: 1rem; }
+    .companion-button small { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* Diário */
+    .diary-section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .diary-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+    }
+    .diary-header h2 { font-size: 2rem; margin-top: 0.5rem; }
+    .diary-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+    .diary-list {
+      background: var(--bg-surface);
+      border: 1px solid rgba(216, 180, 254, 0.15);
+      border-radius: 24px;
+      padding: 2rem;
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .diary-empty { color: var(--text-muted); text-align: center; margin: auto; font-size: 0.95rem; }
+    .diary-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(216,180,254,0.1);
+      padding: 1.2rem;
+      border-radius: 16px;
+    }
+    .diary-item strong { display: block; font-size: 1.05rem; margin-bottom: 4px; }
+    .diary-item p { font-size: 0.9rem; color: #cbd5e1; margin-bottom: 8px; }
+    .diary-item small { font-size: 0.75rem; color: var(--text-muted); }
+
+    .diary-progress {
+      background: var(--bg-surface);
+      border: 1px solid rgba(216, 180, 254, 0.15);
+      border-radius: 24px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .progress-kicker { font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem; }
+    .diary-progress strong { font-size: 2rem; display: block; margin-bottom: 1rem; }
+    .diary-progress strong small { font-size: 0.9rem; color: var(--text-muted); font-weight: normal; }
+    .progress-track { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; margin-bottom: 1.5rem; }
+    #progressBar { display: block; width: 0%; height: 100%; background: #c084fc; transition: width 0.5s ease; }
+    .diary-progress p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5; }
+    .diary-progress a { color: #c084fc; text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+    .diary-progress a:hover { text-decoration: underline; }
+
+    /* Créditos e Footer */
+    .photo-sources { padding: 2rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); border-top: 1px solid rgba(216, 180, 254, 0.1); }
+    .photo-sources a { color: var(--text-muted); }
+
+    .site-footer {
+      background: rgba(10, 3, 20, 0.95);
+      padding: 3rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(216, 180, 254, 0.15);
+      font-size: 0.9rem;
+    }
+    .brand-footer { font-size: 0.9rem; }
+    .site-footer div { display: flex; gap: 2rem; }
+    .site-footer a { color: var(--text-muted); text-decoration: none; }
+    .site-footer a:hover { color: #fff; }
+    .footer-note { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* Toast Flutuante */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #7c3aed;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      font-size: 0.9rem;
+      z-index: 1000;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: none;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* Modal de Fotografia */
+    .photo-dialog {
+      background: var(--bg-primary);
+      color: #fff;
+      border: 1px solid rgba(216, 180, 254, 0.3);
+      border-radius: 24px;
+      padding: 2.5rem;
+      max-width: 500px;
+      width: 90%;
+      margin: auto;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+    }
+    .photo-dialog::backdrop { background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); }
+    .dialog-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .dialog-close { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+    .photo-form h2 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .photo-form p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    
+    .upload-zone {
+      border: 2px dashed rgba(216, 180, 254, 0.3);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+      transition: border-color 0.3s;
+    }
+    .upload-zone:hover { border-color: #c084fc; }
+    .upload-zone input { display: none; }
+    .upload-mark { font-size: 1.5rem; color: #c084fc; }
+    .upload-zone strong { font-size: 0.95rem; }
+    .upload-zone small { font-size: 0.75rem; color: var(--text-muted); }
+
+    .photo-preview { margin-bottom: 1.5rem; text-align: center; }
+    .photo-preview img { max-height: 150px; border-radius: 12px; border: 1px solid rgba(216,180,254,0.3); }
+
+    .caption-label { display: block; font-size: 0.85rem; margin-bottom: 0.5rem; color: var(--text-muted); }
+    .caption-label span { color: #64748b; }
+    .caption-input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(216,180,254,0.2);
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    .caption-input:focus { outline: none; border-color: #c084fc; }
+
+    .dialog-actions { display: flex; gap: 1rem; justify-content: flex-end; }
+    .button-secondary {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .main-nav { display: none; }
+      .garden-layout, .greenhouse-layout, .diary-content, .companions-section { grid-template-columns: 1fr; }
+      .botanical-grid { grid-template-columns: 1fr; }
+      .botanical-photo-large { grid-column: span 1; }
+      .companion-photos { grid-column: span 1; flex-direction: column; }
+      .companion-actions { grid-column: span 1; flex-direction: column; }
+      .site-footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .site-footer div { flex-direction: column; gap: 0.8rem; }
+    }
+  </style>
 </head>
 <body>
-  <a class="a16-signature" href="index.html" aria-label="A16 — voltar ao início">
+  <a class="a16-signature" href="#" aria-label="A16 — voltar ao início">
     <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=64&q=80" alt="A16">
   </a>
 
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  
   <div class="site-shell" id="siteShell" data-weather="dusk">
     
     <!-- Cabeçalho -->
     <header class="site-header">
-      <a class="brand" href="index.html" aria-label="Purple Dreams — início">
+      <a class="brand" href="#" aria-label="Purple Dreams — início">
         <span class="brand-mark" aria-hidden="true">
           <svg viewBox="0 0 32 32"><path d="M16 2.8 19.4 12.6 29.2 16l-9.8 3.4L16 29.2l-3.4-9.8L2.8 16l9.8-3.4L16 2.8Z"/><circle cx="16" cy="16" r="2.2"/></svg>
         </span>
@@ -35,7 +667,6 @@
         <a href="#jardim">Jardim</a>
         <a href="#estufa">Estufa</a>
         <a href="#colecao-botanica">Coleção</a>
-        <a href="#aquario">Aquário</a>
         <a href="#mascotes">Milo &amp; Pipo</a>
         <a href="#diario">Diário</a>
       </nav>
@@ -80,7 +711,7 @@
         <p class="atmosphere-status" id="atmosphereStatus" aria-live="polite">Luz dourada, flores em repouso e céu violeta.</p>
       </section>
 
-      <!-- Jardim das Tulipas e Rosas -->
+      <!-- Jardim das Rosas e Tulipas -->
       <section class="experience-section garden-section reveal-on-scroll" id="jardim" aria-labelledby="garden-title">
         <div class="section-heading">
           <div>
@@ -91,7 +722,7 @@
         </div>
         <div class="garden-layout">
           <div class="scene-frame garden-frame">
-            <img class="scene-photo" src="https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?auto=format&fit=crop&w=2200&q=82" alt="Jardim florido ao entardecer" loading="lazy">
+            <img class="scene-photo" src="https://images.unsplash.com/photo-1559563458-527698bf5295?auto=format&fit=crop&w=2200&q=82" alt="Jardim de rosas e flores ao entardecer" loading="lazy">
             <div class="scene-tone" aria-hidden="true"></div>
             <img class="guide-butterfly garden-butterfly" id="floatingButterfly" src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=900&q=78" alt="" aria-hidden="true" loading="lazy">
             <button class="flower-point point-one" type="button" data-discovery-title="Rosas de veludo" data-discovery-text="Rosas encantadas em tons profundos enchem o ar com um perfume suave e acolhedor." aria-label="Descobrir as rosas">
@@ -103,7 +734,6 @@
               <span>Flores</span>
             </button>
             <div class="scene-label"><span>O CAMINHO DAS FLORES</span><span>TOQUE NOS PONTOS LUMINOSOS</span></div>
-            <div class="rain-layer" aria-hidden="true"></div>
           </div>
           <aside class="discovery-card">
             <span class="card-index">CADERNO BOTÂNICO · 001</span>
@@ -131,7 +761,6 @@
           <div class="scene-frame greenhouse-frame">
             <img class="scene-photo" src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1600&q=80" alt="Estufa botânica com plantas e luz natural" loading="lazy">
             <div class="scene-tone" aria-hidden="true"></div>
-            <div class="rain-layer" aria-hidden="true"></div>
             <div class="greenhouse-seal">
               <img src="https://images.unsplash.com/photo-1463936575829-25148e1db1b8?auto=format&fit=crop&w=220&h=220&q=82" alt="Folhagem em detalhe" loading="lazy">
               <span>COLEÇÃO BOTÂNICA</span>
@@ -139,13 +768,13 @@
           </div>
           <div class="species-panel">
             <div class="species-head"><span>CATÁLOGO DE DESCOBERTAS</span><span>03 ENTRADAS</span></div>
-            <button class="species-row" type="button" aria-label="Registrar descoberta: Orquídea lunar" data-discovery-title="Orquídea lunar" data-discovery-text="Uma presença elegante na coleção da estufa: pétalas delicadas, formas inesperadas e um brilho lilás sob o vidro." data-action-label="Abrir registro">
+            <button class="species-row" type="button" data-discovery-title="Orquídea lunar" data-discovery-text="Uma presença elegante na coleção da estufa: pétalas delicadas, formas inesperadas e um brilho lilás sob o vidro.">
               <span class="species-no">01</span><span><strong>Orquídea lunar</strong><small>Uma forma que surpreende</small></span><span class="species-arrow" aria-hidden="true">↗</span>
             </button>
-            <button class="species-row" type="button" aria-label="Registrar descoberta: Rosa encantada do vidro" data-discovery-title="Rosa encantada do vidro" data-discovery-text="Uma rosa especial protegida pela estufa, exalando delicadeza e charme inigualável." data-action-label="Abrir registro">
+            <button class="species-row" type="button" data-discovery-title="Rosa encantada do vidro" data-discovery-text="Uma rosa especial protegida pela estufa, exalando delicadeza e charme inigualável.">
               <span class="species-no">02</span><span><strong>Rosa encantada do vidro</strong><small>Raridade e perfume</small></span><span class="species-arrow" aria-hidden="true">↗</span>
             </button>
-            <button class="species-row" type="button" aria-label="Registrar descoberta: Jasmim das estrelas" data-discovery-title="Jasmim das estrelas" data-discovery-text="Pequenas flores claras iluminam a passagem. O nome é parte da coleção poética do Purple Dreams." data-action-label="Abrir registro">
+            <button class="species-row" type="button" data-discovery-title="Jasmim das estrelas" data-discovery-text="Pequenas flores claras iluminam a passagem. O nome é parte da coleção poética do Purple Dreams.">
               <span class="species-no">03</span><span><strong>Jasmim das estrelas</strong><small>Um nome do nosso universo</small></span><span class="species-arrow" aria-hidden="true">↗</span>
             </button>
             <p class="collection-note">A coleção mistura espécies reais e nomes poéticos. Os títulos ficcionais estão identificados como parte da narrativa do site.</p>
@@ -187,7 +816,7 @@
         <p class="botanical-credit">Fotografias: <a href="https://unsplash.com/" target="_blank" rel="noopener noreferrer">Unsplash</a>. As imagens são ilustrativas e podem depender de conexão com a internet.</p>
       </section>
      
-      <!-- Companheiros (Milo & Pipo) -->
+      <!-- Companheiros (Milo & Pipo - Hamster único) -->
       <section class="companions-section reveal-on-scroll" id="mascotes" aria-labelledby="companions-title">
         <div class="companions-copy">
           <p class="eyebrow">COMPANHEIROS DE VIAGEM</p>
@@ -195,7 +824,7 @@
           <p>Milo (o gatinho) e Pipo (o hamster) continuam como personagens amados do passeio.</p>
           <div class="companion-note" id="companionNote" aria-live="polite">As fotografias apresentam os animais reais que representam os personagens Milo e Pipo.</div>
         </div>
-        <div class="companion-art companion-photos">
+        <div class="companion-photos">
           <figure class="pet-card">
             <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=900&q=80" alt="Fotografia de um gato laranja" loading="lazy">
             <figcaption>Milo · gato</figcaption>
@@ -222,19 +851,20 @@
             <p class="eyebrow">DIÁRIO DE DESCOBERTAS</p>
             <h2 id="diary-title">O que você leva daqui.</h2>
           </div>
-          <button class="button-soft" type="button" id="openPhotoBottom">Guardar uma fotografia <span aria-hidden="true">＋</span></button>
+          <button class="button-soft" type="button" id="openPhotoBottom" style="width: auto;">Guardar uma fotografia <span aria-hidden="true">＋</span></button>
         </div>
-        <p class="storage-status" id="storageStatus" role="status" aria-live="polite" hidden></p>
         <div class="diary-content">
           <div class="diary-list" id="diaryList" aria-live="polite">
             <p class="diary-empty">As primeiras descobertas aparecem aqui, guardadas neste navegador.</p>
           </div>
           <aside class="diary-progress">
-            <span class="progress-kicker">SEU PASSEIO</span>
-            <strong><span id="progressCount">0</span><small> registros</small></strong>
-            <div class="progress-track"><span id="progressBar"></span></div>
-            <p>Descubra algo novo ou guarde uma fotografia para começar seu diário.</p>
-            <a href="MEMORIAS.HTML">Abrir a galeria de memórias <span aria-hidden="true">↗</span></a>
+            <div>
+              <span class="progress-kicker">SEU PASSEIO</span>
+              <strong><span id="progressCount">0</span><small> registros</small></strong>
+              <div class="progress-track"><span id="progressBar"></span></div>
+              <p>Descubra algo novo ou guarde uma fotografia para começar seu diário.</p>
+            </div>
+            <a href="#">Abrir a galeria de memórias <span aria-hidden="true">↗</span></a>
           </aside>
         </div>
       </section>
@@ -247,26 +877,22 @@
 
     <!-- Rodapé -->
     <footer class="site-footer">
-      <a class="brand brand-footer" href="index.html">
+      <a class="brand brand-footer" href="#" aria-label="Início">
         <span class="brand-mark" aria-hidden="true">
           <svg viewBox="0 0 32 32"><path d="M16 2.8 19.4 12.6 29.2 16l-9.8 3.4L16 29.2l-3.4-9.8L2.8 16l9.8-3.4L16 2.8Z"/><circle cx="16" cy="16" r="2.2"/></svg>
         </span>
         <span><strong>PURPLE DREAMS</strong><small>FEITO COM CARINHO PARA ALANIS</small></span>
       </a>
       <div>
-        <a href="index.html">Início</a>
-        <a href="solar.html">Sistema solar</a>
-        <a href="index%20(2).html">Observatório</a>
+        <a href="#">Início</a>
+        <a href="#">Sistema solar</a>
+        <a href="#">Observatório</a>
       </div>
       <span class="footer-note">Um lugar para voltar quando quiser.</span>
     </footer>
   </div>
 
-  <!-- Elementos Flutuantes e Diálogos -->
-  <button class="butterfly-guide" id="butterflyGuide" type="button" aria-label="Siga a borboleta-guia até a próxima descoberta">
-    <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=900&q=78" alt="" aria-hidden="true">
-    <span>Próxima descoberta</span>
-  </button>
+  <!-- Toast de Notificações -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <!-- Diálogo do Modo Fotografia -->
@@ -286,11 +912,9 @@
       </label>
       <figure class="photo-preview" id="photoPreview" hidden>
         <img id="photoPreviewImage" alt="Prévia da fotografia selecionada">
-        <figcaption id="photoPreviewCaption"></figcaption>
       </figure>
       <label class="caption-label" for="photoCaption">Legenda <span>opcional</span></label>
       <input class="caption-input" id="photoCaption" type="text" maxlength="100" placeholder="O que você quer lembrar deste momento?">
-      <p class="photo-feedback" id="photoFeedback" role="status" aria-live="polite"></p>
       <div class="dialog-actions">
         <button class="button-secondary" type="button" id="cancelPhoto">Cancelar</button>
         <button class="button-primary" type="submit" id="savePhoto" disabled>Guardar no diário <span aria-hidden="true">↗</span></button>
@@ -298,7 +922,208 @@
     </form>
   </dialog>
 
-  <noscript><p class="noscript-note">Ative JavaScript para registrar descobertas, mudar a atmosfera e salvar fotografias neste navegador.</p></noscript>
-  <script src="assets/js/site-navigation.js"></script>
+  <!-- SCRIPTS INTEGRADOS (JavaScript) -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. ANIMAÇÃO DE ENTRADA AO ROLAR (Scroll Reveal)
+      const revealElements = document.querySelectorAll(".reveal-on-scroll");
+      
+      const revealOnScrollObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      revealElements.forEach(el => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(25px)";
+        el.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+        revealOnScrollObserver.observe(el);
+      });
+
+      const styleSheet = document.createElement("style");
+      styleSheet.innerText = `.reveal-on-scroll.is-visible { opacity: 1 !important; transform: translateY(0) !important; }`;
+      document.head.appendChild(styleSheet);
+
+
+      // 2. CONTROLE DE ATMOSFERA E LUZ
+      const siteShell = document.getElementById("siteShell");
+      const weatherButtons = document.querySelectorAll("[data-atmosphere]");
+      const atmosphereStatus = document.getElementById("atmosphereStatus");
+
+      const atmosphereDescriptions = {
+        dusk: "Luz dourada, flores em repouso e céu violeta.",
+        rain: "Gotas suaves caem entre as folhas, perfume de terra molhada.",
+        aurora: "Cores boreais dançam suavemente no céu do Purple Dreams.",
+        night: "Brilho de estrelas distantes e calmaria na estufa."
+      };
+
+      weatherButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const atmosphere = btn.getAttribute("data-atmosphere");
+          
+          weatherButtons.forEach(b => b.setAttribute("aria-pressed", "false"));
+          btn.setAttribute("aria-pressed", "true");
+
+          siteShell.setAttribute("data-weather", atmosphere);
+          if (atmosphereStatus) {
+            atmosphereStatus.textContent = atmosphereDescriptions[atmosphere] || "Atmosfera alterada.";
+          }
+
+          showToast(`Atmosfera alterada para: ${btn.textContent.trim()}`);
+        });
+      });
+
+
+      // 3. DIÁRIO DE DESCOBERTAS & LOCALSTORAGE
+      let discoveries = JSON.parse(localStorage.getItem("purpleDreamsDiscoveries")) || [];
+      
+      const discoveryCountEl = document.getElementById("discoveryCount");
+      const progressCountEl = document.getElementById("progressCount");
+      const progressBarEl = document.getElementById("progressBar");
+      const diaryListEl = document.getElementById("diaryList");
+
+      function updateDiaryUI() {
+        const count = discoveries.length;
+        if (discoveryCountEl) discoveryCountEl.textContent = count;
+        if (progressCountEl) progressCountEl.textContent = count;
+        
+        if (progressBarEl) {
+          const percentage = Math.min((count / 10) * 100, 100);
+          progressBarEl.style.width = `${percentage}%`;
+        }
+
+        if (diaryListEl) {
+          if (count === 0) {
+            diaryListEl.innerHTML = `<p class="diary-empty">As primeiras descobertas aparecem aqui, guardadas neste navegador.</p>`;
+          } else {
+            diaryListEl.innerHTML = discoveries.map(item => `
+              <div class="diary-item">
+                <strong>${item.title}</strong>
+                <p>${item.text}</p>
+                <small>${item.date}</small>
+              </div>
+            `).join("");
+          }
+        }
+      }
+
+      function addDiscovery(title, text) {
+        if (!discoveries.some(d => d.title === title)) {
+          discoveries.push({
+            title,
+            text,
+            date: new Date().toLocaleDateString("pt-BR", { day: '2-digit', month: '2-digit', year: 'numeric' })
+          });
+          localStorage.setItem("purpleDreamsDiscoveries", JSON.stringify(discoveries));
+          updateDiaryUI();
+          showToast(`Nova descoberta guardada: "${title}" ✨`);
+        } else {
+          showToast(`Você já registrou "${title}" no diário!`);
+        }
+      }
+
+      document.querySelectorAll("[data-discovery-title]").forEach(trigger => {
+        trigger.addEventListener("click", () => {
+          const title = trigger.getAttribute("data-discovery-title");
+          const text = trigger.getAttribute("data-discovery-text");
+          if (title && text) {
+            addDiscovery(title, text);
+          }
+        });
+      });
+
+      updateDiaryUI();
+
+
+      // 4. MENSAGENS DOS MASCOTES (Milo e Pipo)
+      const companionButtons = document.querySelectorAll("[data-companion]");
+      const companionNote = document.getElementById("companionNote");
+
+      const companionMessages = {
+        Milo: "Milo estica as patas perto da janela e ronrona baixinho enquanto você explora.",
+        Pipo: "Pipo corre alegremente pela casinha dele e faz uma pausa para comer uma sementinha."
+      };
+
+      companionButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const name = btn.getAttribute("data-companion");
+          if (companionNote && companionMessages[name]) {
+            companionNote.textContent = companionMessages[name];
+          }
+        });
+      });
+
+
+      // 5. SISTEMA DE TOAST
+      function showToast(message) {
+        let toast = document.getElementById("toast");
+        if (!toast) return;
+        toast.textContent = message;
+        toast.classList.add("show");
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3500);
+      }
+
+
+      // 6. MODAL DE FOTOGRAFIA
+      const photoDialog = document.getElementById("photoDialog");
+      const openPhotoBtn = document.getElementById("openPhoto");
+      const openPhotoBottomBtn = document.getElementById("openPhotoBottom");
+      const closePhotoBtn = document.getElementById("closePhoto");
+      const cancelPhotoBtn = document.getElementById("cancelPhoto");
+      const photoFile = document.getElementById("photoFile");
+      const photoPreview = document.getElementById("photoPreview");
+      const photoPreviewImage = document.getElementById("photoPreviewImage");
+      const savePhotoBtn = document.getElementById("savePhoto");
+      const photoCaption = document.getElementById("photoCaption");
+
+      function openDialog() {
+        if (photoDialog) photoDialog.showModal();
+      }
+
+      function closeDialog() {
+        if (photoDialog) photoDialog.close();
+      }
+
+      if (openPhotoBtn) openPhotoBtn.addEventListener("click", openDialog);
+      if (openPhotoBottomBtn) openPhotoBottomBtn.addEventListener("click", openDialog);
+      if (closePhotoBtn) closePhotoBtn.addEventListener("click", closeDialog);
+      if (cancelPhotoBtn) cancelPhotoBtn.addEventListener("click", closeDialog);
+
+      if (photoFile) {
+        photoFile.addEventListener("change", (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              photoPreviewImage.src = event.target.result;
+              photoPreview.hidden = false;
+              savePhotoBtn.disabled = false;
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+      }
+
+      const photoForm = document.getElementById("photoForm");
+      if (photoForm) {
+        photoForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const caption = photoCaption.value.trim() || "Momento especial guardado";
+          addDiscovery("Fotografia de Memória", caption);
+          closeDialog();
+          photoForm.reset();
+          photoPreview.hidden = true;
+          savePhotoBtn.disabled = true;
+        });
+      }
+    });
+  </script>
 </body>
 </html>
